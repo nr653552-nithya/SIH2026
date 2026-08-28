@@ -1,0 +1,106 @@
+[
+  {
+    "id": "taj-mahal",
+    "category": "monument",
+    "icon": "🏛️",
+    "name": { "en": "Taj Mahal", "hi": "ताज महल", "ta": "தாஜ் மஹால்", "te": "తాజ్ మహల్" },
+    "state": "Uttar Pradesh",
+    "location": { "lat": 27.1751, "lng": 78.0421 },
+    "description": {
+      "en": "An ivory-white marble mausoleum on the Yamuna river, built by Mughal emperor Shah Jahan in memory of his wife Mumtaz Mahal.",
+      "hi": "यमुना नदी के किनारे स्थित एक सफेद संगमरमर का मकबरा, जिसे शाहजहाँ ने अपनी पत्नी मुमताज़ महल की याद में बनवाया था।",
+      "ta": "யமுனை நதிக்கரையில் அமைந்துள்ள வெண்மையான பளிங்குக் கல் கல்லறை, ஷாஜஹான் தன் மனைவி நினைவாக கட்டியது."
+    },
+    "qrCode": "HC-MON-001"
+  },
+  {
+    "id": "qutub-minar",
+    "category": "monument",
+    "icon": "🏛️",
+    "name": { "en": "Qutub Minar", "hi": "क़ुतुब मीनार", "ta": "குதுப் மினார்" },
+    "state": "Delhi",
+    "location": { "lat": 28.5245, "lng": 77.1855 },
+    "description": {
+      "en": "A 73-metre tall minaret built in 1193 by Qutb-ud-din Aibak, a UNESCO World Heritage Site.",
+      "hi": "1193 में क़ुतुबुद्दीन ऐबक द्वारा बनवाई गई 73 मीटर ऊँची मीनार, यूनेस्को विश्व धरोहर स्थल।",
+      "ta": "1193ஆம் ஆண்டு குதுப்-உத்-தீன் ஐபக் கட்டிய 73 மீட்டர் உயர கோபுரம், யுனெஸ்கோ பாரம்பரிய தளம்."
+    },
+    "qrCode": "HC-MON-002"
+  },
+  {
+    "id": "meenakshi-temple",
+    "category": "monument",
+    "icon": "🛕",
+    "name": { "en": "Meenakshi Temple", "ta": "மீனாட்சி அம்மன் கோயில்", "hi": "मीनाक्षी मंदिर" },
+    "state": "Tamil Nadu",
+    "location": { "lat": 9.9195, "lng": 78.1193 },
+    "description": {
+      "en": "A historic Hindu temple in Madurai dedicated to Goddess Meenakshi, famous for its towering gopurams.",
+      "ta": "மதுரையில் அமைந்துள்ள மீனாட்சி அம்மனுக்கு அர்ப்பணிக்கப்பட்ட வரலாற்று சிறப்புமிக்க கோயில், உயரமான கோபுரங்களுக்கு பெயர் பெற்றது."
+    },
+    "qrCode": "HC-MON-003"
+  },
+  {
+    "id": "hampi",
+    "category": "monument",
+    "icon": "🏛️",
+    "name": { "en": "Hampi", "hi": "हम्पी", "kn": "ಹಂಪಿ" },
+    "state": "Karnataka",
+    "location": { "lat": 15.335, "lng": 76.46 },
+    "description": {
+      "en": "Ruins of the Vijayanagara Empire capital, a UNESCO World Heritage Site with ancient temples and monuments.",
+      "hi": "विजयनगर साम्राज्य की राजधानी के खंडहर, प्राचीन मंदिरों और स्मारकों वाला यूनेस्को विश्व धरोहर स्थल।"
+    },
+    "qrCode": "HC-MON-004"
+  },
+  {
+    "id": "biryani",
+    "category": "food",
+    "icon": "🍛",
+    "name": { "en": "Biryani", "hi": "बिरयानी", "ta": "பிரியாணி", "te": "బిర్యానీ" },
+    "state": "Pan-India",
+    "description": {
+      "en": "A mixed rice dish with spices, meat or vegetables, popular across many regions with distinct regional styles.",
+      "hi": "मसालों, मांस या सब्जियों के साथ बना मिश्रित चावल का व्यंजन, विभिन्न क्षेत्रीय शैलियों में लोकप्रिय।",
+      "ta": "மசாலா, இறைச்சி அல்லது காய்கறிகளுடன் தயாரிக்கப்படும் கலவை சாதம், பல்வேறு பிராந்திய பாணிகளில் பிரபலமானது."
+    },
+    "qrCode": "HC-FOD-001"
+  },
+  {
+    "id": "diwali",
+    "category": "festival",
+    "icon": "🎉",
+    "name": { "en": "Diwali", "hi": "दीवाली", "ta": "தீபாவளி" },
+    "state": "Pan-India",
+    "description": {
+      "en": "The festival of lights, celebrating the victory of light over darkness and good over evil.",
+      "hi": "रोशनी का त्योहार, अंधकार पर प्रकाश और बुराई पर अच्छाई की जीत का उत्सव।",
+      "ta": "இருளின் மீது ஒளியும், தீமையின் மீது நன்மையும் வெற்றி பெறுவதை கொண்டாடும் விழா."
+    },
+    "qrCode": "HC-FES-001"
+  },
+  {
+    "id": "bharatanatyam",
+    "category": "dance",
+    "icon": "🎭",
+    "name": { "en": "Bharatanatyam", "ta": "பரதநாட்டியம்", "hi": "भरतनाट्यम" },
+    "state": "Tamil Nadu",
+    "description": {
+      "en": "One of the oldest classical dance forms of India, originating in Tamil Nadu temples.",
+      "ta": "தமிழ்நாட்டு கோயில்களில் தோன்றிய இந்தியாவின் மிகப் பழமையான பாரம்பரிய நடன வடிவங்களில் ஒன்று."
+    },
+    "qrCode": "HC-DAN-001"
+  },
+  {
+    "id": "carnatic-music",
+    "category": "music",
+    "icon": "🎵",
+    "name": { "en": "Carnatic Music", "ta": "கர்நாடக இசை", "te": "కర్ణాటక సంగీతం" },
+    "state": "South India",
+    "description": {
+      "en": "A classical music tradition of Southern India, rich in raga and tala systems.",
+      "ta": "தென்னிந்தியாவின் பாரம்பரிய இசை மரபு, ராகம் மற்றும் தாள முறைமைகளால் நிறைந்தது."
+    },
+    "qrCode": "HC-MUS-001"
+  }
+]

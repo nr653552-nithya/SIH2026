@@ -1,0 +1,3365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="HeritageConnect About - Discover India's monuments, festivals, classical arts, crafts, food, languages and living cultural traditions through technology.">
+
+    <title>About | HeritageConnect</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Inter",sans-serif;
+    background:#f7f3ec;
+    color:#182235;
+    line-height:1.65;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root{
+
+    --navy:#172238;
+    --navy2:#22314c;
+
+    --gold:#b78332;
+    --gold2:#d7a64b;
+
+    --cream:#f7f3ec;
+    --white:#ffffff;
+
+    --text:#182235;
+    --muted:#667085;
+
+    --border:#e5ded2;
+
+    --shadow:
+        0 18px 50px rgba(23,34,56,.10);
+
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container{
+    width:min(1180px,92%);
+    margin:auto;
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+    background:var(--navy);
+    color:#fff;
+    font-size:12px;
+    letter-spacing:.5px;
+}
+
+.topbar-inner{
+    min-height:34px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+}
+
+.nav-inner{
+    min-height:78px;
+    display:flex;
+    align-items:center;
+    gap:24px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:220px;
+}
+
+.brand-mark{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    background:var(--navy);
+    display:grid;
+    place-items:center;
+    font-size:21px;
+}
+
+.brand-text{
+    font-family:"Playfair Display",serif;
+    font-weight:800;
+    font-size:20px;
+    line-height:1.1;
+}
+
+.brand-text small{
+    display:block;
+    font-family:"Inter",sans-serif;
+    font-size:9px;
+    letter-spacing:1.2px;
+    color:#88765d;
+    margin-top:4px;
+}
+
+.navlinks{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    flex:1;
+}
+
+.navlinks a{
+    padding:11px 14px;
+    border-radius:11px;
+    font-size:13px;
+    font-weight:700;
+    transition:.25s;
+}
+
+.navlinks a:hover,
+.navlinks a.active{
+    background:var(--navy);
+    color:#fff;
+}
+
+.nav-tools{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.round-btn{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:#fff;
+    cursor:pointer;
+    display:grid;
+    place-items:center;
+    transition:.25s;
+}
+
+.round-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.lang-select{
+    height:42px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:0 12px;
+    background:#fff;
+    cursor:pointer;
+}
+
+.menu-btn{
+    display:none;
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-panel{
+    display:none;
+    border-top:1px solid var(--border);
+    background:#fff;
+    padding:16px 0;
+}
+
+.search-panel.show{
+    display:block;
+}
+
+.search-box{
+    width:min(800px,92%);
+    margin:auto;
+    display:flex;
+    gap:10px;
+}
+
+.search-box input{
+    flex:1;
+    height:50px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:0 17px;
+    outline:none;
+    font-size:15px;
+}
+
+.search-box input:focus{
+    border-color:var(--gold);
+}
+
+.search-box button{
+    border:0;
+    border-radius:14px;
+    background:var(--navy);
+    color:#fff;
+    padding:0 24px;
+    cursor:pointer;
+    font-weight:700;
+}
+
+.search-results{
+    width:min(800px,92%);
+    margin:14px auto 0;
+}
+
+.search-result{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:15px 17px;
+    margin-bottom:8px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.search-result:hover{
+    transform:translateY(-2px);
+    box-shadow:var(--shadow);
+}
+
+.search-result small{
+    color:var(--gold);
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.search-result strong{
+    display:block;
+    margin:3px 0;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.about-hero{
+    min-height:560px;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    background:
+        linear-gradient(90deg,
+        rgba(12,20,35,.94) 0%,
+        rgba(12,20,35,.78) 48%,
+        rgba(12,20,35,.20) 100%),
+        url("https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+}
+
+.hero-content{
+    max-width:720px;
+    color:#fff;
+    padding:90px 0;
+}
+
+.eyebrow{
+    display:inline-block;
+    color:var(--gold);
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1.7px;
+    text-transform:uppercase;
+}
+
+.about-hero .eyebrow{
+    color:#e6bd70;
+}
+
+.hero-content h1{
+    font-family:"Playfair Display",serif;
+    font-size:clamp(45px,6vw,78px);
+    line-height:1.04;
+    margin:18px 0;
+}
+
+.hero-content h1 span{
+    color:#e4b65e;
+}
+
+.hero-content p{
+    max-width:650px;
+    color:#e6e9ef;
+    font-size:18px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:12px;
+    margin-top:30px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:13px 21px;
+    border-radius:12px;
+    font-weight:800;
+    border:1px solid transparent;
+    cursor:pointer;
+}
+
+.btn.primary{
+    background:#d6a34b;
+    color:#172238;
+}
+
+.btn.glass{
+    border-color:rgba(255,255,255,.35);
+    color:#fff;
+    background:rgba(255,255,255,.08);
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.section{
+    padding:85px 0;
+}
+
+.section.alt{
+    background:#eee8de;
+}
+
+.section-head{
+    margin-bottom:40px;
+    display:flex;
+    justify-content:space-between;
+    gap:30px;
+    align-items:flex-end;
+}
+
+.section-head h2{
+    font-family:"Playfair Display",serif;
+    font-size:clamp(32px,4vw,52px);
+    line-height:1.1;
+    margin-top:9px;
+    max-width:760px;
+}
+
+.section-head h2 span,
+.two-col h2 span{
+    color:var(--gold);
+}
+
+.section-head p{
+    max-width:650px;
+    color:var(--muted);
+    margin-top:12px;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.intro-grid{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:55px;
+    align-items:center;
+}
+
+.intro-copy p{
+    color:var(--muted);
+    margin-top:17px;
+}
+
+.intro-highlight{
+    background:var(--navy);
+    color:#fff;
+    border-radius:25px;
+    padding:35px;
+    box-shadow:var(--shadow);
+}
+
+.intro-highlight h3{
+    font-family:"Playfair Display",serif;
+    font-size:30px;
+    margin:12px 0;
+}
+
+.intro-highlight p{
+    color:#dbe1ea;
+}
+
+.number-row{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-top:25px;
+}
+
+.number-box{
+    padding:16px;
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:15px;
+}
+
+.number-box strong{
+    display:block;
+    color:#e2b65f;
+    font-size:25px;
+}
+
+
+/* =========================================================
+   CULTURE CARDS
+========================================================= */
+
+.culture-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.culture-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.culture-card:hover{
+    transform:translateY(-6px);
+    box-shadow:var(--shadow);
+}
+
+.culture-image{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    background:#ddd;
+}
+
+.culture-content{
+    padding:21px;
+}
+
+.culture-content small{
+    color:var(--gold);
+    font-weight:800;
+    font-size:10px;
+    letter-spacing:1.2px;
+}
+
+.culture-content h3{
+    font-family:"Playfair Display",serif;
+    font-size:25px;
+    margin:5px 0;
+}
+
+.culture-content p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+
+/* =========================================================
+   WHAT WE COVER
+========================================================= */
+
+.cover-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.cover-item{
+    background:#fff;
+    padding:25px;
+    border-radius:18px;
+    border:1px solid var(--border);
+    transition:.3s;
+}
+
+.cover-item:hover{
+    transform:translateY(-5px);
+}
+
+.cover-icon{
+    font-size:30px;
+    margin-bottom:12px;
+}
+
+.cover-item h3{
+    font-family:"Playfair Display",serif;
+    font-size:22px;
+}
+
+.cover-item p{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:7px;
+}
+
+
+/* =========================================================
+   SOLUTION FLOW
+========================================================= */
+
+.flow{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+}
+
+.flow-card{
+    position:relative;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:28px;
+}
+
+.flow-number{
+    font-size:35px;
+    font-weight:800;
+    color:#d4a34d;
+}
+
+.flow-card h3{
+    margin-top:7px;
+}
+
+.flow-card p{
+    color:var(--muted);
+    font-size:14px;
+    margin-top:7px;
+}
+
+
+/* =========================================================
+   TECHNOLOGY
+========================================================= */
+
+.tech-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.tech-card{
+    background:var(--navy);
+    color:#fff;
+    border-radius:22px;
+    padding:28px;
+}
+
+.tech-card h3{
+    font-family:"Playfair Display",serif;
+    font-size:25px;
+}
+
+.tech-card p{
+    color:#ccd4df;
+    margin-top:8px;
+    font-size:14px;
+}
+
+.tech-tag{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:20px;
+    background:rgba(255,255,255,.09);
+    color:#e4b65e;
+    font-size:10px;
+    font-weight:800;
+    margin-bottom:16px;
+}
+
+
+/* =========================================================
+   USERS
+========================================================= */
+
+.users-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.user-card{
+    background:#fff;
+    padding:28px;
+    border-radius:20px;
+    border:1px solid var(--border);
+}
+
+.user-card h3{
+    font-family:"Playfair Display",serif;
+    font-size:24px;
+}
+
+.user-card p{
+    color:var(--muted);
+    font-size:14px;
+    margin-top:8px;
+}
+
+
+/* =========================================================
+   IMPACT
+========================================================= */
+
+.impact{
+    background:
+        linear-gradient(135deg,rgba(20,31,49,.97),rgba(20,31,49,.88)),
+        url("https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1600&q=85")
+        center/cover;
+    color:#fff;
+    border-radius:28px;
+    padding:55px;
+}
+
+.impact h2{
+    font-family:"Playfair Display",serif;
+    font-size:45px;
+    max-width:700px;
+}
+
+.impact h2 span{
+    color:#e4b65e;
+}
+
+.impact p{
+    max-width:700px;
+    color:#d3dbe5;
+    margin-top:14px;
+}
+
+.impact-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-top:35px;
+}
+
+.impact-box{
+    padding:18px;
+    border-radius:15px;
+    border:1px solid rgba(255,255,255,.15);
+}
+
+.impact-box strong{
+    display:block;
+    font-size:28px;
+    color:#e3b35b;
+}
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+.faq{
+    max-width:900px;
+    margin:auto;
+}
+
+.faq-item{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:15px;
+    margin-bottom:10px;
+    overflow:hidden;
+}
+
+.faq-question{
+    width:100%;
+    border:0;
+    background:none;
+    padding:20px;
+    text-align:left;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    font-weight:800;
+}
+
+.faq-answer{
+    display:none;
+    padding:0 20px 20px;
+    color:var(--muted);
+}
+
+.faq-item.open .faq-answer{
+    display:block;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.cta{
+    background:linear-gradient(135deg,#182238,#283a5a);
+    color:#fff;
+    border-radius:26px;
+    padding:45px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:30px;
+}
+
+.cta h2{
+    font-family:"Playfair Display",serif;
+    font-size:42px;
+}
+
+.cta h2 span{
+    color:#e4b65e;
+}
+
+.cta p{
+    color:#ccd4df;
+    margin-top:8px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+    background:#121b2b;
+    color:#fff;
+    padding-top:60px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr;
+    gap:50px;
+    padding-bottom:50px;
+}
+
+.footer p{
+    color:#aeb7c5;
+    margin-top:13px;
+}
+
+.footer h4{
+    margin-bottom:15px;
+}
+
+.footer a{
+    display:block;
+    color:#aeb7c5;
+    margin:8px 0;
+}
+
+.footer a:hover{
+    color:#e5b65c;
+}
+
+.footer-bottom{
+    border-top:1px solid rgba(255,255,255,.1);
+    padding:18px 0;
+    color:#8e99aa;
+    font-size:12px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(7,12,22,.72);
+    backdrop-filter:blur(8px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:2000;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    background:#fff;
+    width:min(700px,100%);
+    max-height:85vh;
+    overflow:auto;
+    border-radius:25px;
+    padding:35px;
+    position:relative;
+    box-shadow:0 30px 100px rgba(0,0,0,.25);
+}
+
+.modal-close{
+    position:absolute;
+    top:15px;
+    right:15px;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:0;
+    background:#f1ede5;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.modal-box h2{
+    font-family:"Playfair Display",serif;
+    font-size:38px;
+    margin:8px 0;
+}
+
+.modal-category{
+    color:var(--gold);
+    font-weight:800;
+    font-size:11px;
+    letter-spacing:1.4px;
+}
+
+.modal-box p{
+    color:var(--muted);
+    margin-top:14px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1000px){
+
+    .navlinks{
+        gap:0;
+    }
+
+    .navlinks a{
+        padding:9px;
+        font-size:12px;
+    }
+
+    .culture-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .cover-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .flow{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .tech-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .users-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .impact-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+
+@media(max-width:760px){
+
+    .topbar-inner span:last-child{
+        display:none;
+    }
+
+    .nav-inner{
+        min-height:68px;
+    }
+
+    .menu-btn{
+        display:grid;
+    }
+
+    .brand{
+        min-width:auto;
+        flex:1;
+    }
+
+    .brand-text{
+        font-size:17px;
+    }
+
+    .navlinks{
+        position:absolute;
+        top:68px;
+        left:0;
+        right:0;
+        background:#fff;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        padding:12px;
+        border-bottom:1px solid var(--border);
+        box-shadow:var(--shadow);
+    }
+
+    .navlinks.open{
+        display:flex;
+    }
+
+    .navlinks a{
+        padding:13px;
+    }
+
+    .nav-tools{
+        gap:4px;
+    }
+
+    .nav-tools .round-btn{
+        width:38px;
+        height:38px;
+    }
+
+    .lang-select{
+        width:58px;
+        height:38px;
+        padding:0 5px;
+    }
+
+    .about-hero{
+        min-height:500px;
+    }
+
+    .hero-content{
+        padding:70px 0;
+    }
+
+    .hero-content h1{
+        font-size:48px;
+    }
+
+    .intro-grid{
+        grid-template-columns:1fr;
+    }
+
+    .section{
+        padding:65px 0;
+    }
+
+    .section-head{
+        display:block;
+    }
+
+    .culture-grid,
+    .cover-grid,
+    .flow,
+    .tech-grid,
+    .users-grid{
+        grid-template-columns:1fr;
+    }
+
+    .impact{
+        padding:30px;
+    }
+
+    .impact h2{
+        font-size:35px;
+    }
+
+    .impact-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .cta{
+        display:block;
+        padding:30px;
+    }
+
+    .cta h2{
+        font-size:35px;
+        margin-bottom:25px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+        gap:30px;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+    .search-box button{
+        height:48px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     TOP BAR
+========================================================= -->
+
+<div class="topbar">
+
+    <div class="container topbar-inner">
+
+        <span>
+            🇮🇳 SMART INDIA HACKATHON 2026
+        </span>
+
+        <span>
+            AICTE • SIH26197 • HERITAGE & CULTURE
+        </span>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header class="navbar">
+
+    <div class="container nav-inner">
+
+
+        <button
+            class="round-btn menu-btn"
+            id="menuBtn">
+
+            ☰
+
+        </button>
+
+
+        <a
+            href="index.html"
+            class="brand">
+
+            <span class="brand-mark">
+                🏛️
+            </span>
+
+            <span class="brand-text">
+
+                HeritageConnect
+
+                <small>
+                    SIH 2026 • CULTURE TECH
+                </small>
+
+            </span>
+
+        </a>
+
+
+        <nav
+            class="navlinks"
+            id="navLinks">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a
+                href="about.html"
+                class="active">
+
+                About
+
+            </a>
+
+            <a href="problem.html">
+                Problem
+            </a>
+
+            <a href="solution.html">
+                Solution
+            </a>
+
+            <a href="features.html">
+                Features
+            </a>
+
+            <a href="team.html">
+                Team
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </nav>
+
+
+        <div class="nav-tools">
+
+            <button
+                class="round-btn"
+                id="searchToggle">
+
+                🔎
+
+            </button>
+
+
+            <button
+                class="round-btn"
+                id="voiceBtn">
+
+                🎙️
+
+            </button>
+
+
+            <select
+                class="lang-select"
+                id="languageSelect">
+
+                <option value="en">
+                    EN
+                </option>
+
+                <option value="ta">
+                    தமிழ்
+                </option>
+
+                <option value="hi">
+                    हिन्दी
+                </option>
+
+                <option value="te">
+                    తెలుగు
+                </option>
+
+                <option value="kn">
+                    ಕನ್ನಡ
+                </option>
+
+                <option value="ml">
+                    മലയാളം
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="search-panel"
+        id="searchPanel">
+
+        <div class="search-box">
+
+            <input
+                id="globalSearch"
+                type="text"
+                placeholder="Search Taj Mahal, Bharatanatyam, festivals, crafts...">
+
+            <button id="globalSearchBtn">
+                Search
+            </button>
+
+        </div>
+
+        <div
+            class="search-results"
+            id="searchResults">
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<main>
+
+<section class="about-hero">
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <span class="eyebrow">
+                ABOUT HERITAGECONNECT
+            </span>
+
+            <h1>
+
+                Technology with a
+
+                <span>
+                    cultural soul.
+                </span>
+
+            </h1>
+
+            <p>
+
+                HeritageConnect is a multilingual digital
+                platform created to make India's living
+                heritage easier to discover, understand,
+                experience and preserve.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    href="#culture"
+                    class="btn primary">
+
+                    Explore Our Culture →
+
+                </a>
+
+                <a
+                    href="solution.html"
+                    class="btn glass">
+
+                    See Our Solution
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     INTRODUCTION
+========================================================= -->
+
+<section class="section">
+
+    <div class="container intro-grid">
+
+
+        <div class="intro-copy">
+
+            <span class="eyebrow">
+                OUR VISION
+            </span>
+
+            <h2>
+
+                Making India's heritage
+
+                <span>
+                    discoverable.
+                </span>
+
+            </h2>
+
+            <p>
+
+                India's cultural heritage is not limited to
+                famous monuments. It lives in villages,
+                streets, temples, homes, kitchens, workshops,
+                classrooms, theatres and communities.
+
+            </p>
+
+            <p>
+
+                Every region has its own languages, food,
+                clothing, music, dance, festivals, crafts,
+                architecture, rituals and oral traditions.
+
+            </p>
+
+            <p>
+
+                HeritageConnect brings these different
+                cultural dimensions together in one digital
+                experience so that students, travellers,
+                researchers and communities can explore
+                them easily.
+
+            </p>
+
+            <p>
+
+                Our goal is simple:
+
+                <strong>
+                    use technology to help culture remain
+                    visible, understandable and connected
+                    to future generations.
+                </strong>
+
+            </p>
+
+        </div>
+
+
+        <div class="intro-highlight">
+
+            <span class="eyebrow">
+                HERITAGECONNECT
+            </span>
+
+            <h3>
+                One platform. Thousands of stories.
+            </h3>
+
+            <p>
+
+                Explore India's cultural identity through
+                visual discovery, search, voice interaction,
+                maps, QR experiences and multilingual
+                learning.
+
+            </p>
+
+
+            <div class="number-row">
+
+                <div class="number-box">
+
+                    <strong>
+                        01
+                    </strong>
+
+                    Discover
+
+                </div>
+
+                <div class="number-box">
+
+                    <strong>
+                        02
+                    </strong>
+
+                    Learn
+
+                </div>
+
+                <div class="number-box">
+
+                    <strong>
+                        03
+                    </strong>
+
+                    Connect
+
+                </div>
+
+                <div class="number-box">
+
+                    <strong>
+                        04
+                    </strong>
+
+                    Preserve
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CULTURE
+========================================================= -->
+
+<section
+    class="section alt"
+    id="culture">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <div>
+
+                <span class="eyebrow">
+                    WHAT WE PRESERVE
+                </span>
+
+                <h2>
+
+                    Heritage is more than
+
+                    <span>
+                        monuments.
+                    </span>
+
+                </h2>
+
+                <p>
+
+                    Our platform looks at culture as a living
+                    ecosystem rather than a collection of
+                    historical buildings.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="culture-grid">
+
+
+            <!-- TAJ -->
+
+            <article class="culture-card">
+
+                <img
+                    class="culture-image"
+                    src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=900&q=85"
+                    alt="Taj Mahal architecture">
+
+                <div class="culture-content">
+
+                    <small>
+                        ARCHITECTURE
+                    </small>
+
+                    <h3>
+                        Monuments & Architecture
+                    </h3>
+
+                    <p>
+
+                        Discover India's forts, palaces,
+                        temples, mosques, stepwells and
+                        historic monuments.
+
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- DANCE -->
+
+            <article class="culture-card">
+
+                <img
+                    class="culture-image"
+                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Bharata_Natyam_Performance_DS.jpg"
+                    alt="Bharatanatyam classical dance">
+
+                <div class="culture-content">
+
+                    <small>
+                        PERFORMING ARTS
+                    </small>
+
+                    <h3>
+                        Bharatanatyam & Dance
+                    </h3>
+
+                    <p>
+
+                        Learn about classical and folk
+                        dance traditions and the stories
+                        expressed through movement.
+
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- FESTIVAL -->
+
+            <!-- FESTIVAL -->
+             <article class="culture-card">
+                <img
+                class="culture-image"
+                src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=900&q=85"                alt="Indian cultural festival">
+                <div class="culture-content">
+                    <small>
+                        FESTIVALS
+                    </small>
+                    <h3>
+                        Festivals & Celebrations
+                    </h3>
+                    <p>
+                        Explore celebrations, rituals,
+                        seasonal traditions and community
+                        gatherings.
+                    </p>
+                </div>
+            </article>
+
+
+            <!-- CRAFT -->
+
+            <article class="culture-card">
+
+                <img
+                    class="culture-image"
+                    src="https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=900&q=85"
+                    alt="Indian traditional art">
+
+                <div class="culture-content">
+
+                    <small>
+                        ART & CRAFT
+                    </small>
+
+                    <h3>
+                        Traditional Crafts
+                    </h3>
+
+                    <p>
+
+                        Discover handmade traditions,
+                        artisan skills, painting, textiles
+                        and regional craftsmanship.
+
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- FOOD -->
+
+            <article class="culture-card">
+
+                <img
+                    class="culture-image"
+                    src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=85"
+                    alt="Indian traditional food">
+
+                <div class="culture-content">
+
+                    <small>
+                        CUISINE
+                    </small>
+
+                    <h3>
+                        Food & Culinary Heritage
+                    </h3>
+
+                    <p>
+
+                        Regional ingredients, recipes,
+                        cooking methods and food traditions
+                        carry stories between generations.
+
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- MUSIC -->
+
+            <article class="culture-card">
+
+                <img
+                    class="culture-image"
+                    src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=900&q=85"
+                    alt="Traditional music">
+
+                <div class="culture-content">
+
+                    <small>
+                        MUSIC
+                    </small>
+
+                    <h3>
+                        Music & Folk Traditions
+                    </h3>
+
+                    <p>
+
+                        Classical, folk and regional music
+                        preserve stories through rhythm,
+                        instruments and performance.
+
+                    </p>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CULTURAL CATEGORIES
+========================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <div>
+
+                <span class="eyebrow">
+                    LIVING HERITAGE
+                </span>
+
+                <h2>
+
+                    Every tradition tells
+
+                    <span>
+                        a story.
+                    </span>
+
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="cover-grid">
+
+
+            <div class="cover-item">
+
+                <div class="cover-icon">
+                    🗣️
+                </div>
+
+                <h3>
+                    Languages
+                </h3>
+
+                <p>
+
+                    India's multilingual identity,
+                    regional expressions and oral
+                    traditions.
+
+                </p>
+
+            </div>
+
+
+            <div class="cover-item">
+
+                <div class="cover-icon">
+                    👗
+                </div>
+
+                <h3>
+                    Clothing
+                </h3>
+
+                <p>
+
+                    Traditional textiles, costumes,
+                    weaving techniques and regional
+                    dress.
+
+                </p>
+
+            </div>
+
+
+            <div class="cover-item">
+
+                <div class="cover-icon">
+                    🪔
+                </div>
+
+                <h3>
+                    Rituals
+                </h3>
+
+                <p>
+
+                    Community practices, ceremonies,
+                    customs and cultural celebrations.
+
+                </p>
+
+            </div>
+
+
+            <div class="cover-item">
+
+                <div class="cover-icon">
+                    🎭
+                </div>
+
+                <h3>
+                    Theatre
+                </h3>
+
+                <p>
+
+                    Folk theatre, storytelling,
+                    dramatic traditions and performance.
+
+                </p>
+
+            </div>
+
+
+            <div class="cover-item">
+
+                <div class="cover-icon">
+                    🏺
+                </div>
+
+                <h3>
+                    Handicrafts
+                </h3>
+
+                <p>
+
+                    Pottery, sculpture, painting,
+                    woodwork, metalwork and more.
+
+                </p>
+
+            </div>
+
+
+            <div class="cover-item">
+
+                <div class="cover-icon">
+                    🎶
+                </div>
+
+                <h3>
+                    Music
+                </h3>
+
+                <p>
+
+                    Classical, folk and regional musical
+                    traditions.
+
+                </p>
+
+            </div>
+
+
+            <div class="cover-item">
+
+                <div class="cover-icon">
+                    🍛
+                </div>
+
+                <h3>
+                    Cuisine
+                </h3>
+
+                <p>
+
+                    Food traditions shaped by geography,
+                    history and community.
+
+                </p>
+
+            </div>
+
+
+            <div class="cover-item">
+
+                <div class="cover-icon">
+                    🏛️
+                </div>
+
+                <h3>
+                    Architecture
+                </h3>
+
+                <p>
+
+                    Historic structures and architectural
+                    traditions across India.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     HOW HERITAGECONNECT WORKS
+========================================================= -->
+
+<section class="section alt">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <div>
+
+                <span class="eyebrow">
+                    OUR APPROACH
+                </span>
+
+                <h2>
+
+                    From curiosity to
+
+                    <span>
+                        cultural discovery.
+                    </span>
+
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="flow">
+
+
+            <div class="flow-card">
+
+                <div class="flow-number">
+                    01
+                </div>
+
+                <h3>
+                    Search
+                </h3>
+
+                <p>
+
+                    Users can search for monuments,
+                    festivals, food, crafts, dances,
+                    traditions and cultural stories.
+
+                </p>
+
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-number">
+                    02
+                </div>
+
+                <h3>
+                    Discover
+                </h3>
+
+                <p>
+
+                    Explore cultural places and
+                    traditions through visual cards,
+                    stories and location-aware discovery.
+
+                </p>
+
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-number">
+                    03
+                </div>
+
+                <h3>
+                    Learn
+                </h3>
+
+                <p>
+
+                    Read simple explanations and
+                    understand the history, meaning
+                    and cultural context.
+                    </p>
+
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-number">
+                    04
+                </div>
+
+                <h3>
+                    Preserve
+                </h3>
+
+                <p>
+
+                    Encourage responsible documentation
+                    and community participation to keep
+                    cultural knowledge visible.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     TECHNOLOGY
+========================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <div>
+
+                <span class="eyebrow">
+                    TECHNOLOGY
+                </span>
+
+                <h2>
+
+                    Technology designed
+
+                    <span>
+                        for culture.
+                    </span>
+
+                </h2>
+
+                <p>
+
+                    HeritageConnect combines familiar digital
+                    technologies with cultural discovery.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="tech-grid">
+
+
+            <div class="tech-card">
+
+                <span class="tech-tag">
+                    DISCOVERY
+                </span>
+
+                <h3>
+                    Smart Search
+                </h3>
+
+                <p>
+
+                    Search cultural topics using simple
+                    keywords and discover related heritage
+                    information.
+
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <span class="tech-tag">
+                    ACCESSIBILITY
+                </span>
+
+                <h3>
+                    Voice Interaction
+                </h3>
+
+                <p>
+
+                    Voice-enabled exploration can make
+                    cultural discovery easier for users
+                    who prefer speaking instead of typing.
+
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <span class="tech-tag">
+                    LOCATION
+                </span>
+
+                <h3>
+                    Interactive Maps
+                </h3>
+
+                <p>
+
+                    Location-aware discovery can help users
+                    find cultural places and heritage sites
+                    around them.
+
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <span class="tech-tag">
+                    HERITAGE
+                </span>
+
+                <h3>
+                    QR Experiences
+                </h3>
+
+                <p>
+
+                    QR-based experiences can connect
+                    physical heritage locations with
+                    digital stories.
+
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <span class="tech-tag">
+                    LANGUAGE
+                </span>
+
+                <h3>
+                    Multilingual Support
+                </h3>
+
+                <p>
+
+                    Cultural information can be presented
+                    in multiple languages to improve
+                    accessibility.
+
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <span class="tech-tag">
+                    LEARNING
+                </span>
+
+                <h3>
+                    Interactive Learning
+                </h3>
+
+                <p>
+
+                    Visual content and structured stories
+                    can make cultural education more
+                    engaging for students.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     WHO IS IT FOR
+========================================================= -->
+
+<section class="section alt">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <div>
+
+                <span class="eyebrow">
+                    WHO BENEFITS
+                </span>
+
+                <h2>
+
+                    Built for people who
+
+                    <span>
+                        care about culture.
+                    </span>
+
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="users-grid">
+
+
+            <div class="user-card">
+
+                <h3>
+                    🎓 Students
+                </h3>
+
+                <p>
+
+                    Explore heritage visually and use
+                    the platform as a starting point for
+                    cultural learning and projects.
+
+                </p>
+
+            </div>
+
+
+            <div class="user-card">
+
+                <h3>
+                    🧑‍🏫 Educators
+                </h3>
+
+                <p>
+
+                    Use digital cultural resources to
+                    support classroom learning and
+                    heritage awareness.
+
+                </p>
+
+            </div>
+
+
+            <div class="user-card">
+
+                <h3>
+                    🧳 Travellers
+                </h3>
+
+                <p>
+
+                    Discover monuments, festivals,
+                    traditions and cultural places
+                    while travelling.
+
+                </p>
+
+            </div>
+
+
+            <div class="user-card">
+
+                <h3>
+                    🧵 Artisans
+                </h3>
+
+                <p>
+
+                    Help bring visibility to traditional
+                    crafts and community knowledge.
+
+                </p>
+
+            </div>
+
+
+            <div class="user-card">
+
+                <h3>
+                    🔬 Researchers
+                </h3>
+
+                <p>
+
+                    Use structured cultural information
+                    as a discovery layer for further
+                    research.
+
+                </p>
+
+            </div>
+
+
+            <div class="user-card">
+
+                <h3>
+                    🌍 Global Visitors
+                </h3>
+
+                <p>
+
+                    Understand India's cultural diversity
+                    through an accessible digital
+                    experience.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PROJECT CONTEXT
+========================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="impact">
+
+            <span class="eyebrow">
+                SIH PROJECT CONTEXT
+            </span>
+
+            <h2>
+
+                Connecting India's cultural
+                knowledge with the
+
+                <span>
+                    digital generation.
+                </span>
+
+            </h2>
+
+            <p>
+
+                HeritageConnect is designed around the idea
+                that cultural preservation should not remain
+                disconnected from modern technology. A
+                digital platform can make heritage easier to
+                discover while encouraging curiosity,
+                education and responsible preservation.
+
+            </p>
+
+
+            <div class="impact-grid">
+
+
+                <div class="impact-box">
+
+                    <strong>
+                        AICTE
+                    </strong>
+
+                    Organization
+
+                </div>
+
+
+                <div class="impact-box">
+
+                    <strong>
+                        SIH26197
+                    </strong>
+
+                    Problem Statement
+
+                </div>
+
+
+                <div class="impact-box">
+
+                    <strong>
+                        Software
+                    </strong>
+
+                    Category
+
+                </div>
+
+
+                <div class="impact-box">
+
+                    <strong>
+                        Culture
+                    </strong>
+
+                    Theme
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FAQ
+========================================================= -->
+
+<section class="section alt">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <div>
+
+                <span class="eyebrow">
+                    ABOUT THE PLATFORM
+                </span>
+
+                <h2>
+
+                    Frequently asked
+
+                    <span>
+                        questions.
+                    </span>
+
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq">
+
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    What is HeritageConnect?
+
+                    <span>
+                        +
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    HeritageConnect is a digital cultural
+                    heritage platform designed to help users
+                    discover, learn about and connect with
+                    India's monuments, traditions, arts,
+                    festivals, crafts, food and stories.
+
+                </div>
+
+            </div>
+
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    What type of heritage can users explore?
+
+                    <span>
+                        +
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Users can explore architectural heritage,
+                    classical and folk arts, festivals,
+                    traditional crafts, food, music, clothing,
+                    languages, rituals and local cultural
+                    stories.
+
+                </div>
+
+            </div>
+
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    Why is multilingual support important?
+
+                    <span>
+                        +
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    India has a highly diverse linguistic
+                    landscape. Multilingual interfaces can
+                    make cultural information easier to
+                    access for people who are more comfortable
+                    using regional languages.
+
+                </div>
+
+            </div>
+
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    How can technology help preserve culture?
+
+                    <span>
+                        +
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Technology can improve discovery,
+                    documentation, education and access.
+                    Digital stories, maps, photographs,
+                    multilingual content and QR experiences
+                    can connect physical heritage with
+                    digital learning.
+
+                </div>
+
+            </div>
+
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    Who can use HeritageConnect?
+
+                    <span>
+                        +
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    The concept is intended for students,
+                    educators, travellers, communities,
+                    artisans, researchers and anyone
+                    interested in India's cultural heritage.
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CTA
+========================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="cta">
+
+            <div>
+
+                <span class="eyebrow">
+                    CONTINUE EXPLORING
+                </span>
+
+                <h2>
+
+                    Culture is waiting
+
+                    <span>
+                        to be discovered.
+                    </span>
+
+                </h2>
+
+                <p>
+
+                    Explore the problem, solution and
+                    interactive features of HeritageConnect.
+
+                </p>
+
+            </div>
+
+
+            <a
+                href="solution.html"
+                class="btn primary">
+
+                Explore Solution →
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+
+        <div>
+
+            <div class="brand">
+
+                <span class="brand-mark">
+                    🏛️
+                </span>
+
+                <span class="brand-text">
+
+                    HeritageConnect
+
+                    <small>
+                        SIH 2026
+                    </small>
+
+                </span>
+
+            </div>
+
+            <p>
+
+                Technology for preserving
+                India's living heritage.
+
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h4>
+                Explore
+            </h4>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="problem.html">
+                Problem
+            </a>
+
+            <a href="solution.html">
+                Solution
+            </a>
+
+            <a href="features.html">
+                Features
+            </a>
+
+            <a href="team.html">
+                Team
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h4>
+                Project
+            </h4>
+
+            <p>
+                AICTE
+            </p>
+
+            <p>
+                SIH26197
+            </p>
+
+            <p>
+                Heritage & Culture
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <div class="container">
+
+            © 2026 HeritageConnect.
+            Built for Smart India Hackathon.
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     DETAIL MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="detailModal">
+
+    <div class="modal-box">
+
+        <button
+            class="modal-close"
+            id="modalClose">
+
+            ✕
+
+        </button>
+
+        <div
+            class="modal-category"
+            id="modalCategory">
+
+        </div>
+
+        <h2
+            id="modalTitle">
+
+        </h2>
+
+        <p
+            id="modalDescription">
+
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const menuBtn =
+    document.getElementById("menuBtn");
+
+const navLinks =
+    document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+
+    navLinks.classList.toggle("open");
+
+});
+
+
+/* =========================================================
+   SEARCH PANEL
+========================================================= */
+
+const searchToggle =
+    document.getElementById("searchToggle");
+
+const searchPanel =
+    document.getElementById("searchPanel");
+
+const searchInput =
+    document.getElementById("globalSearch");
+
+const searchBtn =
+    document.getElementById("globalSearchBtn");
+
+const searchResults =
+    document.getElementById("searchResults");
+
+
+searchToggle.addEventListener("click", () => {
+
+    searchPanel.classList.toggle("show");
+
+    if(searchPanel.classList.contains("show")){
+
+        setTimeout(() => {
+            searchInput.focus();
+        },100);
+
+    }
+
+});
+
+
+/* =========================================================
+   SEARCH DATABASE
+========================================================= */
+
+const heritageData = [
+
+    {
+        title:"Taj Mahal",
+        category:"ARCHITECTURE",
+        keywords:"taj mahal agra monument architecture mughal heritage",
+        description:
+        "The Taj Mahal is one of India's most recognised architectural landmarks. HeritageConnect can present its historical background, architectural characteristics, cultural significance and visitor information as part of a digital heritage experience."
+    },
+
+    {
+        title:"Bharatanatyam",
+        category:"PERFORMING ARTS",
+        keywords:"bharatanatyam bharat natyam dance tamil nadu classical dance",
+        description:
+        "Bharatanatyam is a major Indian classical dance tradition associated strongly with Tamil cultural history. It combines expressive movement, rhythm, storytelling and music to communicate themes and narratives."
+    },
+
+    {
+        title:"Indian Festivals",
+        category:"FESTIVALS",
+        keywords:"festival diwali pongal holi navaratri celebration festivals",
+        description:
+        "Indian festivals reflect the country's regional, religious, agricultural and community traditions. HeritageConnect can help users discover the stories, customs, food, music and cultural practices connected with different celebrations."
+    },
+
+    {
+        title:"Traditional Crafts",
+        category:"ART & CRAFT",
+        keywords:"craft handicraft artisan pottery painting textile weaving traditional art",
+        description:
+        "Traditional crafts represent skills developed and transmitted through communities and generations. A digital platform can help users discover different craft forms, their materials, techniques, regions and cultural contexts."
+    },
+
+    {
+        title:"Indian Cuisine",
+        category:"CULINARY HERITAGE",
+        keywords:"food cuisine cooking indian food traditional food recipes",
+        description:
+        "Indian cuisine contains diverse regional food traditions shaped by local ingredients, geography, history and community practices. HeritageConnect can connect food with the stories and traditions behind it."
+    },
+
+    {
+        title:"Indian Classical Music",
+        category:"MUSIC",
+        keywords:"music classical folk instrument indian music tradition",
+        description:
+        "India has rich classical and folk music traditions. Digital cultural learning can introduce users to musical forms, instruments, performers, regional traditions and the cultural contexts in which music is performed."
+    },
+
+    {
+        title:"Languages",
+        category:"LANGUAGE",
+        keywords:"language tamil hindi telugu kannada malayalam bengali multilingual",
+        description:
+        "Language is an important part of cultural identity. HeritageConnect's multilingual approach aims to make cultural information accessible to users across different linguistic backgrounds."
+    },
+
+    {
+        title:"Indian Temples",
+        category:"SACRED HERITAGE",
+        keywords:"temple temples south india tamil nadu architecture sacred",
+        description:
+        "Indian temples represent important dimensions of architecture, art, history, community life and cultural practice. HeritageConnect can provide structured information about their history, architecture and cultural context."
+    },
+
+    {
+        title:"Tamil Nadu Heritage",
+        category:"REGIONAL HERITAGE",
+        keywords:"tamil nadu tamil culture chola temple bharatanatyam pongal crafts",
+        description:
+        "Tamil Nadu has a rich cultural landscape including classical dance, temples, architecture, literature, music, textiles, cuisine and festivals. HeritageConnect can bring these interconnected traditions into one digital discovery experience."
+    },
+
+    {
+        title:"QR Heritage Discovery",
+        category:"TECHNOLOGY",
+        keywords:"qr scan qr code scan heritage location",
+        description:
+        "QR-based heritage experiences can connect physical locations with digital stories. Visitors can scan a code and access information about a monument, cultural object, tradition or place."
+    },
+
+    {
+        title:"Voice Search",
+        category:"ACCESSIBILITY",
+        keywords:"voice microphone speech search voice search",
+        description:
+        "Voice interaction can make heritage discovery more natural for users who prefer speaking rather than typing. It can also support multilingual exploration when speech recognition and language support are available."
+    },
+
+    {
+        title:"Interactive Maps",
+        category:"LOCATION",
+        keywords:"map location nearby heritage places google map",
+        description:
+        "Location-aware maps can help users discover cultural places around them. The concept can connect monuments, museums, festivals, artisans and other heritage experiences to geographic locations."
+    }
+
+];
+
+
+/* =========================================================
+   SEARCH FUNCTION
+========================================================= */
+
+function performSearch(){
+
+    const query =
+        searchInput.value
+        .trim()
+        .toLowerCase();
+
+    searchResults.innerHTML = "";
+
+    if(!query){
+
+        searchResults.innerHTML =
+        "<div class='search-result'>Type something like <strong>Taj Mahal</strong>, <strong>Bharatanatyam</strong>, <strong>festivals</strong> or <strong>crafts</strong>.</div>";
+
+        return;
+
+    }
+
+
+    const matches =
+        heritageData.filter(item => {
+
+            return (
+                item.title.toLowerCase().includes(query) ||
+                item.category.toLowerCase().includes(query) ||
+                item.keywords.toLowerCase().includes(query)
+            );
+
+        });
+
+
+    if(matches.length === 0){
+
+        searchResults.innerHTML = `
+
+            <div class="search-result">
+
+                <small>NO RESULT</small>
+
+                <strong>
+                    No heritage topic found.
+                </strong>
+
+                Try:
+                Taj Mahal, Bharatanatyam,
+                festivals, crafts, food,
+                Tamil Nadu, music or temples.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    matches.forEach(item => {
+
+        const result =
+            document.createElement("div");
+
+        result.className =
+            "search-result";
+
+        result.innerHTML = `
+
+            <small>
+                ${item.category}
+            </small>
+
+            <strong>
+                ${item.title}
+            </strong>
+
+            <span>
+                Click to view details →
+            </span>
+
+        `;
+
+
+        result.addEventListener("click", () => {
+
+            openDetails(item);
+
+        });
+
+
+        searchResults.appendChild(result);
+
+    });
+
+}
+
+
+searchBtn.addEventListener(
+    "click",
+    performSearch
+);
+
+
+searchInput.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Enter"){
+
+            performSearch();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   LIVE SEARCH
+========================================================= */
+
+searchInput.addEventListener(
+    "input",
+    () => {
+
+        if(searchInput.value.trim().length >= 2){
+
+            performSearch();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+const modal =
+    document.getElementById("detailModal");
+
+const modalClose =
+    document.getElementById("modalClose");
+
+const modalTitle =
+    document.getElementById("modalTitle");
+
+const modalCategory =
+    document.getElementById("modalCategory");
+
+const modalDescription =
+    document.getElementById("modalDescription");
+
+
+function openDetails(item){
+
+    modalCategory.textContent =
+        item.category;
+
+    modalTitle.textContent =
+        item.title;
+
+    modalDescription.textContent =
+        item.description;
+
+    modal.classList.add("show");
+
+}
+
+
+modalClose.addEventListener(
+    "click",
+    () => {
+
+        modal.classList.remove("show");
+
+    }
+);
+
+
+modal.addEventListener(
+    "click",
+    event => {
+
+        if(event.target === modal){
+
+            modal.classList.remove("show");
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Escape"){
+
+            modal.classList.remove("show");
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   VOICE SEARCH
+========================================================= */
+
+const voiceBtn =
+    document.getElementById("voiceBtn");
+
+
+voiceBtn.addEventListener(
+    "click",
+    () => {
+
+        const SpeechRecognition =
+            window.SpeechRecognition ||
+            window.webkitSpeechRecognition;
+
+
+        if(!SpeechRecognition){
+
+            alert(
+                "Voice search is not supported in this browser. Please use Google Chrome."
+            );
+
+            return;
+
+        }
+
+
+        const recognition =
+            new SpeechRecognition();
+
+
+        recognition.lang = "en-IN";
+
+        recognition.interimResults = false;
+
+        recognition.maxAlternatives = 1;
+
+
+        recognition.start();
+
+
+        voiceBtn.textContent = "🔴";
+
+
+        recognition.onresult =
+            event => {
+
+                const text =
+                    event.results[0][0].transcript;
+
+                searchPanel.classList.add("show");
+
+                searchInput.value =
+                    text;
+
+                performSearch();
+
+            };
+
+
+        recognition.onerror =
+            () => {
+
+                alert(
+                    "Voice search could not understand the request."
+                );
+
+            };
+
+
+        recognition.onend =
+            () => {
+
+                voiceBtn.textContent =
+                    "🎙️";
+
+            };
+
+    }
+);
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+document
+.querySelectorAll(".faq-question")
+.forEach(button => {
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            const item =
+                button.parentElement;
+
+            item.classList.toggle("open");
+
+            const icon =
+                button.querySelector("span");
+
+            icon.textContent =
+                item.classList.contains("open")
+                ? "−"
+                : "+";
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   LANGUAGE DEMO
+========================================================= */
+
+const languageSelect =
+    document.getElementById("languageSelect");
+
+
+languageSelect.addEventListener(
+    "change",
+    () => {
+
+        const lang =
+            languageSelect.value;
+
+        if(lang === "ta"){
+
+            alert(
+                "தமிழ் மொழி ஆதரவு — HeritageConnect இந்திய பாரம்பரியத்தை அனைவருக்கும் எளிதாக அணுகக்கூடியதாக மாற்றும் நோக்கத்துடன் உருவாக்கப்படுகிறது."
+            );
+
+        }
+
+        else if(lang !== "en"){
+
+            alert(
+                "Multilingual mode selected: " +
+                lang.toUpperCase()
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   IMAGE FALLBACK
+========================================================= */
+
+document
+.querySelectorAll("img")
+.forEach(img => {
+
+    img.addEventListener(
+        "error",
+        () => {
+
+            img.style.background =
+                "linear-gradient(135deg,#ded8ce,#b8b0a1)";
+
+            img.removeAttribute("src");
+
+            img.alt =
+                "HeritageConnect cultural image";
+
+        }
+    );
+
+});
+
+
+</script>
+
+</body>
+
+</html>

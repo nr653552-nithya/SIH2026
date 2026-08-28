@@ -1,0 +1,3045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>HeritageConnect | SIH 2026</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f7f4ee;
+    color:#172033;
+    line-height:1.6;
+}
+
+button,input,select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+.container{
+    width:min(1200px,92%);
+    margin:auto;
+}
+
+/* TOP */
+
+.topbar{
+    background:#111827;
+    color:white;
+    padding:9px 0;
+    font-size:12px;
+}
+
+.topbar-inner{
+    display:flex;
+    justify-content:space-between;
+}
+
+/* NAVBAR */
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:999;
+    background:white;
+    border-bottom:1px solid #ddd5c8;
+}
+
+.nav-inner{
+    min-height:72px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:230px;
+}
+
+.brand-icon{
+    font-size:30px;
+}
+
+.brand-title{
+    font-family:Georgia,serif;
+    font-size:21px;
+    font-weight:bold;
+}
+
+.brand-small{
+    display:block;
+    font-size:9px;
+    color:#8b806f;
+    letter-spacing:1px;
+}
+
+.navlinks{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    flex:1;
+}
+
+.navlinks a{
+    padding:9px 12px;
+    border-radius:10px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.navlinks a:hover,
+.navlinks a.active{
+    background:#172033;
+    color:white;
+}
+
+.nav-tools{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+.icon-btn{
+    width:42px;
+    height:42px;
+    border:1px solid #ddd5c8;
+    background:white;
+    border-radius:50%;
+    font-size:18px;
+}
+
+.icon-btn:hover{
+    background:#172033;
+    color:white;
+}
+
+.language-select{
+    height:42px;
+    border:1px solid #ddd5c8;
+    border-radius:10px;
+    padding:0 8px;
+    background:white;
+    max-width:145px;
+}
+
+.menu-btn{
+    display:none;
+}
+
+/* SEARCH */
+
+.search-panel{
+    background:white;
+    border-top:1px solid #eee;
+    padding:18px 0;
+    display:none;
+}
+
+.search-panel.show{
+    display:block;
+}
+
+.search-box{
+    width:min(1000px,92%);
+    margin:auto;
+    display:flex;
+    gap:10px;
+}
+
+.search-box input{
+    flex:1;
+    padding:15px;
+    border:1px solid #d5cec1;
+    border-radius:12px;
+    outline:none;
+}
+
+.search-box input:focus{
+    border-color:#b47b2d;
+}
+
+.search-main-btn{
+    border:none;
+    background:#172033;
+    color:white;
+    padding:0 25px;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+.search-suggestions{
+    width:min(1000px,92%);
+    margin:10px auto 0;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.search-suggestions button{
+    border:1px solid #ddd5c8;
+    background:#f7f4ee;
+    padding:7px 12px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+.search-suggestions button:hover{
+    background:#172033;
+    color:white;
+}
+
+/* HERO */
+
+.hero{
+    padding:80px 0;
+    background:
+    radial-gradient(circle at 85% 15%,rgba(180,123,45,.18),transparent 30%),
+    linear-gradient(135deg,#f7f4ee,#eee8dc);
+}
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:50px;
+    align-items:center;
+}
+
+.eyebrow{
+    color:#a16d25;
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:1.5px;
+}
+
+.hero h1{
+    font-family:Georgia,serif;
+    font-size:clamp(45px,6vw,75px);
+    line-height:1.05;
+    margin:15px 0 20px;
+}
+
+.gold{
+    color:#b47b2d;
+}
+
+.hero-copy{
+    max-width:650px;
+    color:#5f6878;
+    font-size:17px;
+    margin-bottom:25px;
+}
+
+.hero-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.btn{
+    border:none;
+    padding:13px 20px;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+.btn-primary{
+    background:#172033;
+    color:white;
+}
+
+.btn-light{
+    background:white;
+    border:1px solid #ddd5c8;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.trust{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:25px;
+}
+
+.trust span{
+    background:white;
+    border:1px solid #e0d8ca;
+    padding:7px 11px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+/* HERO CARD */
+
+.hero-card{
+    background:white;
+    padding:15px;
+    border-radius:25px;
+    box-shadow:0 25px 60px rgba(40,32,20,.15);
+}
+
+.hero-card img{
+    width:100%;
+    height:270px;
+    object-fit:cover;
+    border-radius:18px;
+}
+
+.hero-card h3{
+    font-family:Georgia,serif;
+    font-size:26px;
+    margin:15px 5px 5px;
+}
+
+.hero-card p{
+    color:#687083;
+    font-size:13px;
+    margin:0 5px 15px;
+}
+
+.demo-search{
+    background:#f4f1eb;
+    border-radius:12px;
+    padding:12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.demo-search button{
+    margin-left:auto;
+    border:none;
+    border-radius:50%;
+    width:35px;
+    height:35px;
+}
+
+/* SECTIONS */
+
+.section{
+    padding:75px 0;
+}
+
+.section.alt{
+    background:#eeeadf;
+}
+
+.section-head{
+    margin-bottom:30px;
+}
+
+.section-head h2{
+    font-family:Georgia,serif;
+    font-size:45px;
+    line-height:1.1;
+    margin:10px 0;
+}
+
+.section-head p{
+    color:#687083;
+}
+
+/* RESULTS */
+
+.results-section{
+    display:none;
+    background:#f7f4ee;
+}
+
+.results-section.show{
+    display:block;
+}
+
+.results-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+}
+
+.result-card{
+    background:white;
+    border:1px solid #ddd5c8;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,.07);
+}
+
+.result-image{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+    background:#eee;
+}
+
+.result-body{
+    padding:20px;
+}
+
+.result-icon{
+    font-size:35px;
+    margin-bottom:8px;
+}
+
+.result-card h3{
+    font-family:Georgia,serif;
+    font-size:27px;
+    margin-bottom:8px;
+}
+
+.result-card p{
+    color:#687083;
+    font-size:14px;
+}
+
+.info{
+    margin-top:15px;
+    padding:15px;
+    background:#f7f4ee;
+    border-radius:12px;
+    font-size:13px;
+}
+
+.info-row{
+    margin-bottom:10px;
+}
+
+.info-row:last-child{
+    margin-bottom:0;
+}
+
+.result-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:15px;
+}
+
+.result-buttons button{
+    border:none;
+    padding:10px 14px;
+    border-radius:9px;
+    background:#172033;
+    color:white;
+    font-size:12px;
+}
+
+.result-buttons button:hover{
+    background:#b47b2d;
+}
+
+.map-result{
+    grid-column:1/-1;
+    background:white;
+    border:1px solid #ddd5c8;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.map-result-header{
+    padding:20px;
+}
+
+.map-result-header h3{
+    font-family:Georgia,serif;
+    font-size:26px;
+}
+
+.map-result iframe{
+    width:100%;
+    height:420px;
+    border:0;
+}
+
+.loading{
+    grid-column:1/-1;
+    text-align:center;
+    padding:50px;
+    font-size:18px;
+    background:white;
+    border-radius:20px;
+}
+
+/* FEATURES */
+
+.feature-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.feature{
+    background:white;
+    border:1px solid #ded7ca;
+    border-radius:20px;
+    padding:25px;
+    transition:.2s;
+}
+
+.feature:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+}
+
+.feature-icon{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.feature h3{
+    font-family:Georgia,serif;
+    font-size:24px;
+    margin-bottom:8px;
+}
+
+.feature p{
+    color:#687083;
+    font-size:14px;
+}
+
+/* SCANNER */
+
+.scanner-box{
+    background:#172033;
+    color:white;
+    padding:40px;
+    border-radius:25px;
+    text-align:center;
+}
+
+.scanner-box h2{
+    font-family:Georgia,serif;
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.scanner-box p{
+    color:#cbd1dc;
+    margin-bottom:20px;
+}
+
+.scanner-area{
+    display:none;
+    max-width:500px;
+    margin:25px auto 0;
+}
+
+.scanner-area video{
+    width:100%;
+    border-radius:15px;
+    background:black;
+}
+
+.scanner-status{
+    margin-top:12px;
+    color:#ddd;
+}
+
+/* MAP */
+
+.map-box{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid #ddd5c8;
+}
+
+.map-controls{
+    padding:20px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.main-map{
+    width:100%;
+    height:450px;
+    border:0;
+    display:none;
+}
+
+.map-placeholder{
+    min-height:300px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px;
+    background:
+    linear-gradient(rgba(230,225,214,.8),rgba(230,225,214,.8)),
+    repeating-linear-gradient(
+        45deg,
+        #eee 0,
+        #eee 2px,
+        transparent 2px,
+        transparent 10px
+    );
+}
+
+.map-content{
+    max-width:600px;
+}
+
+.map-content h3{
+    font-family:Georgia,serif;
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+/* LANGUAGES */
+
+.language-panel{
+    background:white;
+    border:1px solid #ddd5c8;
+    border-radius:18px;
+    padding:25px;
+}
+
+.language-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+}
+
+.language-item{
+    border:1px solid #ddd5c8;
+    background:#faf8f3;
+    padding:12px;
+    border-radius:10px;
+    cursor:pointer;
+    text-align:center;
+}
+
+.language-item:hover,
+.language-item.selected{
+    background:#172033;
+    color:white;
+}
+
+/* CTA */
+
+.cta{
+    background:#172033;
+    color:white;
+    padding:45px;
+    border-radius:25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.cta h2{
+    font-family:Georgia,serif;
+    font-size:42px;
+}
+
+.cta p{
+    color:#cbd1dc;
+}
+
+/* FOOTER */
+
+footer{
+    background:#111827;
+    color:white;
+    padding:45px 0 20px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:40px;
+}
+
+footer p,
+footer a{
+    color:#aeb5c2;
+    font-size:13px;
+}
+
+footer a{
+    display:block;
+    margin:7px 0;
+}
+
+.footer-bottom{
+    border-top:1px solid #293143;
+    margin-top:35px;
+    padding-top:18px;
+    color:#8e96a5;
+    font-size:12px;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#172033;
+    color:white;
+    padding:15px 18px;
+    border-radius:12px;
+    display:none;
+    z-index:5000;
+    max-width:350px;
+}
+
+.toast.show{
+    display:block;
+}
+
+/* GOOGLE TRANSLATE */
+
+#google_translate_element{
+    position:absolute;
+    left:-9999px;
+    top:-9999px;
+}
+
+.goog-te-banner-frame{
+    display:none!important;
+}
+
+body{
+    top:0!important;
+}
+
+.goog-logo-link,
+.goog-te-gadget span{
+    display:none!important;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+    .hero-grid{
+        grid-template-columns:1fr;
+    }
+
+    .results-grid,
+    .feature-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .navlinks a{
+        padding:8px;
+        font-size:11px;
+    }
+
+    .brand{
+        min-width:auto;
+    }
+}
+
+@media(max-width:800px){
+
+    .topbar-inner{
+        justify-content:center;
+        text-align:center;
+    }
+
+    .topbar-inner span:last-child{
+        display:none;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .nav-inner{
+        position:relative;
+    }
+
+    .navlinks{
+        display:none;
+        position:absolute;
+        top:72px;
+        left:0;
+        right:0;
+        background:white;
+        flex-direction:column;
+        padding:15px;
+        border-bottom:1px solid #ddd;
+    }
+
+    .navlinks.open{
+        display:flex;
+    }
+
+    .navlinks a{
+        width:100%;
+        text-align:center;
+        font-size:13px;
+    }
+
+    .language-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .results-grid,
+    .feature-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .brand-title{
+        font-size:17px;
+    }
+
+    .brand-small{
+        font-size:7px;
+    }
+
+    .language-select{
+        max-width:90px;
+    }
+
+    .hero{
+        padding:50px 0;
+    }
+
+    .hero h1{
+        font-size:43px;
+    }
+
+    .section{
+        padding:55px 0;
+    }
+
+    .section-head h2{
+        font-size:35px;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+    .search-main-btn{
+        padding:13px;
+    }
+
+    .cta{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .scanner-box{
+        padding:25px;
+    }
+
+    .scanner-box h2{
+        font-size:32px;
+    }
+
+    .main-map{
+        height:350px;
+    }
+}
+
+</style>
+
+<script>
+
+function googleTranslateElementInit(){
+
+    new google.translate.TranslateElement({
+
+        pageLanguage:"en",
+
+        includedLanguages:
+        "en,hi,bn,te,mr,ta,gu,kn,ml,pa,or,as,ur,sa,ne,kok,mai,mni,doi,ks,brx,sat,sd,bho,raj,tcy",
+
+        autoDisplay:false
+
+    },"google_translate_element");
+
+}
+
+</script>
+
+<script
+src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+</script>
+
+</head>
+
+<body>
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<div class="container topbar-inner">
+
+<span>🇮🇳 SMART INDIA HACKATHON 2026</span>
+
+<span>AICTE • SIH26197 • HERITAGE & CULTURE</span>
+
+</div>
+
+</div>
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+<div class="container nav-inner">
+
+<button
+class="icon-btn menu-btn"
+id="menuBtn">
+☰
+</button>
+
+<a href="#home" class="brand">
+
+<span class="brand-icon">🏛️</span>
+
+<span>
+
+<span class="brand-title">
+HeritageConnect
+</span>
+
+<span class="brand-small">
+SIH 2026 • CULTURE TECH
+</span>
+
+</span>
+
+</a>
+
+<nav class="navlinks" id="navLinks">
+
+<a href="#home" class="active">Home</a>
+
+<a href="#explore">Explore</a>
+
+<a href="#scanner">Scanner</a>
+
+<a href="#map">Map</a>
+
+<a href="#languages">Languages</a>
+
+<a href="#features">Features</a>
+
+</nav>
+
+<div class="nav-tools">
+
+<button
+class="icon-btn"
+id="searchToggle"
+title="Search">
+🔎
+</button>
+
+<button
+class="icon-btn"
+id="voiceButton"
+title="Voice Search">
+🎙️
+</button>
+
+<select
+class="language-select"
+id="languageSelect">
+
+<option value="en">English</option>
+<option value="hi">हिन्दी</option>
+<option value="bn">বাংলা</option>
+<option value="te">తెలుగు</option>
+<option value="mr">मराठी</option>
+<option value="ta">தமிழ்</option>
+<option value="gu">ગુજરાતી</option>
+<option value="kn">ಕನ್ನಡ</option>
+<option value="ml">മലയാളം</option>
+<option value="pa">ਪੰਜਾਬੀ</option>
+<option value="or">ଓଡ଼ିଆ</option>
+<option value="as">অসমীয়া</option>
+<option value="ur">اردو</option>
+<option value="sa">संस्कृतम्</option>
+<option value="ne">नेपाली</option>
+<option value="kok">कोंकणी</option>
+<option value="mai">मैथिली</option>
+<option value="mni">মৈতৈলোন</option>
+<option value="doi">डोगरी</option>
+<option value="ks">कॉशुर</option>
+<option value="brx">बड़ो</option>
+<option value="sat">ᱥᱟᱱᱛᱟᱲᱤ</option>
+<option value="sd">سنڌي</option>
+<option value="bho">भोजपुरी</option>
+<option value="raj">राजस्थानी</option>
+<option value="tcy">ತುಳು</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div
+class="search-panel"
+id="searchPanel">
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search any place, monument, food, festival, culture..."
+>
+
+<button
+class="search-main-btn"
+id="searchButton">
+Search
+</button>
+
+</div>
+
+<div class="search-suggestions">
+
+<button onclick="quickSearch('Taj Mahal')">
+🏛️ Taj Mahal
+</button>
+
+<button onclick="quickSearch('Qutub Minar')">
+🏛️ Qutub Minar
+</button>
+
+<button onclick="quickSearch('Meenakshi Temple')">
+🛕 Meenakshi Temple
+</button>
+
+<button onclick="quickSearch('Hampi')">
+🏛️ Hampi
+</button>
+
+<button onclick="quickSearch('Biryani')">
+🍛 Biryani
+</button>
+
+<button onclick="quickSearch('Diwali')">
+🎉 Diwali
+</button>
+
+</div>
+
+</div>
+
+</header>
+
+<div id="google_translate_element"></div>
+
+<main id="home">
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="container hero-grid">
+
+<div>
+
+<span class="eyebrow">
+SMART INDIA HACKATHON 2026 • SIH26197
+</span>
+
+<h1>
+Keep India's
+<span class="gold">
+Heritage Alive.
+</span>
+</h1>
+
+<p class="hero-copy">
+Discover monuments, temples, beaches, food, festivals,
+dance, music, traditions, cities and cultural stories
+from across India — in your own language.
+</p>
+
+<div class="hero-buttons">
+
+<button
+class="btn btn-primary"
+onclick="openSearch()">
+🔎 Explore Anything
+</button>
+
+<button
+class="btn btn-light"
+onclick="startVoiceSearch()">
+🎙️ Speak to Explore
+</button>
+
+<button
+class="btn btn-light"
+onclick="startScanner()">
+📷 Scan Heritage
+</button>
+
+</div>
+
+<div class="trust">
+
+<span>🌍 26 Languages</span>
+<span>🎙️ Voice Search</span>
+<span>📍 Location</span>
+<span>📷 Scanner</span>
+<span>🗺️ Maps</span>
+<span>🌐 Live Search</span>
+
+</div>
+
+</div>
+
+<div class="hero-card">
+
+<img
+src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1400&q=85"
+alt="Indian Heritage"
+>
+
+<h3>
+Heritage Explorer
+</h3>
+
+<p>
+Search any place, food, festival, tradition,
+person, monument or cultural experience.
+</p>
+
+<div class="demo-search">
+
+<span>🔎</span>
+
+<span id="demoSearchText">
+Search heritage...
+</span>
+
+<button onclick="startVoiceSearch()">
+🎤
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- RESULTS -->
+
+<section
+class="section results-section"
+id="resultsSection">
+
+<div class="container">
+
+<div class="section-head">
+
+<span class="eyebrow">
+LIVE SEARCH RESULTS
+</span>
+
+<h2>
+Explore:
+<span
+class="gold"
+id="resultTitle">
+</span>
+</h2>
+
+<p id="resultDescription">
+Search for anything.
+</p>
+
+</div>
+
+<div
+class="results-grid"
+id="resultsGrid">
+</div>
+
+</div>
+
+</section>
+
+<!-- EXPLORE -->
+
+<section
+class="section"
+id="explore">
+
+<div class="container">
+
+<div class="section-head">
+
+<span class="eyebrow">
+DISCOVER INDIA
+</span>
+
+<h2>
+A country of
+<span class="gold">
+countless stories.
+</span>
+</h2>
+
+<p>
+Search anything and discover information from live
+online sources.
+</p>
+
+</div>
+
+<div class="feature-grid">
+
+<div class="feature">
+<div class="feature-icon">🏛️</div>
+<h3>Monuments</h3>
+<p>
+Explore forts, palaces, temples, caves, museums,
+archaeological sites and historical monuments.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🏖️</div>
+<h3>Places</h3>
+<p>
+Search beaches, mountains, cities, villages,
+tourist places and natural heritage.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🍛</div>
+<h3>Food & Cuisine</h3>
+<p>
+Discover traditional dishes, regional cuisine
+and food culture.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🎭</div>
+<h3>Dance & Arts</h3>
+<p>
+Explore classical dance, folk dance, theatre,
+painting and traditional arts.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🎉</div>
+<h3>Festivals</h3>
+<p>
+Discover festivals, rituals, celebrations and
+community traditions.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🎵</div>
+<h3>Music</h3>
+<p>
+Explore classical and folk music traditions,
+artists and instruments.
+</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- SCANNER -->
+
+<section
+class="section alt"
+id="scanner">
+
+<div class="container">
+
+<div class="scanner-box">
+
+<span class="eyebrow">
+SMART HERITAGE SCANNER
+</span>
+
+<h2>
+📷 Scan & Discover
+</h2>
+
+<p>
+Use your camera to scan a QR code at a heritage location.
+</p>
+
+<button
+class="btn btn-light"
+onclick="startScanner()">
+📷 Start Scanner
+</button>
+
+<div
+class="scanner-area"
+id="scannerArea">
+
+<video
+id="scannerVideo"
+autoplay
+playsinline>
+</video>
+
+<div
+class="scanner-status"
+id="scannerStatus">
+Camera starting...
+</div>
+
+<button
+class="btn btn-light"
+onclick="stopScanner()"
+style="margin-top:15px">
+Stop Camera
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- MAP -->
+
+<section
+class="section"
+id="map">
+
+<div class="container">
+
+<div class="section-head">
+
+<span class="eyebrow">
+LOCATION AWARE HERITAGE
+</span>
+
+<h2>
+Find Heritage
+<span class="gold">
+Near You.
+</span>
+</h2>
+
+<p>
+Use your current location or search a place on the map.
+</p>
+
+</div>
+
+<div class="map-box">
+
+<div class="map-controls">
+
+<button
+class="btn btn-primary"
+onclick="getLocation()">
+📍 Find My Location
+</button>
+
+<button
+class="btn btn-light"
+onclick="showNearbyHeritage()">
+🏛️ Heritage Near Me
+</button>
+
+<button
+class="btn btn-light"
+onclick="searchGoogleMaps(prompt('Enter place to show on map:'))">
+🗺️ Search Map
+</button>
+
+</div>
+
+<div
+class="map-placeholder"
+id="mapPlaceholder">
+
+<div class="map-content">
+
+<div style="font-size:50px">
+📍
+</div>
+
+<h3 id="locationTitle">
+Your Heritage Map
+</h3>
+
+<p id="locationText">
+Click "Find My Location" to detect your current location.
+</p>
+
+</div>
+
+</div>
+
+<iframe
+id="mainMap"
+class="main-map"
+loading="lazy"
+allowfullscreen>
+</iframe>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- LANGUAGES -->
+
+<section
+class="section alt"
+id="languages">
+
+<div class="container">
+
+<div class="section-head">
+
+<span class="eyebrow">
+INCLUSIVE INDIA
+</span>
+
+<h2>
+Explore in
+<span class="gold">
+Your Language.
+</span>
+</h2>
+
+<p>
+Select your preferred language.
+</p>
+
+</div>
+
+<div class="language-panel">
+
+<div
+class="language-grid"
+id="languageGrid">
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section
+class="section"
+id="features">
+
+<div class="container">
+
+<div class="section-head">
+
+<span class="eyebrow">
+HERITAGECONNECT
+</span>
+
+<h2>
+One Platform.
+<span class="gold">
+Many Cultures.
+</span>
+</h2>
+
+</div>
+
+<div class="feature-grid">
+
+<div class="feature">
+<div class="feature-icon">🔎</div>
+<h3>Smart Search</h3>
+<p>
+Search places, food, festivals, monuments,
+people, traditions and cultural topics.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🎙️</div>
+<h3>Voice Search</h3>
+<p>
+Speak naturally and search using your microphone.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">📷</div>
+<h3>QR Scanner</h3>
+<p>
+Scan heritage QR codes and connect physical
+places with digital stories.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">📍</div>
+<h3>Location Aware</h3>
+<p>
+Use your location to discover nearby cultural places.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🌍</div>
+<h3>26 Languages</h3>
+<p>
+Support India's diverse linguistic communities.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🌐</div>
+<h3>Live Information</h3>
+<p>
+Search information dynamically from online
+knowledge sources.
+</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CTA -->
+
+<section class="section alt">
+
+<div class="container">
+
+<div class="cta">
+
+<div>
+
+<span class="eyebrow">
+HERITAGECONNECT
+</span>
+
+<h2>
+Discover.
+<span class="gold">
+Connect.
+</span>
+Preserve.
+</h2>
+
+<p>
+Technology for India's living heritage.
+</p>
+
+</div>
+
+<button
+class="btn btn-light"
+onclick="openSearch()">
+🔎 Start Exploring
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="container footer-grid">
+
+<div>
+
+<div class="brand">
+
+<span class="brand-icon">
+🏛️
+</span>
+
+<span>
+
+<span
+class="brand-title"
+style="color:white">
+HeritageConnect
+</span>
+
+<span class="brand-small">
+SIH 2026
+</span>
+
+</span>
+
+</div>
+
+<p style="margin-top:15px">
+Technology for preserving India's living heritage.
+</p>
+
+</div>
+
+<div>
+
+<h4>Explore</h4>
+
+<a href="#home">Home</a>
+<a href="#explore">Explore</a>
+<a href="#scanner">Scanner</a>
+<a href="#map">Map</a>
+<a href="#languages">Languages</a>
+
+</div>
+
+<div>
+
+<h4>Project</h4>
+
+<p>AICTE</p>
+<p>SIH26197</p>
+<p>Heritage & Culture</p>
+
+</div>
+
+</div>
+
+<div class="container footer-bottom">
+
+© 2026 HeritageConnect • Smart India Hackathon
+
+</div>
+
+</footer>
+
+<div
+class="toast"
+id="toast">
+</div>
+
+<script>
+
+/* =========================================================
+LANGUAGES
+========================================================= */
+
+const languages={
+
+en:{name:"English",code:"en-IN",wiki:"en"},
+hi:{name:"हिन्दी",code:"hi-IN",wiki:"hi"},
+bn:{name:"বাংলা",code:"bn-IN",wiki:"bn"},
+te:{name:"తెలుగు",code:"te-IN",wiki:"te"},
+mr:{name:"मराठी",code:"mr-IN",wiki:"mr"},
+ta:{name:"தமிழ்",code:"ta-IN",wiki:"ta"},
+gu:{name:"ગુજરાતી",code:"gu-IN",wiki:"gu"},
+kn:{name:"ಕನ್ನಡ",code:"kn-IN",wiki:"kn"},
+ml:{name:"മലയാളം",code:"ml-IN",wiki:"ml"},
+pa:{name:"ਪੰਜਾਬੀ",code:"pa-IN",wiki:"pa"},
+or:{name:"ଓଡ଼ିଆ",code:"or-IN",wiki:"or"},
+as:{name:"অসমীয়া",code:"as-IN",wiki:"as"},
+ur:{name:"اردو",code:"ur-IN",wiki:"ur"},
+sa:{name:"संस्कृतम्",code:"sa-IN",wiki:"sa"},
+ne:{name:"नेपाली",code:"ne-NP",wiki:"ne"},
+kok:{name:"कोंकणी",code:"kok-IN",wiki:"gom"},
+mai:{name:"मैथिली",code:"mai-IN",wiki:"mai"},
+mni:{name:"মৈতৈলোন",code:"mni-IN",wiki:"mni"},
+doi:{name:"डोगरी",code:"doi-IN",wiki:"doi"},
+ks:{name:"कॉशुर",code:"ks-IN",wiki:"ks"},
+brx:{name:"बड़ो",code:"brx-IN",wiki:"brx"},
+sat:{name:"ᱥᱟᱱᱛᱟᱲᱤ",code:"sat-IN",wiki:"sat"},
+sd:{name:"سنڌي",code:"sd-IN",wiki:"sd"},
+bho:{name:"भोजपुरी",code:"bho-IN",wiki:"bho"},
+raj:{name:"राजस्थानी",code:"raj-IN",wiki:"rmy"},
+tcy:{name:"ತುಳು",code:"tcy-IN",wiki:"tcy"}
+
+};
+
+let currentLanguage="en";
+
+/* =========================================================
+LANGUAGE GRID
+========================================================= */
+
+const languageGrid=
+document.getElementById("languageGrid");
+
+Object.keys(languages).forEach(code=>{
+
+    const item=document.createElement("button");
+
+    item.className="language-item";
+
+    item.dataset.lang=code;
+
+    item.textContent=languages[code].name;
+
+    item.onclick=()=>changeLanguage(code);
+
+    languageGrid.appendChild(item);
+
+});
+
+/* =========================================================
+CHANGE LANGUAGE
+========================================================= */
+
+function changeLanguage(code){
+
+    currentLanguage=code;
+
+    document.documentElement.lang=code;
+
+    document.getElementById("languageSelect").value=code;
+
+    document.querySelectorAll(".language-item").forEach(item=>{
+
+        item.classList.toggle(
+            "selected",
+            item.dataset.lang===code
+        );
+
+    });
+
+    setTimeout(()=>{
+
+        const googleSelect=
+            document.querySelector(".goog-te-combo");
+
+        if(googleSelect){
+
+            googleSelect.value=code;
+
+            googleSelect.dispatchEvent(
+                new Event("change")
+            );
+
+        }
+
+    },700);
+
+    showToast(
+        "🌍 "+languages[code].name+" selected"
+    );
+
+}
+
+/* =========================================================
+DROPDOWN
+========================================================= */
+
+document
+.getElementById("languageSelect")
+.addEventListener("change",function(){
+
+    changeLanguage(this.value);
+
+});
+
+/* =========================================================
+MOBILE MENU
+========================================================= */
+
+document
+.getElementById("menuBtn")
+.addEventListener("click",function(){
+
+    document
+    .getElementById("navLinks")
+    .classList.toggle("open");
+
+});
+
+/* =========================================================
+SEARCH
+========================================================= */
+
+function openSearch(){
+
+    const panel=
+        document.getElementById("searchPanel");
+
+    panel.classList.add("show");
+
+    setTimeout(()=>{
+
+        document
+        .getElementById("searchInput")
+        .focus();
+
+    },100);
+
+}
+
+document
+.getElementById("searchToggle")
+.addEventListener("click",function(){
+
+    const panel=
+        document.getElementById("searchPanel");
+
+    panel.classList.toggle("show");
+
+    if(panel.classList.contains("show")){
+
+        document
+        .getElementById("searchInput")
+        .focus();
+
+    }
+
+});
+
+function quickSearch(query){
+
+    openSearch();
+
+    document
+    .getElementById("searchInput")
+    .value=query;
+
+    performSearch();
+
+}
+
+document
+.getElementById("searchButton")
+.addEventListener("click",performSearch);
+
+document
+.getElementById("searchInput")
+.addEventListener("keydown",function(event){
+
+    if(event.key==="Enter"){
+
+        performSearch();
+
+    }
+
+});
+
+/* =========================================================
+LIVE WIKIPEDIA SEARCH
+========================================================= */
+
+async function performSearch(){
+
+    const query=
+        document
+        .getElementById("searchInput")
+        .value
+        .trim();
+
+    if(!query){
+
+        showToast("🔎 Please enter something to search.");
+
+        return;
+
+    }
+
+    const resultsSection=
+        document.getElementById("resultsSection");
+
+    const resultsGrid=
+        document.getElementById("resultsGrid");
+
+    const resultTitle=
+        document.getElementById("resultTitle");
+
+    const resultDescription=
+        document.getElementById("resultDescription");
+
+    resultsSection.classList.add("show");
+
+    resultTitle.textContent=query;
+
+    resultDescription.textContent=
+        "Searching live information...";
+
+    resultsGrid.innerHTML=`
+
+        <div class="loading">
+
+            🔎 Searching for
+            <strong>${escapeHTML(query)}</strong>...
+
+            <br><br>
+
+            🌐 Loading image and details...
+
+        </div>
+
+    `;
+
+    resultsSection.scrollIntoView({
+        behavior:"smooth"
+    });
+
+    try{
+
+        const wikiLanguage=
+            languages[currentLanguage].wiki;
+
+        /*
+        SEARCH WIKIPEDIA
+        */
+
+        const searchURL=
+            `https://${wikiLanguage}.wikipedia.org/w/api.php`+
+            `?action=query`+
+            `&list=search`+
+            `&srsearch=${encodeURIComponent(query)}`+
+            `&srlimit=8`+
+            `&format=json`+
+            `&origin=*`;
+
+        const searchResponse=
+            await fetch(searchURL);
+
+        if(!searchResponse.ok){
+
+            throw new Error("Search failed");
+
+        }
+
+        const searchData=
+            await searchResponse.json();
+
+        const searchResults=
+            searchData.query?.search || [];
+
+        resultsGrid.innerHTML="";
+
+        if(searchResults.length===0){
+
+            /*
+            FALLBACK TO ENGLISH
+            */
+
+            if(wikiLanguage!=="en"){
+
+                await searchEnglishFallback(query);
+
+                return;
+
+            }
+
+            createNoResult(query);
+
+            return;
+
+        }
+
+        let count=0;
+
+        /*
+        LOAD EVERY RESULT
+        */
+
+        for(const item of searchResults){
+
+            try{
+
+                const page=
+                    await getWikipediaDetails(
+                        wikiLanguage,
+                        item.title
+                    );
+
+                if(page){
+
+                    createLiveResultCard(page);
+
+                    count++;
+
+                }
+
+            }catch(error){
+
+                console.log(
+                    "Result error:",
+                    item.title,
+                    error
+                );
+
+            }
+
+        }
+
+        /*
+        MAP
+        */
+
+        createSearchMap(query);
+
+        resultDescription.textContent=
+            count+
+            " result"+
+            (count===1?"":"s")+
+            " found for '"+query+"'.";
+
+        if(count===0){
+
+            createNoResult(query);
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        resultsGrid.innerHTML=`
+
+            <div class="loading">
+
+                ❌ Search could not connect.
+
+                <br><br>
+
+                Please check your internet connection.
+
+                <br><br>
+
+                <button
+                    class="btn btn-primary"
+                    onclick="performSearch()">
+                    🔄 Try Again
+                </button>
+
+            </div>
+
+        `;
+
+        resultDescription.textContent=
+            "Search connection failed.";
+
+    }
+
+}
+
+/* =========================================================
+WIKIPEDIA DETAILS
+========================================================= */
+
+async function getWikipediaDetails(language,title){
+
+    const url=
+        `https://${language}.wikipedia.org/w/api.php`+
+        `?action=query`+
+        `&prop=extracts|pageimages|info`+
+        `&exintro=1`+
+        `&explaintext=1`+
+        `&inprop=url`+
+        `&piprop=thumbnail|original`+
+        `&pithumbsize=1000`+
+        `&titles=${encodeURIComponent(title)}`+
+        `&format=json`+
+        `&origin=*`;
+
+    const response=
+        await fetch(url);
+
+    const data=
+        await response.json();
+
+    const pages=
+        data.query?.pages || {};
+
+    const page=
+        Object.values(pages)[0];
+
+    if(!page || page.missing){
+
+        return null;
+
+    }
+
+    return page;
+
+}
+
+/* =========================================================
+ENGLISH FALLBACK
+========================================================= */
+
+async function searchEnglishFallback(query){
+
+    const resultsGrid=
+        document.getElementById("resultsGrid");
+
+    resultsGrid.innerHTML=`
+
+        <div class="loading">
+            🌐 Searching English sources...
+        </div>
+
+    `;
+
+    try{
+
+        const url=
+            `https://en.wikipedia.org/w/api.php`+
+            `?action=query`+
+            `&list=search`+
+            `&srsearch=${encodeURIComponent(query)}`+
+            `&srlimit=8`+
+            `&format=json`+
+            `&origin=*`;
+
+        const response=
+            await fetch(url);
+
+        const data=
+            await response.json();
+
+        const results=
+            data.query?.search || [];
+
+        resultsGrid.innerHTML="";
+
+        if(results.length===0){
+
+            createNoResult(query);
+
+            return;
+
+        }
+
+        let count=0;
+
+        for(const item of results){
+
+            const page=
+                await getWikipediaDetails(
+                    "en",
+                    item.title
+                );
+
+            if(page){
+
+                createLiveResultCard(page);
+
+                count++;
+
+            }
+
+        }
+
+        createSearchMap(query);
+
+        document
+        .getElementById("resultDescription")
+        .textContent=
+            count+
+            " result"+
+            (count===1?"":"s")+
+            " found.";
+
+    }catch(error){
+
+        createNoResult(query);
+
+    }
+
+}
+
+/* =========================================================
+CREATE RESULT CARD
+========================================================= */
+
+function createLiveResultCard(page){
+
+    const resultsGrid=
+        document.getElementById("resultsGrid");
+
+    const card=
+        document.createElement("article");
+
+    card.className="result-card";
+
+    let imageURL=
+        page.original?.source ||
+        page.thumbnail?.source ||
+        getCategoryImage(page.title);
+
+    let description=
+        page.extract ||
+        "Detailed information is available for this topic.";
+
+    if(description.length>1100){
+
+        description=
+            description.substring(0,1100)+
+            "...";
+
+    }
+
+    const wikiURL=
+        page.fullurl ||
+        `https://en.wikipedia.org/wiki/${encodeURIComponent(page.title)}`;
+
+    card.innerHTML=`
+
+        <img
+            class="result-image"
+            src="${escapeHTML(imageURL)}"
+            alt="${escapeHTML(page.title)}"
+            loading="lazy"
+            onerror="
+                this.src='https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1400&q=85'
+            "
+        >
+
+        <div class="result-body">
+
+            <div class="result-icon">
+                🏛️
+            </div>
+
+            <h3>
+                ${escapeHTML(page.title)}
+            </h3>
+
+            <p>
+                ${escapeHTML(description)}
+            </p>
+
+            <div class="info">
+
+                <div class="info-row">
+
+                    <strong>
+                        📚 Details
+                    </strong>
+
+                    <br>
+
+                    ${escapeHTML(description)}
+
+                </div>
+
+                <div class="info-row">
+
+                    <strong>
+                        🌐 Language
+                    </strong>
+
+                    <br>
+
+                    ${escapeHTML(
+                        languages[currentLanguage].name
+                    )}
+
+                </div>
+
+                <div class="info-row">
+
+                    <strong>
+                        📖 Source
+                    </strong>
+
+                    <br>
+
+                    Wikipedia
+
+                </div>
+
+            </div>
+
+            <div class="result-buttons">
+
+                <button
+                    onclick="searchGoogleMaps(
+                        '${escapeQuotes(page.title)}'
+                    )">
+
+                    🗺️ Show Map
+
+                </button>
+
+                <button
+                    onclick="openDirectionsForSearch(
+                        '${escapeQuotes(page.title)}'
+                    )">
+
+                    🚗 Directions
+
+                </button>
+
+                <button
+                    onclick="openWikipedia(
+                        '${escapeQuotes(wikiURL)}'
+                    )">
+
+                    📚 Full Details
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+    resultsGrid.appendChild(card);
+
+}
+
+/* =========================================================
+NO RESULT
+========================================================= */
+
+function createNoResult(query){
+
+    const resultsGrid=
+        document.getElementById("resultsGrid");
+
+    resultsGrid.innerHTML=`
+
+        <div class="loading">
+
+            🔎 No exact information found for
+
+            <strong>
+                ${escapeHTML(query)}
+            </strong>
+
+            <br><br>
+
+            Try searching another place,
+            monument, city, food, festival,
+            dance, person or tradition.
+
+            <br><br>
+
+            <button
+                class="btn btn-primary"
+                onclick="
+                    searchGoogleMaps(
+                        '${escapeQuotes(query)}'
+                    )
+                ">
+
+                🗺️ Search on Google Maps
+
+            </button>
+
+        </div>
+
+    `;
+
+    createSearchMap(query);
+
+}
+
+/* =========================================================
+CATEGORY IMAGE FALLBACK
+========================================================= */
+
+function getCategoryImage(query){
+
+    const q=
+        String(query).toLowerCase();
+
+    if(
+        q.includes("beach")||
+        q.includes("sea")||
+        q.includes("ocean")
+    ){
+
+        return
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85";
+
+    }
+
+    if(
+        q.includes("food")||
+        q.includes("biryani")||
+        q.includes("dosa")||
+        q.includes("cuisine")
+    ){
+
+        return
+        "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=1400&q=85";
+
+    }
+
+    if(
+        q.includes("temple")||
+        q.includes("church")||
+        q.includes("mosque")
+    ){
+
+        return
+        "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1400&q=85";
+
+    }
+
+    if(
+        q.includes("dance")||
+        q.includes("music")||
+        q.includes("art")
+    ){
+
+        return
+        "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?auto=format&fit=crop&w=1400&q=85";
+
+    }
+
+    if(
+        q.includes("festival")||
+        q.includes("diwali")||
+        q.includes("holi")
+    ){
+
+        return
+        "https://images.unsplash.com/photo-1605379399642-870262d3d051?auto=format&fit=crop&w=1400&q=85";
+
+    }
+
+    return
+    "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1400&q=85";
+
+}
+
+/* =========================================================
+SEARCH MAP
+========================================================= */
+
+function createSearchMap(query){
+
+    const resultsGrid=
+        document.getElementById("resultsGrid");
+
+    const wrapper=
+        document.createElement("div");
+
+    wrapper.className="map-result";
+
+    wrapper.innerHTML=`
+
+        <div class="map-result-header">
+
+            <span class="eyebrow">
+                LOCATION
+            </span>
+
+            <h3>
+                🗺️ ${escapeHTML(query)}
+            </h3>
+
+            <p>
+                Explore this search location directly
+                inside HeritageConnect.
+            </p>
+
+        </div>
+
+        <iframe
+            src="https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed"
+            loading="lazy"
+            allowfullscreen>
+        </iframe>
+
+    `;
+
+    resultsGrid.appendChild(wrapper);
+
+}
+
+/* =========================================================
+GOOGLE MAP
+========================================================= */
+
+function searchGoogleMaps(query){
+
+    if(!query){
+
+        return;
+
+    }
+
+    const map=
+        document.getElementById("mainMap");
+
+    const placeholder=
+        document.getElementById("mapPlaceholder");
+
+    map.src=
+        `https://www.google.com/maps?q=${encodeURIComponent(
+            query
+        )}&output=embed`;
+
+    map.style.display="block";
+
+    placeholder.style.display="none";
+
+    document
+    .getElementById("map")
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+    showToast(
+        "🗺️ Showing "+query+" on map"
+    );
+
+}
+
+function openDirectionsForSearch(query){
+
+    const url=
+        `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(query)}`;
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+}
+
+function openWikipedia(url){
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+}
+
+/* =========================================================
+VOICE SEARCH
+========================================================= */
+
+document
+.getElementById("voiceButton")
+.addEventListener(
+    "click",
+    startVoiceSearch
+);
+
+function startVoiceSearch(){
+
+    const SpeechRecognition=
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    if(!SpeechRecognition){
+
+        showToast(
+            "🎙️ Voice search works best in Google Chrome."
+        );
+
+        return;
+
+    }
+
+    const recognition=
+        new SpeechRecognition();
+
+    recognition.lang=
+        languages[currentLanguage].code;
+
+    recognition.interimResults=false;
+
+    recognition.maxAlternatives=1;
+
+    openSearch();
+
+    showToast(
+        "🎙️ Listening in "+
+        languages[currentLanguage].name
+    );
+
+    recognition.onstart=()=>{
+
+        document
+        .getElementById("voiceButton")
+        .textContent="🔴";
+
+    };
+
+    recognition.onresult=event=>{
+
+        const text=
+            event.results[0][0].transcript;
+
+        document
+        .getElementById("searchInput")
+        .value=text;
+
+        document
+        .getElementById("demoSearchText")
+        .textContent=text;
+
+        performSearch();
+
+    };
+
+    recognition.onerror=event=>{
+
+        showToast(
+            "❌ Microphone error: "+
+            event.error
+        );
+
+    };
+
+    recognition.onend=()=>{
+
+        document
+        .getElementById("voiceButton")
+        .textContent="🎙️";
+
+    };
+
+    try{
+
+        recognition.start();
+
+    }catch(error){
+
+        showToast(
+            "🎙️ Voice recognition could not start."
+        );
+
+    }
+
+}
+
+/* =========================================================
+SCANNER
+========================================================= */
+
+let scannerStream=null;
+
+async function startScanner(){
+
+    const area=
+        document.getElementById("scannerArea");
+
+    const video=
+        document.getElementById("scannerVideo");
+
+    const status=
+        document.getElementById("scannerStatus");
+
+    area.style.display="block";
+
+    if(
+        !navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia
+    ){
+
+        status.textContent=
+            "Camera is not supported.";
+
+        return;
+
+    }
+
+    try{
+
+        scannerStream=
+            await navigator.mediaDevices.getUserMedia({
+
+                video:{
+                    facingMode:{
+                        ideal:"environment"
+                    }
+                },
+
+                audio:false
+
+            });
+
+        video.srcObject=
+            scannerStream;
+
+        status.textContent=
+            "📷 Camera active. Point it at a heritage QR code.";
+
+        showToast(
+            "📷 Scanner started"
+        );
+
+    }catch(error){
+
+        status.textContent=
+            "Camera permission denied or unavailable.";
+
+        showToast(
+            "❌ Please allow camera permission."
+        );
+
+    }
+
+}
+
+function stopScanner(){
+
+    if(scannerStream){
+
+        scannerStream
+        .getTracks()
+        .forEach(track=>track.stop());
+
+        scannerStream=null;
+
+    }
+
+    document
+    .getElementById("scannerArea")
+    .style.display="none";
+
+}
+
+/* =========================================================
+LOCATION
+========================================================= */
+
+function getLocation(){
+
+    const title=
+        document.getElementById("locationTitle");
+
+    const text=
+        document.getElementById("locationText");
+
+    if(!navigator.geolocation){
+
+        text.textContent=
+            "Geolocation is not supported.";
+
+        return;
+
+    }
+
+    title.textContent=
+        "📍 Detecting Location...";
+
+    text.textContent=
+        "Please allow location permission.";
+
+    navigator.geolocation.getCurrentPosition(
+
+        position=>{
+
+            const lat=
+                position.coords.latitude;
+
+            const lon=
+                position.coords.longitude;
+
+            title.textContent=
+                "📍 Your Location";
+
+            text.innerHTML=`
+
+                Latitude:
+                ${lat.toFixed(5)}
+
+                <br>
+
+                Longitude:
+                ${lon.toFixed(5)}
+
+                <br><br>
+
+                Your location has been detected.
+
+            `;
+
+            const map=
+                document.getElementById("mainMap");
+
+            const placeholder=
+                document.getElementById("mapPlaceholder");
+
+            map.src=
+                `https://www.google.com/maps?q=${lat},${lon}&z=14&output=embed`;
+
+            map.style.display="block";
+
+            placeholder.style.display="none";
+
+            showToast(
+                "📍 Location detected"
+            );
+
+        },
+
+        error=>{
+
+            title.textContent=
+                "Location Permission Needed";
+
+            text.textContent=
+                "Please allow location access.";
+
+            showToast(
+                "❌ Location permission denied"
+            );
+
+        },
+
+        {
+
+            enableHighAccuracy:true,
+
+            timeout:10000,
+
+            maximumAge:0
+
+        }
+
+    );
+
+}
+
+/* =========================================================
+NEARBY
+========================================================= */
+
+function showNearbyHeritage(){
+
+    if(!navigator.geolocation){
+
+        searchGoogleMaps(
+            "heritage places India"
+        );
+
+        return;
+
+    }
+
+    navigator.geolocation.getCurrentPosition(
+
+        position=>{
+
+            const lat=
+                position.coords.latitude;
+
+            const lon=
+                position.coords.longitude;
+
+            const map=
+                document.getElementById("mainMap");
+
+            const placeholder=
+                document.getElementById("mapPlaceholder");
+
+            map.src=
+                `https://www.google.com/maps?q=heritage+places+near+me&ll=${lat},${lon}&z=13&output=embed`;
+
+            map.style.display="block";
+
+            placeholder.style.display="none";
+
+            showToast(
+                "🏛️ Showing heritage places near you"
+            );
+
+            document
+            .getElementById("map")
+            .scrollIntoView({
+                behavior:"smooth"
+            });
+
+        },
+
+        ()=>{
+
+            searchGoogleMaps(
+                "heritage places India"
+            );
+
+        }
+
+    );
+
+}
+
+/* =========================================================
+SEARCH AGAIN
+========================================================= */
+
+function searchInsideSite(query){
+
+    document
+    .getElementById("searchInput")
+    .value=query;
+
+    openSearch();
+
+    performSearch();
+
+}
+
+/* =========================================================
+ESCAPE
+========================================================= */
+
+function escapeHTML(text){
+
+    return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+function escapeQuotes(text){
+
+    return String(text)
+    .replace(/\\/g,"\\\\")
+    .replace(/'/g,"\\'")
+    .replace(/"/g,"&quot;");
+
+}
+
+/* =========================================================
+TOAST
+========================================================= */
+
+function showToast(message){
+
+    const toast=
+        document.getElementById("toast");
+
+    toast.textContent=message;
+
+    toast.classList.add("show");
+
+    clearTimeout(
+        window.toastTimer
+    );
+
+    window.toastTimer=
+        setTimeout(()=>{
+
+            toast.classList.remove("show");
+
+        },3000);
+
+}
+
+/* =========================================================
+NAVIGATION
+========================================================= */
+
+document
+.querySelectorAll(".navlinks a")
+.forEach(link=>{
+
+    link.addEventListener("click",()=>{
+
+        document
+        .getElementById("navLinks")
+        .classList.remove("open");
+
+    });
+
+});
+
+/* =========================================================
+ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event=>{
+
+        if(event.key==="Escape"){
+
+            document
+            .getElementById("searchPanel")
+            .classList.remove("show");
+
+        }
+
+    }
+);
+
+/* =========================================================
+DEMO SEARCH
+========================================================= */
+
+document
+.getElementById("demoSearchText")
+.addEventListener(
+    "click",
+    openSearch
+);
+
+/* =========================================================
+INITIAL
+========================================================= */
+
+changeLanguage("en");
+
+</script>
+
+</body>
+</html>
