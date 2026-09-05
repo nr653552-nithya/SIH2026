@@ -2,46 +2,38 @@
    HERITAGE CONNECT
    SMART INDIA HACKATHON 2026
    JAVASCRIPT
-========================================================= */
+   ========================================================= */
 
 
 /* =========================================================
    WAIT FOR PAGE
-========================================================= */
+   ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-
 
     /* =====================================================
        MOBILE MENU
     ===================================================== */
 
     const menuBtn = document.getElementById("menuBtn");
-
     const navLinks = document.getElementById("navLinks");
 
-
     if (menuBtn && navLinks) {
-
         menuBtn.addEventListener("click", () => {
-
             navLinks.classList.toggle("open");
-
         });
-
     }
 
 
     /* =====================================================
        SEARCH PANEL
-    ===================================================== */
+       ===================================================== */
 
     const searchToggle =
         document.getElementById("searchToggle");
 
     const searchPanel =
         document.getElementById("searchPanel");
-
 
     if (searchToggle && searchPanel) {
 
@@ -56,11 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 searchPanel.classList.contains("open") &&
                 input
             ) {
-
                 setTimeout(() => {
                     input.focus();
                 }, 100);
-
             }
 
         });
@@ -70,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        GLOBAL SEARCH
-    ===================================================== */
+       ===================================================== */
 
     const globalSearch =
         document.getElementById("globalSearch");
@@ -83,10 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!globalSearch) return;
 
-
         const query =
             globalSearch.value.trim();
-
 
         if (!query) {
 
@@ -95,16 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
             return;
-
         }
-
-
-        /*
-           Demo search.
-
-           Later we can connect this to a real
-           heritage database / API.
-        */
 
         const searchURL =
             "https://www.google.com/search?q=" +
@@ -112,12 +91,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 query + " Indian heritage culture"
             );
 
-
         window.open(
             searchURL,
-            "_blank"
+            "_blank",
+            "noopener,noreferrer"
         );
-
     }
 
 
@@ -138,9 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
             event => {
 
                 if (event.key === "Enter") {
-
                     performGlobalSearch();
-
                 }
 
             }
@@ -151,128 +127,188 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        VOICE SEARCH
-    ===================================================== */
+       FIXED FOR GITHUB PAGES
+       ===================================================== */
 
     const voiceButtons =
         document.querySelectorAll(
-            '[data-action="voice"]'
+            '[data-action="voice"], #voiceButton'
         );
 
-
     let recognition = null;
-
-
-    /*
-       Browser support check
-    */
+    let voiceSearchWindow = null;
 
     const SpeechRecognition =
         window.SpeechRecognition ||
         window.webkitSpeechRecognition;
 
 
+    /*
+       Browser support
+    */
+
     if (SpeechRecognition) {
 
-        recognition =
-            new SpeechRecognition();
+        try {
 
-        recognition.continuous = false;
+            recognition =
+                new SpeechRecognition();
 
-        recognition.interimResults = false;
-
-        recognition.lang = "en-IN";
-
-
-        recognition.onstart = () => {
-
-            updateVoiceStatus(
-                "🎙️ Listening..."
-            );
-
-        };
-
-
-        recognition.onresult = event => {
-
-            const text =
-                event.results[0][0].transcript;
-
-
-            updateVoiceStatus(
-                "You said: " + text
-            );
-
-
-            const searchInput =
-                document.getElementById(
-                    "globalSearch"
-                );
-
-
-            if (searchInput) {
-
-                searchInput.value = text;
-
-            }
-
-
-            const heritageInput =
-                document.getElementById(
-                    "heritageSearch"
-                );
-
-
-            if (heritageInput) {
-
-                heritageInput.value = text;
-
-            }
-
+            recognition.continuous = false;
+            recognition.interimResults = false;
 
             /*
-               Automatically perform search
+               Default language
             */
 
-            if (searchInput) {
+            recognition.lang = "en-IN";
+
+
+            recognition.onstart = () => {
+
+                updateVoiceStatus(
+                    "🎙️ Listening..."
+                );
+
+                voiceButtons.forEach(button => {
+                    button.classList.add("listening");
+                });
+
+            };
+
+
+            recognition.onresult = event => {
+
+                const text =
+                    event.results[0][0].transcript.trim();
+
+                if (!text) {
+                    updateVoiceStatus(
+                        "No speech detected. Please try again."
+                    );
+                    return;
+                }
+
+
+                updateVoiceStatus(
+                    "You said: " + text
+                );
+
+
+                /*
+                   Put text into global search
+                */
+
+                const searchInput =
+                    document.getElementById(
+                        "globalSearch"
+                    );
+
+                if (searchInput) {
+                    searchInput.value = text;
+                }
+
+
+                /*
+                   Put text into heritage search
+                */
+
+                const heritageInput =
+                    document.getElementById(
+                        "heritageSearch"
+                    );
+
+                if (heritageInput) {
+                    heritageInput.value = text;
+                }
+
+
+                /*
+                   Search Google
+                */
 
                 performVoiceGoogleSearch(text);
 
-            }
-
-        };
+            };
 
 
-        recognition.onerror = () => {
+            recognition.onerror = event => {
 
-            updateVoiceStatus(
-                "Voice recognition could not start. Please try again."
-            );
+                console.error(
+                    "Voice recognition error:",
+                    event.error
+                );
 
-        };
+                let message =
+                    "Voice recognition could not start. Please try again.";
 
+                if (event.error === "not-allowed") {
 
-        recognition.onend = () => {
+                    message =
+                        "🎙️ Microphone permission denied. Please allow microphone access.";
 
-            setTimeout(() => {
+                } else if (event.error === "no-speech") {
 
-                const status =
-                    document.getElementById(
-                        "voiceStatus"
-                    );
+                    message =
+                        "🎙️ No speech detected. Please speak again.";
 
-                if (status) {
+                } else if (event.error === "network") {
 
-                    status.textContent =
-                        "Tap the microphone to start.";
+                    message =
+                        "🌐 Network error. Please check your internet connection.";
+
+                } else if (event.error === "audio-capture") {
+
+                    message =
+                        "🎤 Microphone is not available.";
 
                 }
 
-            }, 3000);
+                updateVoiceStatus(message);
 
-        };
+            };
+
+
+            recognition.onend = () => {
+
+                voiceButtons.forEach(button => {
+                    button.classList.remove("listening");
+                });
+
+                setTimeout(() => {
+
+                    const status =
+                        document.getElementById(
+                            "voiceStatus"
+                        );
+
+                    if (status) {
+
+                        status.textContent =
+                            "Tap the microphone to start.";
+
+                    }
+
+                }, 3000);
+
+            };
+
+        } catch (error) {
+
+            console.error(
+                "Speech Recognition initialization failed:",
+                error
+            );
+
+            recognition = null;
+        }
 
     }
 
+
+    /*
+       Voice button click
+    */
 
     voiceButtons.forEach(button => {
 
@@ -283,23 +319,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (!recognition) {
 
                     alert(
-                        "Voice search is not supported in this browser. Please try Google Chrome."
+                        "Voice search is not supported in this browser. Please use Google Chrome or Microsoft Edge."
                     );
 
                     return;
-
                 }
 
 
                 /*
-                   Set language based on selected UI language
+                   Select language
                 */
 
                 const lang =
                     document.getElementById(
                         "languageSelect"
                     );
-
 
                 if (lang) {
 
@@ -311,7 +345,43 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                recognition.start();
+                /*
+                   IMPORTANT:
+                   Open blank window immediately
+                   to avoid popup blocker.
+                */
+
+                try {
+
+                    voiceSearchWindow =
+                        window.open(
+                            "",
+                            "_blank"
+                        );
+
+                } catch (error) {
+
+                    voiceSearchWindow = null;
+
+                }
+
+
+                try {
+
+                    recognition.start();
+
+                } catch (error) {
+
+                    console.warn(
+                        "Recognition start error:",
+                        error
+                    );
+
+                    updateVoiceStatus(
+                        "🎙️ Please tap the microphone again."
+                    );
+
+                }
 
             }
         );
@@ -326,12 +396,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 "voiceStatus"
             );
 
-
         if (status) {
-
-            status.textContent =
-                message;
-
+            status.textContent = message;
         }
 
     }
@@ -341,7 +407,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!text) return;
 
-
         const url =
             "https://www.google.com/search?q=" +
             encodeURIComponent(
@@ -350,18 +415,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /*
-           Delay slightly so user can see
-           the recognized text.
+           If blank window was opened earlier,
+           use it.
         */
 
-        setTimeout(() => {
+        if (
+            voiceSearchWindow &&
+            !voiceSearchWindow.closed
+        ) {
 
-            window.open(
-                url,
-                "_blank"
-            );
+            try {
 
-        }, 700);
+                voiceSearchWindow.location.href =
+                    url;
+
+                voiceSearchWindow.focus();
+
+                voiceSearchWindow = null;
+
+                return;
+
+            } catch (error) {
+
+                console.warn(
+                    "Could not use voice search window:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /*
+           Fallback:
+           Open search normally.
+        */
+
+        window.open(
+            url,
+            "_blank"
+        );
 
     }
 
@@ -394,7 +488,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         };
 
-
         return languages[language] || "en-IN";
 
     }
@@ -402,7 +495,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        LANGUAGE SELECTOR
-    ===================================================== */
+       ===================================================== */
 
     const languageSelect =
         document.getElementById(
@@ -502,7 +595,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         return messages[language] ||
-               messages.en;
+            messages.en;
 
     }
 
@@ -524,7 +617,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             toast.id =
                 "languageToast";
-
 
             toast.style.position =
                 "fixed";
@@ -553,7 +645,6 @@ document.addEventListener("DOMContentLoaded", () => {
             toast.style.boxShadow =
                 "0 15px 40px rgba(0,0,0,.2)";
 
-
             document.body.appendChild(
                 toast
             );
@@ -563,7 +654,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         toast.textContent =
             message;
-
 
         toast.style.display =
             "block";
@@ -581,7 +671,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        HERITAGE SEARCH
-    ===================================================== */
+       ===================================================== */
 
     const heritageSearch =
         document.getElementById(
@@ -610,9 +700,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "keydown",
             event => {
 
-                if (
-                    event.key === "Enter"
-                ) {
+                if (event.key === "Enter") {
 
                     performHeritageSearch();
 
@@ -627,7 +715,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function performHeritageSearch() {
 
         const query =
-            heritageSearch.value.trim();
+            heritageSearch ?
+            heritageSearch.value.trim() :
+            "";
 
 
         const results =
@@ -646,16 +736,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             return;
-
         }
 
-
-        /*
-           Demo local result cards.
-
-           Later this can connect to a
-           real cultural heritage database.
-        */
 
         const cards = [
 
@@ -713,15 +795,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        SCANNER
-    ===================================================== */
+       FIXED FOR GITHUB PAGES
+       ===================================================== */
 
-    const startScanner =
+    const startScannerButton =
         document.getElementById(
             "startScanner"
         );
 
 
-    const stopScanner =
+    const stopScannerButton =
         document.getElementById(
             "stopScanner"
         );
@@ -747,6 +830,22 @@ document.addEventListener("DOMContentLoaded", () => {
         null;
 
 
+    let scannerRunning =
+        false;
+
+
+    let scannerCanvas =
+        null;
+
+
+    let scannerCanvasContext =
+        null;
+
+
+    /*
+       Native BarcodeDetector
+    */
+
     if (
         "BarcodeDetector" in window
     ) {
@@ -770,16 +869,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
         } catch (error) {
 
-            barcodeDetector = null;
+            console.warn(
+                "BarcodeDetector unavailable:",
+                error
+            );
+
+            barcodeDetector =
+                null;
 
         }
 
     }
 
 
-    if (startScanner) {
+    /*
+       Start button
+    */
 
-        startScanner.addEventListener(
+    if (startScannerButton) {
+
+        startScannerButton.addEventListener(
             "click",
             startCamera
         );
@@ -787,9 +896,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    if (stopScanner) {
+    /*
+       Stop button
+    */
 
-        stopScanner.addEventListener(
+    if (stopScannerButton) {
+
+        stopScannerButton.addEventListener(
             "click",
             stopCamera
         );
@@ -797,14 +910,85 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /*
+       Make functions available globally.
+
+       This is important because your HTML
+       may contain onclick="startScanner()".
+    */
+
+    window.startScanner =
+        startCamera;
+
+    window.stopScanner =
+        stopCamera;
+
+
+    /* =====================================================
+       START CAMERA
+       ===================================================== */
+
     async function startCamera() {
 
-        if (!navigator.mediaDevices ||
-            !navigator.mediaDevices.getUserMedia) {
+        /*
+           If already running, do nothing.
+        */
+
+        if (scannerRunning) {
+
+            if (scannerStatus) {
+
+                scannerStatus.textContent =
+                    "📷 Camera is already active.";
+
+            }
+
+            return;
+
+        }
+
+
+        /*
+           Check browser support
+        */
+
+        if (
+            !navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia
+        ) {
+
+            if (scannerStatus) {
+
+                scannerStatus.textContent =
+                    "Camera access is not supported by this browser.";
+
+            }
 
             alert(
-                "Camera access is not supported by this browser."
+                "Camera access is not supported. Please use Google Chrome or Microsoft Edge."
             );
+
+            return;
+
+        }
+
+
+        /*
+           Check HTTPS / secure context
+        */
+
+        if (
+            !window.isSecureContext &&
+            location.hostname !== "localhost" &&
+            location.hostname !== "127.0.0.1"
+        ) {
+
+            if (scannerStatus) {
+
+                scannerStatus.textContent =
+                    "Camera requires HTTPS. Please open the GitHub Pages HTTPS link.";
+
+            }
 
             return;
 
@@ -813,12 +997,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
 
+            if (scannerStatus) {
+
+                scannerStatus.textContent =
+                    "📷 Requesting camera permission...";
+
+            }
+
+
+            /*
+               Camera request
+            */
+
             scannerStream =
                 await navigator.mediaDevices.getUserMedia({
 
                     video: {
                         facingMode: {
                             ideal: "environment"
+                        },
+
+                        width: {
+                            ideal: 1280
+                        },
+
+                        height: {
+                            ideal: 720
                         }
                     },
 
@@ -827,10 +1031,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
 
+            scannerRunning =
+                true;
+
+
+            /*
+               Attach stream to video
+            */
+
             if (scannerVideo) {
 
                 scannerVideo.srcObject =
                     scannerStream;
+
+
+                scannerVideo.setAttribute(
+                    "playsinline",
+                    ""
+                );
+
+
+                scannerVideo.muted =
+                    true;
+
+
+                try {
+
+                    await scannerVideo.play();
+
+                } catch (error) {
+
+                    console.warn(
+                        "Video autoplay issue:",
+                        error
+                    );
+
+                }
 
             }
 
@@ -843,16 +1079,41 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
+            /*
+               Native BarcodeDetector
+            */
+
             if (barcodeDetector) {
 
                 scanBarcode();
 
             } else {
 
-                if (scannerStatus) {
+                /*
+                   Load jsQR fallback
+                */
 
-                    scannerStatus.textContent =
-                        "Camera is active. QR detection depends on browser support.";
+                await loadJsQR();
+
+                if (window.jsQR) {
+
+                    if (scannerStatus) {
+
+                        scannerStatus.textContent =
+                            "📷 Camera active — scanning QR code...";
+
+                    }
+
+                    scanQRCodeFallback();
+
+                } else {
+
+                    if (scannerStatus) {
+
+                        scannerStatus.textContent =
+                            "📷 Camera active. QR detection is not available in this browser.";
+
+                    }
 
                 }
 
@@ -860,13 +1121,62 @@ document.addEventListener("DOMContentLoaded", () => {
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "Camera error:",
+                error
+            );
+
+
+            scannerRunning =
+                false;
+
+            scannerStream =
+                null;
+
+
+            let message =
+                "Camera permission was denied or unavailable.";
+
+
+            if (
+                error.name ===
+                "NotAllowedError"
+            ) {
+
+                message =
+                    "📷 Camera permission denied. Please allow camera access for this site.";
+
+            } else if (
+                error.name ===
+                "NotFoundError"
+            ) {
+
+                message =
+                    "📷 No camera was found on this device.";
+
+            } else if (
+                error.name ===
+                "NotReadableError"
+            ) {
+
+                message =
+                    "📷 Camera is being used by another application.";
+
+            } else if (
+                error.name ===
+                "SecurityError"
+            ) {
+
+                message =
+                    "🔒 Camera access was blocked by browser security.";
+
+            }
 
 
             if (scannerStatus) {
 
                 scannerStatus.textContent =
-                    "Camera permission was denied or unavailable.";
+                    message;
 
             }
 
@@ -875,9 +1185,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =====================================================
+       NATIVE BARCODE SCANNER
+       ===================================================== */
+
     async function scanBarcode() {
 
         if (
+            !scannerRunning ||
             !scannerStream ||
             !barcodeDetector ||
             !scannerVideo
@@ -896,7 +1211,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
 
-            if (codes.length > 0) {
+            if (
+                codes &&
+                codes.length > 0
+            ) {
 
                 const value =
                     codes[0].rawValue;
@@ -910,26 +1228,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                /*
-                   If QR contains a URL,
-                   open it.
-                */
-
-                if (
-                    value.startsWith("http://") ||
-                    value.startsWith("https://")
-                ) {
-
-                    setTimeout(() => {
-
-                        window.open(
-                            value,
-                            "_blank"
-                        );
-
-                    }, 800);
-
-                }
+                handleScannedValue(
+                    value
+                );
 
 
                 stopCamera();
@@ -940,37 +1241,445 @@ document.addEventListener("DOMContentLoaded", () => {
 
         } catch (error) {
 
-            /*
-               Ignore detection errors while
-               camera is running.
-            */
+            console.warn(
+                "Barcode detection:",
+                error
+            );
 
         }
 
 
-        requestAnimationFrame(
-            scanBarcode
-        );
+        if (scannerRunning) {
+
+            requestAnimationFrame(
+                scanBarcode
+            );
+
+        }
 
     }
 
 
+    /* =====================================================
+       LOAD jsQR FALLBACK
+       ===================================================== */
+
+    function loadJsQR() {
+
+        return new Promise(resolve => {
+
+            /*
+               Already loaded
+            */
+
+            if (window.jsQR) {
+
+                resolve(true);
+                return;
+
+            }
+
+
+            /*
+               Prevent duplicate script
+            */
+
+            const existing =
+                document.querySelector(
+                    'script[data-jsqr="true"]'
+                );
+
+
+            if (existing) {
+
+                existing.addEventListener(
+                    "load",
+                    () => resolve(true)
+                );
+
+                existing.addEventListener(
+                    "error",
+                    () => resolve(false)
+                );
+
+                return;
+
+            }
+
+
+            const script =
+                document.createElement(
+                    "script"
+                );
+
+
+            script.src =
+                "https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js";
+
+
+            script.async =
+                true;
+
+
+            script.dataset.jsqr =
+                "true";
+
+
+            script.onload =
+                () => {
+
+                    console.log(
+                        "jsQR loaded successfully."
+                    );
+
+                    resolve(
+                        typeof window.jsQR ===
+                        "function"
+                    );
+
+                };
+
+
+            script.onerror =
+                () => {
+
+                    console.error(
+                        "Could not load jsQR."
+                    );
+
+                    resolve(false);
+
+                };
+
+
+            document.head.appendChild(
+                script
+            );
+
+        });
+
+    }
+
+
+    /* =====================================================
+       QR FALLBACK SCANNER
+       ===================================================== */
+
+    function scanQRCodeFallback() {
+
+        if (
+            !scannerRunning ||
+            !scannerVideo ||
+            !window.jsQR
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+           Create canvas only once
+        */
+
+        if (!scannerCanvas) {
+
+            scannerCanvas =
+                document.createElement(
+                    "canvas"
+                );
+
+            scannerCanvasContext =
+                scannerCanvas.getContext(
+                    "2d",
+                    {
+                        willReadFrequently: true
+                    }
+                );
+
+        }
+
+
+        /*
+           Video must have dimensions
+        */
+
+        if (
+            scannerVideo.readyState <
+            HTMLMediaElement.HAVE_CURRENT_DATA
+        ) {
+
+            requestAnimationFrame(
+                scanQRCodeFallback
+            );
+
+            return;
+
+        }
+
+
+        const width =
+            scannerVideo.videoWidth;
+
+
+        const height =
+            scannerVideo.videoHeight;
+
+
+        if (
+            !width ||
+            !height
+        ) {
+
+            requestAnimationFrame(
+                scanQRCodeFallback
+            );
+
+            return;
+
+        }
+
+
+        scannerCanvas.width =
+            width;
+
+
+        scannerCanvas.height =
+            height;
+
+
+        try {
+
+            scannerCanvasContext.drawImage(
+                scannerVideo,
+                0,
+                0,
+                width,
+                height
+            );
+
+
+            const imageData =
+                scannerCanvasContext.getImageData(
+                    0,
+                    0,
+                    width,
+                    height
+                );
+
+
+            const code =
+                window.jsQR(
+                    imageData.data,
+                    imageData.width,
+                    imageData.height,
+                    {
+                        inversionAttempts:
+                            "attemptBoth"
+                    }
+                );
+
+
+            if (code) {
+
+                const value =
+                    code.data;
+
+
+                if (scannerStatus) {
+
+                    scannerStatus.textContent =
+                        "✅ Scanned: " + value;
+
+                }
+
+
+                handleScannedValue(
+                    value
+                );
+
+
+                stopCamera();
+
+                return;
+
+            }
+
+        } catch (error) {
+
+            console.warn(
+                "QR scan error:",
+                error
+            );
+
+        }
+
+
+        if (scannerRunning) {
+
+            requestAnimationFrame(
+                scanQRCodeFallback
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       HANDLE SCANNED QR VALUE
+       ===================================================== */
+
+    function handleScannedValue(value) {
+
+        if (!value) return;
+
+
+        /*
+           URL
+        */
+
+        if (
+            value.startsWith(
+                "http://"
+            ) ||
+            value.startsWith(
+                "https://"
+            )
+        ) {
+
+            setTimeout(() => {
+
+                window.open(
+                    value,
+                    "_blank",
+                    "noopener,noreferrer"
+                );
+
+            }, 500);
+
+            return;
+
+        }
+
+
+        /*
+           Normal text
+        */
+
+        const searchInput =
+            document.getElementById(
+                "globalSearch"
+            );
+
+
+        const heritageInput =
+            document.getElementById(
+                "heritageSearch"
+            );
+
+
+        if (searchInput) {
+
+            searchInput.value =
+                value;
+
+        }
+
+
+        if (heritageInput) {
+
+            heritageInput.value =
+                value;
+
+        }
+
+
+        /*
+           Show result if available
+        */
+
+        const results =
+            document.getElementById(
+                "searchResults"
+            );
+
+
+        if (results) {
+
+            results.innerHTML = `
+
+                <article class="result-card">
+
+                    <div style="font-size:32px;">
+                        📷
+                    </div>
+
+                    <h3>
+                        Scanned Heritage Information
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(value)}
+                    </p>
+
+                </article>
+
+            `;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       ESCAPE HTML
+       ===================================================== */
+
+    function escapeHTML(value) {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.textContent =
+            value;
+
+        return div.innerHTML;
+
+    }
+
+
+    /* =====================================================
+       STOP CAMERA
+       ===================================================== */
+
     function stopCamera() {
+
+        scannerRunning =
+            false;
+
 
         if (scannerStream) {
 
             scannerStream
                 .getTracks()
                 .forEach(track => {
+
                     track.stop();
+
                 });
 
-            scannerStream = null;
+            scannerStream =
+                null;
 
         }
 
 
         if (scannerVideo) {
+
+            scannerVideo.pause();
 
             scannerVideo.srcObject =
                 null;
@@ -990,7 +1699,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        LOCATION
-    ===================================================== */
+       ===================================================== */
 
     const locationBtn =
         document.getElementById(
@@ -1045,6 +1754,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const lat =
                     position.coords.latitude;
 
+
                 const lng =
                     position.coords.longitude;
 
@@ -1068,11 +1778,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                /*
-                   Open Google Maps near
-                   current coordinates.
-                */
-
                 const mapsURL =
                     `https://www.google.com/maps/search/heritage+sites/@${lat},${lng},13z`;
 
@@ -1086,23 +1791,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 openMap.href =
                     mapsURL;
 
+
                 openMap.target =
                     "_blank";
+
 
                 openMap.rel =
                     "noopener";
 
+
                 openMap.className =
                     "btn primary";
 
+
                 openMap.style.marginTop =
                     "15px";
+
 
                 openMap.textContent =
                     "🗺️ Explore Heritage Near Me";
 
 
-                if (locationStatus) {
+                if (
+                    locationStatus &&
+                    locationStatus.parentElement
+                ) {
 
                     locationStatus
                         .parentElement
@@ -1114,10 +1827,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             },
 
+
             error => {
 
                 let message =
                     "Unable to detect location.";
+
 
                 if (
                     error.code ===
@@ -1126,6 +1841,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     message =
                         "Location permission was denied. Please allow location access.";
+
+                } else if (
+                    error.code ===
+                    error.POSITION_UNAVAILABLE
+                ) {
+
+                    message =
+                        "Location information is unavailable.";
+
+                } else if (
+                    error.code ===
+                    error.TIMEOUT
+                ) {
+
+                    message =
+                        "Location request timed out.";
 
                 }
 
@@ -1139,13 +1870,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
             },
 
+
             {
 
-                enableHighAccuracy: false,
+                enableHighAccuracy:
+                    false,
 
-                timeout: 10000,
+                timeout:
+                    10000,
 
-                maximumAge: 60000
+                maximumAge:
+                    60000
 
             }
 
@@ -1156,7 +1891,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        LANGUAGE DEMO BUTTONS
-    ===================================================== */
+       ===================================================== */
 
     const demoLanguages =
         document.querySelectorAll(
@@ -1196,7 +1931,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        CONTACT FORM
-    ===================================================== */
+       ===================================================== */
 
     const contactForm =
         document.getElementById(
@@ -1243,7 +1978,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        CLOSE MOBILE MENU AFTER LINK CLICK
-    ===================================================== */
+       ===================================================== */
 
     document
         .querySelectorAll(".navlinks a")
@@ -1266,5 +2001,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         });
 
+
+    /* =====================================================
+       PAGE INITIALIZATION MESSAGE
+       ===================================================== */
+
+    console.log(
+        "🌸 Heritage Connect JavaScript loaded successfully."
+    );
+
+    console.log(
+        "📷 Scanner ready."
+    );
+
+    console.log(
+        "🎙️ Voice search ready."
+    );
 
 });
