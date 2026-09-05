@@ -5093,5 +5093,508 @@ renderExperiences();renderPendingSubmissions();
 
 </script>
 
+
+<script>
+/* =========================================================
+   HERITAGECONNECT - SCANNER + VOICE COMPATIBILITY FIX
+   Keeps the existing HTML structure unchanged.
+========================================================= */
+
+(function () {
+
+    /* -------------------------
+       SCANNER
+    ------------------------- */
+
+    let hcScannerStream = null;
+    let hcScannerRunning = false;
+    let hcBarcodeDetector = null;
+    let hcJsQRLoading = false;
+
+    const hcGet = id => document.getElementById(id);
+
+    function hcScannerStatus(message) {
+        const status = hcGet("scannerStatus");
+        if (status) status.textContent = message;
+    }
+
+    function hcOpenScannerArea() {
+        const area = hcGet("scannerArea");
+        if (area) area.style.display = "block";
+    }
+
+    function hcCloseScannerArea() {
+        const area = hcGet("scannerArea");
+        if (area) area.style.display = "none";
+    }
+
+    function hcLoadJsQR() {
+        return new Promise((resolve) => {
+
+            if (window.jsQR) {
+                resolve(true);
+                return;
+            }
+
+            if (hcJsQRLoading) {
+                const wait = setInterval(() => {
+                    if (window.jsQR) {
+                        clearInterval(wait);
+                        resolve(true);
+                    }
+                }, 100);
+                setTimeout(() => {
+                    clearInterval(wait);
+                    resolve(!!window.jsQR);
+                }, 8000);
+                return;
+            }
+
+            hcJsQRLoading = true;
+
+            const script = document.createElement("script");
+            script.src = "https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js";
+            script.onload = () => {
+                hcJsQRLoading = false;
+                resolve(!!window.jsQR);
+            };
+            script.onerror = () => {
+                hcJsQRLoading = false;
+                resolve(false);
+            };
+
+            document.head.appendChild(script);
+        });
+    }
+
+    function hcHandleScannedValue(value) {
+
+        if (!value) return;
+
+        hcScannerStatus("✅ Scanned: " + value);
+
+        if (/^https?:\/\//i.test(value)) {
+            window.open(value, "_blank");
+        } else {
+            const searchInput = hcGet("globalSearch");
+            if (searchInput) {
+                searchInput.value = value;
+            }
+
+            if (typeof window.performSearch === "function") {
+                try {
+                    window.performSearch();
+                } catch (e) {
+                    console.warn("Search after scan failed:", e);
+                }
+            }
+        }
+
+        window.stopScanner();
+    }
+
+    async function hcScanWithBarcodeDetector() {
+
+        const video = hcGet("scannerVideo");
+
+        if (!hcScannerRunning || !video || !hcBarcodeDetector) {
+            return;
+        }
+
+        try {
+
+            if (video.readyState >= 2) {
+
+                const codes = await hcBarcodeDetector.detect(video);
+
+                if (codes && codes.length) {
+                    hcHandleScannedValue(codes[0].rawValue);
+                    return;
+                }
+            }
+
+        } catch (error) {
+            // Ignore individual detection errors.
+        }
+
+        if (hcScannerRunning) {
+            requestAnimationFrame(hcScanWithBarcodeDetector);
+        }
+    }
+
+    async function hcScanWithJsQR() {
+
+        const video = hcGet("scannerVideo");
+
+        if (!hcScannerRunning || !video) {
+            return;
+        }
+
+        if (!window.jsQR) {
+            return;
+        }
+
+        const canvas = hcScanWithJsQR.canvas ||
+            (hcScanWithJsQR.canvas = document.createElement("canvas"));
+
+        const context = canvas.getContext("2d", { willReadFrequently: true });
+
+        if (video.readyState >= 2 && video.videoWidth > 0) {
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            const imageData = context.getImageData(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+
+            const code = window.jsQR(
+                imageData.data,
+                imageData.width,
+                imageData.height,
+                { inversionAttempts: "attemptBoth" }
+            );
+
+            if (code && code.data) {
+                hcHandleScannedValue(code.data);
+                return;
+            }
+        }
+
+        if (hcScannerRunning) {
+            requestAnimationFrame(hcScanWithJsQR);
+        }
+    }
+
+    async function hcStartScanner() {
+
+        const video = hcGet("scannerVideo");
+
+        if (!navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia) {
+
+            hcScannerStatus(
+                "❌ Camera is not supported by this browser."
+            );
+            return;
+        }
+
+        if (!window.isSecureContext) {
+
+            hcScannerStatus(
+                "❌ Camera needs HTTPS. Please open the GitHub Pages HTTPS link."
+            );
+            return;
+        }
+
+        if (hcScannerStream) {
+            return;
+        }
+
+        hcOpenScannerArea();
+        hcScannerStatus("📷 Requesting camera permission...");
+
+        try {
+
+            hcScannerStream =
+                await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: { ideal: "environment" }
+                    },
+                    audio: false
+                });
+
+            hcScannerRunning = true;
+
+            if (video) {
+
+                video.setAttribute("playsinline", "");
+                video.setAttribute("autoplay", "");
+                video.muted = true;
+                video.srcObject = hcScannerStream;
+
+                try {
+                    await video.play();
+                } catch (e) {
+                    console.warn("Video play warning:", e);
+                }
+            }
+
+            hcScannerStatus(
+                "📷 Camera active — point it at a QR code."
+            );
+
+            if ("BarcodeDetector" in window) {
+
+                try {
+
+                    hcBarcodeDetector =
+                        new BarcodeDetector({
+                            formats: ["qr_code"]
+                        });
+
+                } catch (e) {
+                    hcBarcodeDetector = null;
+                }
+            }
+
+            if (hcBarcodeDetector) {
+
+                hcScanWithBarcodeDetector();
+
+            } else {
+
+                const loaded = await hcLoadJsQR();
+
+                if (loaded) {
+                    hcScannerStatus(
+                        "📷 Camera active — point it at a QR code."
+                    );
+                    hcScanWithJsQR();
+                } else {
+                    hcScannerStatus(
+                        "📷 Camera active. QR detection is unavailable in this browser."
+                    );
+                }
+            }
+
+        } catch (error) {
+
+            console.error("Camera error:", error);
+
+            hcScannerRunning = false;
+            hcScannerStream = null;
+
+            if (error && error.name === "NotAllowedError") {
+
+                hcScannerStatus(
+                    "❌ Camera permission denied. Allow camera access and try again."
+                );
+
+            } else if (error && error.name === "NotFoundError") {
+
+                hcScannerStatus(
+                    "❌ No camera was found on this device."
+                );
+
+            } else {
+
+                hcScannerStatus(
+                    "❌ Camera could not start. Please check browser permission."
+                );
+            }
+        }
+    }
+
+    function hcStopScanner() {
+
+        hcScannerRunning = false;
+
+        if (hcScannerStream) {
+
+            hcScannerStream
+                .getTracks()
+                .forEach(track => track.stop());
+
+            hcScannerStream = null;
+        }
+
+        const video = hcGet("scannerVideo");
+
+        if (video) {
+            video.pause();
+            video.srcObject = null;
+        }
+
+        hcScannerStatus("Scanner is ready.");
+    }
+
+    /* These are the exact global names used by the existing HTML. */
+    window.startScanner = hcStartScanner;
+    window.stopScanner = hcStopScanner;
+
+
+    /* -------------------------
+       VOICE SEARCH
+    ------------------------- */
+
+    let hcRecognition = null;
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    function hcSpeechLanguage(code) {
+
+        const map = {
+            en: "en-IN",
+            ta: "ta-IN",
+            hi: "hi-IN",
+            te: "te-IN",
+            bn: "bn-IN",
+            mr: "mr-IN",
+            gu: "gu-IN",
+            kn: "kn-IN",
+            ml: "ml-IN"
+        };
+
+        return map[code] || "en-IN";
+    }
+
+    function hcVoiceStatus(message) {
+
+        const status = hcGet("voiceStatus");
+
+        if (status) {
+            status.textContent = message;
+        }
+    }
+
+    function hcVoiceSearch() {
+
+        if (!SpeechRecognition) {
+
+            alert(
+                "Voice search is not supported in this browser. Please use Google Chrome or Microsoft Edge."
+            );
+
+            return;
+        }
+
+        if (!hcRecognition) {
+
+            hcRecognition = new SpeechRecognition();
+
+            hcRecognition.continuous = false;
+            hcRecognition.interimResults = false;
+
+            hcRecognition.onstart = function () {
+                hcVoiceStatus("🎙️ Listening...");
+            };
+
+            hcRecognition.onresult = function (event) {
+
+                const text =
+                    event.results[0][0].transcript.trim();
+
+                if (!text) return;
+
+                hcVoiceStatus("You said: " + text);
+
+                const inputs = [
+                    hcGet("globalSearch"),
+                    hcGet("heritageSearch")
+                ];
+
+                inputs.forEach(input => {
+                    if (input) input.value = text;
+                });
+
+                /*
+                   Use the existing search function if available.
+                   Otherwise open Google as a fallback.
+                */
+                setTimeout(function () {
+
+                    if (typeof window.performSearch === "function") {
+
+                        try {
+                            window.performSearch();
+                            return;
+                        } catch (e) {
+                            console.warn(
+                                "Existing search failed:",
+                                e
+                            );
+                        }
+                    }
+
+                    window.open(
+                        "https://www.google.com/search?q=" +
+                        encodeURIComponent(
+                            text + " Indian heritage culture"
+                        ),
+                        "_blank"
+                    );
+
+                }, 300);
+            };
+
+            hcRecognition.onerror = function (event) {
+
+                console.error("Voice error:", event.error);
+
+                if (event.error === "not-allowed") {
+
+                    hcVoiceStatus(
+                        "❌ Microphone permission denied. Allow microphone access and try again."
+                    );
+
+                } else if (event.error === "no-speech") {
+
+                    hcVoiceStatus(
+                        "🎙️ No speech detected. Please try again."
+                    );
+
+                } else {
+
+                    hcVoiceStatus(
+                        "❌ Voice recognition failed. Please try again."
+                    );
+                }
+            };
+
+            hcRecognition.onend = function () {
+
+                setTimeout(function () {
+                    hcVoiceStatus(
+                        "Tap the microphone to start."
+                    );
+                }, 1500);
+            };
+        }
+
+        const languageSelect =
+            hcGet("languageSelect");
+
+        hcRecognition.lang =
+            hcSpeechLanguage(
+                languageSelect ? languageSelect.value : "en"
+            );
+
+        try {
+            hcRecognition.start();
+        } catch (error) {
+            console.warn("Voice start warning:", error);
+        }
+    }
+
+    /*
+       Existing HTML already calls startVoiceSearch()
+       from some buttons, so expose it globally.
+    */
+    window.startVoiceSearch = hcVoiceSearch;
+
+    /*
+       Header microphone button uses id="voiceButton".
+    */
+    const voiceButton = hcGet("voiceButton");
+
+    if (voiceButton) {
+
+        voiceButton.addEventListener(
+            "click",
+            hcVoiceSearch
+        );
+    }
+
+})();
+</script>
+
 </body>
 </html>
