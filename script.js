@@ -1695,6 +1695,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     }
+    window.startScanner = startCamera;
+    window.stopScanner = stopCamera;
 
 
     /* =====================================================
