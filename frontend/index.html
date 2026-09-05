@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>HeritageConnect | SIH 2026</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 
 <style>
 
@@ -579,6 +580,42 @@ a{
     gap:10px;
 }
 
+.map-search-box{
+    flex:1 1 420px;
+    min-width:280px;
+    height:48px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:0 8px 0 14px;
+    border:1px solid #d5cec1;
+    border-radius:12px;
+    background:#fff;
+    box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+.map-search-box span{font-size:18px;}
+.map-search-box input{
+    flex:1;
+    min-width:0;
+    height:100%;
+    border:0;
+    outline:0;
+    font-size:14px;
+    background:transparent;
+}
+.map-search-box button{
+    height:36px;
+    border:0;
+    border-radius:9px;
+    padding:0 16px;
+    background:#172033;
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+}
+.map-search-box button:hover{background:#b47b2d;}
+
+
 .main-map{
     width:100%;
     height:450px;
@@ -873,6 +910,361 @@ body{
     }
 }
 
+
+/* warning fixes */
+.stop-camera-btn{
+margin-top:15px;
+}
+
+.map-icon{
+font-size:50px;
+}
+
+.footer-brand-title{
+color:white;
+}
+
+.footer-description{
+margin-top:15px;
+}
+
+/* INTERACTIVE MAP */
+#mainMap{
+    width:100%;
+    height:620px;
+    border:0;
+    display:none;
+}
+.map-explorer-layout{
+    display:grid;
+    grid-template-columns:360px minmax(0,1fr);
+    gap:0;
+    overflow:hidden;
+    border:1px solid #ddd5c8;
+    border-radius:18px;
+    background:#fff;
+}
+.nearby-panel{
+    background:#fff;
+    border-right:1px solid #e2dbd0;
+    min-height:620px;
+    max-height:620px;
+    overflow-y:auto;
+    position:relative;
+    z-index:2;
+}
+.nearby-panel-header{
+    position:sticky;
+    top:0;
+    z-index:3;
+    background:#fff;
+    padding:18px;
+    border-bottom:1px solid #eee7dc;
+}
+.nearby-panel-header h3{
+    font-family:Georgia,serif;
+    font-size:22px;
+    margin:4px 0 6px;
+}
+.nearby-panel-header p{
+    font-size:12px;
+    color:#687083;
+    margin:0 0 12px;
+}
+.radius-options{
+    display:flex;
+    gap:8px;
+}
+.radius-option{
+    flex:1;
+    border:1px solid #d8d0c3;
+    background:#faf8f3;
+    color:#172033;
+    padding:9px 8px;
+    border-radius:9px;
+    font-weight:bold;
+    font-size:12px;
+    cursor:pointer;
+}
+.radius-option.active{
+    background:#172033;
+    color:#fff;
+    border-color:#172033;
+}
+.nearby-list{
+    padding:10px;
+}
+
+/* SEARCHED PLACE + TEMPLE MODE */
+.map-search-box{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex:1;
+    min-width:280px;
+    background:#fff;
+    border:1px solid #d8d0c3;
+    border-radius:12px;
+    padding:5px 7px 5px 12px;
+    box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+.map-search-box input{
+    flex:1;
+    min-width:0;
+    border:0;
+    outline:0;
+    background:transparent;
+    font-size:14px;
+    color:#172033;
+}
+.map-search-box button{
+    border:0;
+    background:#172033;
+    color:#fff;
+    padding:9px 14px;
+    border-radius:8px;
+    font-weight:700;
+    cursor:pointer;
+}
+.search-mode-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:8px;
+    padding:6px 9px;
+    border-radius:8px;
+    background:#f6ead5;
+    color:#7d561e;
+    font-size:11px;
+    font-weight:700;
+}
+.searched-place-card{
+    margin:10px;
+    padding:12px;
+    border-radius:10px;
+    background:#f7f4ee;
+    border:1px solid #e2dbd0;
+}
+.searched-place-card strong{display:block;color:#172033;margin-bottom:4px;}
+.searched-place-card small{color:#687083;line-height:1.45;}
+@media(max-width:900px){
+    .map-search-box{min-width:100%;}
+}
+.nearby-card{
+    display:block;
+    width:100%;
+    text-align:left;
+    border:0;
+    border-bottom:1px solid #eee7dc;
+    background:#fff;
+    padding:14px 10px;
+    cursor:pointer;
+    transition:.2s ease;
+}
+.nearby-card:hover{
+    background:#faf8f3;
+}
+.nearby-card:last-child{
+    border-bottom:0;
+}
+.nearby-card-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:flex-start;
+}
+.nearby-card h4{
+    font-family:Georgia,serif;
+    font-size:17px;
+    margin:0 0 5px;
+    color:#172033;
+}
+.nearby-category{
+    font-size:10px;
+    color:#a16d25;
+    text-transform:uppercase;
+    font-weight:bold;
+    letter-spacing:.4px;
+}
+.nearby-distance{
+    white-space:nowrap;
+    font-size:11px;
+    font-weight:bold;
+    color:#687083;
+}
+.nearby-fee{
+    display:inline-block;
+    margin-top:8px;
+    padding:5px 8px;
+    border-radius:7px;
+    background:#f6ead5;
+    color:#7d561e;
+    font-size:11px;
+    font-weight:bold;
+}
+.nearby-address{
+    margin-top:7px;
+    color:#7a7f8b;
+    font-size:11px;
+    line-height:1.5;
+}
+.nearby-actions{
+    display:flex;
+    gap:6px;
+    margin-top:9px;
+}
+.nearby-actions button{
+    border:0;
+    border-radius:7px;
+    padding:7px 9px;
+    font-size:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
+.nearby-view{background:#172033;color:#fff;}
+.nearby-direction{background:#eee8de;color:#172033;}
+.nearby-empty,.nearby-loading{
+    padding:35px 18px;
+    text-align:center;
+    color:#687083;
+    font-size:13px;
+    line-height:1.6;
+}
+.nearby-empty strong,.nearby-loading strong{color:#172033;}
+.map-side{
+    min-width:0;
+    position:relative;
+}
+.map-radius-note{
+    margin-left:auto;
+    font-size:12px;
+    font-weight:bold;
+    color:#a16d25;
+}
+#mapInfoBar{
+    display:none;
+    padding:12px 18px;
+    background:#f7f4ee;
+    border-top:1px solid #ddd5c8;
+    font-size:13px;
+    color:#687083;
+}
+@media(max-width:900px){
+    .map-explorer-layout{grid-template-columns:1fr;}
+    .nearby-panel{
+        border-right:0;
+        border-bottom:1px solid #e2dbd0;
+        min-height:0;
+        max-height:390px;
+    }
+    #mainMap{height:480px;}
+}
+@media(max-width:600px){
+    #mainMap{height:390px;}
+    .map-radius-note{
+        width:100%;
+        margin-left:0;
+    }
+}
+
+
+/* =========================================================
+   COMMUNITY STORIES / ADMIN SYSTEM
+========================================================= */
+.community-section{background:#f7f4ee;}
+.community-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:start;}
+.community-form-card,.admin-login-card,.admin-panel-card,.stories-card{background:#fff;border:1px solid #ddd5c8;border-radius:22px;padding:25px;box-shadow:0 8px 25px rgba(0,0,0,.06);}
+.community-form-card h3,.admin-login-card h3,.admin-panel-card h3{font-family:Georgia,serif;font-size:28px;margin:8px 0 10px;}
+.form-group{margin-bottom:15px;}
+.form-group label{display:block;font-weight:bold;font-size:13px;margin-bottom:6px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px;border:1px solid #d8d0c3;border-radius:10px;outline:none;background:#fff;}
+.form-group textarea{min-height:125px;resize:vertical;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#b47b2d;}
+.photo-preview{display:none;margin-top:12px;}
+.photo-preview img{width:100%;max-height:260px;object-fit:cover;border-radius:14px;border:1px solid #ddd5c8;}
+.form-note{font-size:12px;color:#687083;margin:10px 0 18px;}
+.admin-access{display:flex;justify-content:flex-end;margin-bottom:18px;}
+.admin-login{display:none;margin-top:20px;}
+.admin-login.show{display:block;}
+.admin-login-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.admin-panel{display:none;margin-top:25px;}
+.admin-panel.show{display:block;}
+.admin-header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px;}
+.admin-count{background:#172033;color:#fff;padding:7px 12px;border-radius:20px;font-size:12px;font-weight:bold;white-space:nowrap;}
+.pending-grid,.experience-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+.pending-card,.experience-card{background:#fff;border:1px solid #ddd5c8;border-radius:18px;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.06);}
+.pending-card>img,.experience-card-image{width:100%;height:230px;object-fit:cover;display:block;background:#eee;}
+.pending-body,.experience-card-body{padding:18px;}
+.pending-status{display:inline-block;background:#fff3d6;color:#8a5c16;padding:5px 9px;border-radius:15px;font-size:10px;font-weight:bold;letter-spacing:.5px;margin-bottom:10px;}
+.pending-body h3,.experience-card-body h4{font-family:Georgia,serif;font-size:24px;margin-bottom:8px;}
+.pending-body p,.experience-card-body p{color:#687083;font-size:13px;margin:6px 0;}
+.pending-details{background:#f7f4ee;border-radius:12px;padding:13px;margin:14px 0;font-size:13px;white-space:pre-wrap;}
+.pending-actions,.experience-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px;}
+.pending-actions button,.experience-actions button{border:none;padding:10px 13px;border-radius:9px;font-size:12px;font-weight:bold;cursor:pointer;}
+.approve-btn{background:#1f7a4d;color:#fff;}
+.reject-btn,.delete-experience{background:#9b2c2c;color:#fff;}
+.map-experience{background:#172033;color:#fff;}
+.no-pending,.empty-experience{grid-column:1/-1;text-align:center;padding:40px 20px;background:#faf8f3;border:1px dashed #d8d0c3;border-radius:16px;}
+.experience-type{display:inline-block;color:#a16d25;background:#f6ead5;padding:5px 9px;border-radius:15px;font-size:10px;font-weight:bold;text-transform:uppercase;}
+.experience-location{font-size:12px;color:#7b6f60;margin:7px 0 12px;}
+.experience-author{font-size:11px;color:#7a7f8b;border-top:1px solid #eee7dc;padding-top:12px;margin-top:13px;line-height:1.7;}
+.workflow-box{background:#172033;color:#fff;border-radius:18px;padding:18px;margin-bottom:22px;}
+.workflow-box strong{color:#e8bd73;}
+.workflow-line{font-size:13px;line-height:1.8;}
+@media(max-width:900px){.community-grid,.pending-grid,.experience-grid{grid-template-columns:1fr;}}
+
+
+/* =========================================================
+   FINAL NEARBY MAP POLISH
+========================================================= */
+.custom-temple-marker,
+.custom-place-marker{
+    background:transparent!important;
+    border:0!important;
+}
+
+.nearby-panel::-webkit-scrollbar{
+    width:7px;
+}
+
+.nearby-panel::-webkit-scrollbar-thumb{
+    background:#d8d0c3;
+    border-radius:10px;
+}
+
+.nearby-card{
+    min-height:118px;
+}
+
+.nearby-card h4{
+    line-height:1.25;
+}
+
+.leaflet-popup-content-wrapper{
+    border-radius:12px;
+}
+
+.leaflet-popup-content{
+    margin:13px 14px;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+@media(max-width:900px){
+    .map-explorer-layout{
+        grid-template-columns:1fr;
+    }
+
+    .nearby-panel{
+        max-height:430px;
+        border-right:0;
+        border-bottom:1px solid #e2dbd0;
+    }
+
+    #mainMap{
+        height:520px!important;
+    }
+}
+
 </style>
 
 <script>
@@ -898,6 +1290,7 @@ function googleTranslateElementInit(){
 src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
 </script>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 </head>
 
 <body>
@@ -960,6 +1353,8 @@ SIH 2026 • CULTURE TECH
 
 <a href="#features">Features</a>
 
+<a href="#experiences">Community</a>
+
 </nav>
 
 <div class="nav-tools">
@@ -980,7 +1375,9 @@ title="Voice Search">
 
 <select
 class="language-select"
-id="languageSelect">
+id="languageSelect"
+aria-label="Select language"
+title="Select language">
 
 <option value="en">English</option>
 <option value="hi">हिन्दी</option>
@@ -1328,8 +1725,7 @@ id="scannerArea">
 
 <video
 id="scannerVideo"
-autoplay
-playsinline>
+autoplay>
 </video>
 
 <div
@@ -1339,9 +1735,8 @@ Camera starting...
 </div>
 
 <button
-class="btn btn-light"
-onclick="stopScanner()"
-style="margin-top:15px">
+class="btn btn-light stop-camera-btn"
+onclick="stopScanner()">
 Stop Camera
 </button>
 
@@ -1384,60 +1779,200 @@ Use your current location or search a place on the map.
 
 <div class="map-controls">
 
+<div class="map-search-box">
+    <span>🔎</span>
+    <input
+        id="mapSearchInput"
+        type="text"
+        placeholder="Search a place, city, temple, beach..."
+        autocomplete="off"
+    >
+    <button type="button" onclick="searchMapDirect()">Search</button>
+</div>
+
 <button
 class="btn btn-primary"
 onclick="getLocation()">
-📍 Find My Location
+📍 My Location
 </button>
 
 <button
 class="btn btn-light"
 onclick="showNearbyHeritage()">
-🏛️ Heritage Near Me
+🏛️ Nearby Places
 </button>
 
-<button
-class="btn btn-light"
-onclick="searchGoogleMaps(prompt('Enter place to show on map:'))">
-🗺️ Search Map
-</button>
+<span class="map-radius-note" id="mapRadiusTopNote">
+⭕ SELECT 5 KM / 10 KM
+</span>
 
 </div>
 
-<div
-class="map-placeholder"
-id="mapPlaceholder">
+<div class="map-explorer-layout">
 
-<div class="map-content">
-
-<div style="font-size:50px">
-📍
+<div class="nearby-panel" id="nearbyPanel">
+  <div class="nearby-panel-header">
+    <span class="eyebrow">NEARBY HERITAGE</span>
+    <h3>Explore Around You</h3>
+    <p>Zoom or move the map to update nearby places automatically.</p>
+    <div class="radius-options">
+      <button type="button" class="radius-option active" id="radius5Btn" onclick="setHeritageRadius(5)">5 KM</button>
+      <button type="button" class="radius-option" id="radius10Btn" onclick="setHeritageRadius(10)">10 KM</button>
+    </div>
+  </div>
+  <div class="nearby-list" id="nearbyList">
+    <div class="nearby-empty">
+      <div style="font-size:38px">🏛️</div>
+      <strong>Find heritage places nearby</strong><br>
+      Click <b>My Location</b> or <b>Heritage Near Me</b> to start.
+    </div>
+  </div>
 </div>
 
-<h3 id="locationTitle">
-Your Heritage Map
-</h3>
+<div class="map-side">
+  <div
+  class="map-placeholder"
+  id="mapPlaceholder">
+    <div class="map-content">
+      <div class="map-icon">📍</div>
+      <h3 id="locationTitle">Your Heritage Map</h3>
+      <p id="locationText">Click "My Location" to discover heritage places within 5 km or 10 km.</p>
+    </div>
+  </div>
 
-<p id="locationText">
-Click "Find My Location" to detect your current location.
-</p>
-
+  <div id="mainMap" class="main-map"></div>
+  <div id="mapInfoBar"></div>
 </div>
 
 </div>
-
-<iframe
-id="mainMap"
-class="main-map"
-loading="lazy"
-allowfullscreen>
-</iframe>
 
 </div>
 
 </div>
 
 </section>
+
+
+
+<!-- COMMUNITY STORIES -->
+<section class="section community-section" id="experiences">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">COMMUNITY HERITAGE</span>
+      <h2>Share Your <span class="gold">Story.</span></h2>
+      <p>Community stories become public only after admin approval.</p>
+    </div>
+
+    <div class="workflow-box">
+      <div class="workflow-line"><strong>User Submit</strong> → Pending Submissions → <strong>Admin Review</strong></div>
+      <div class="workflow-line"><strong>Approve / Upload</strong> → Heritage Experiences → Community Stories</div>
+      <div class="workflow-line"><strong>Reject</strong> → Removed (not published)</div>
+    </div>
+
+    <div class="community-grid">
+      <div class="community-form-card">
+        <span class="eyebrow">PUBLIC SUBMISSION</span>
+        <h3>Submit a Heritage Experience</h3>
+        <p class="form-note">Your story will stay pending until an administrator approves it.</p>
+
+        <form id="experienceForm">
+          <div class="form-group">
+            <label for="experienceName">Your Name *</label>
+            <input id="experienceName" type="text" placeholder="Enter your name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="experiencePlace">Place / Story Title *</label>
+            <input id="experiencePlace" type="text" placeholder="e.g. Madurai Chithirai Festival" required>
+          </div>
+
+          <div class="form-group">
+            <label for="experienceCategory">Category *</label>
+            <select id="experienceCategory" required>
+              <option value="">Select category</option>
+              <option>Monument</option>
+              <option>Temple</option>
+              <option>Festival</option>
+              <option>Food</option>
+              <option>Dance</option>
+              <option>Music</option>
+              <option>Tradition</option>
+              <option>Handicraft</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="experienceLocation">Location</label>
+            <input id="experienceLocation" type="text" placeholder="City / State / India">
+          </div>
+
+          <div class="form-group">
+            <label for="experienceText">Your Experience *</label>
+            <textarea id="experienceText" placeholder="Tell us about this heritage, tradition or experience..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="experiencePhoto">Upload Photo *</label>
+            <input id="experiencePhoto" type="file" accept="image/*" required>
+            <div class="photo-preview" id="photoPreview">
+              <img id="previewImage" src="" alt="Photo preview">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">📤 Submit Story</button>
+        </form>
+      </div>
+
+      <div>
+        <div class="stories-card">
+          <div class="admin-header">
+            <div>
+              <span class="eyebrow">PUBLISHED CONTENT</span>
+              <h3>Community Stories</h3>
+            </div>
+            <span class="admin-count" id="experienceCount">0 Stories</span>
+          </div>
+          <div class="experience-grid" id="experienceGrid"></div>
+        </div>
+
+        <div class="admin-access">
+          <button class="btn btn-light" onclick="toggleAdminLogin()">🔓 Open Admin Panel</button>
+        </div>
+
+        <div class="admin-login" id="adminLoginBox">
+          <div class="admin-login-card">
+            <span class="eyebrow">ADMIN ACCESS</span>
+            <h3>Review Submissions</h3>
+            <p class="form-note">Demo password: <strong>admin123</strong></p>
+            <div class="form-group">
+              <label for="adminPassword">Admin Password</label>
+              <input id="adminPassword" type="password" placeholder="Enter admin password">
+            </div>
+            <div class="admin-login-actions">
+              <button class="btn btn-primary" onclick="adminLogin()">🔐 Login</button>
+              <button class="btn btn-light" onclick="toggleAdminLogin()">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-panel" id="adminPanel">
+          <div class="admin-panel-card">
+            <div class="admin-header">
+              <div>
+                <span class="eyebrow">ADMIN CONTROL CENTER</span>
+                <h3>📥 Pending Submissions</h3>
+              </div>
+              <span class="admin-count" id="pendingCount">0 Pending</span>
+            </div>
+            <div class="pending-grid" id="pendingGrid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- LANGUAGES -->
 
@@ -1620,8 +2155,7 @@ onclick="openSearch()">
 <span>
 
 <span
-class="brand-title"
-style="color:white">
+class="brand-title footer-brand-title">
 HeritageConnect
 </span>
 
@@ -1633,7 +2167,7 @@ SIH 2026
 
 </div>
 
-<p style="margin-top:15px">
+<p class="footer-description">
 Technology for preserving India's living heritage.
 </p>
 
@@ -2031,6 +2565,9 @@ async function performSearch(){
 
         createSearchMap(query);
 
+        /* Also show the searched place on the main interactive map */
+        searchGoogleMaps(query);
+
         resultDescription.textContent=
             count+
             " result"+
@@ -2185,6 +2722,9 @@ async function searchEnglishFallback(query){
         }
 
         createSearchMap(query);
+
+        /* Also show the searched place on the main interactive map */
+        searchGoogleMaps(query);
 
         document
         .getElementById("resultDescription")
@@ -2507,421 +3047,1855 @@ function createSearchMap(query){
 }
 
 /* =========================================================
-GOOGLE MAP
+REAL INTERACTIVE HERITAGE MAP
+Booking-style nearby list + 5 KM / 10 KM radius
 ========================================================= */
 
-function searchGoogleMaps(query){
 
-    if(!query){
+let heritageMap=null;
+let currentLocationMarker=null;
+let currentLocationCircle=null;
+let searchedPlaceMarker=null;
+let userLatitude=null;
+let userLongitude=null;
+let heritageRadiusKm=10;
+let nearbyMarkers=[];
+let nearbyRequestId=0;
+let nearbyMoveTimer=null;
+let hasNearbyMode=false;
+let searchIsTempleMode=false;
+let searchedPlaceName="";
+let searchedPlaceLat=null;
+let searchedPlaceLon=null;
+let activeMapQuery="";
 
-        return;
+/* ---------------------------------------------------------
+   MAP CACHE
+--------------------------------------------------------- */
+const nearbyHeritageCache=new Map();
+const LOCAL_CACHE_KEY="nammaHeritageNearbyCacheV5";
 
-    }
-
-    const map=
-        document.getElementById("mainMap");
-
-    const placeholder=
-        document.getElementById("mapPlaceholder");
-
-    map.src=
-        `https://www.google.com/maps?q=${encodeURIComponent(
-            query
-        )}&output=embed`;
-
-    map.style.display="block";
-
-    placeholder.style.display="none";
-
-    document
-    .getElementById("map")
-    .scrollIntoView({
-        behavior:"smooth"
-    });
-
-    showToast(
-        "🗺️ Showing "+query+" on map"
-    );
-
-}
-
-function openDirectionsForSearch(query){
-
-    const url=
-        `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(query)}`;
-
-    window.open(
-        url,
-        "_blank"
-    );
-
-}
-
-function openWikipedia(url){
-
-    window.open(
-        url,
-        "_blank"
-    );
-
-}
-
-/* =========================================================
-VOICE SEARCH
-========================================================= */
-
-document
-.getElementById("voiceButton")
-.addEventListener(
-    "click",
-    startVoiceSearch
-);
-
-function startVoiceSearch(){
-
-    const SpeechRecognition=
-        window.SpeechRecognition ||
-        window.webkitSpeechRecognition;
-
-    if(!SpeechRecognition){
-
-        showToast(
-            "🎙️ Voice search works best in Google Chrome."
-        );
-
-        return;
-
-    }
-
-    const recognition=
-        new SpeechRecognition();
-
-    recognition.lang=
-        languages[currentLanguage].code;
-
-    recognition.interimResults=false;
-
-    recognition.maxAlternatives=1;
-
-    openSearch();
-
-    showToast(
-        "🎙️ Listening in "+
-        languages[currentLanguage].name
-    );
-
-    recognition.onstart=()=>{
-
-        document
-        .getElementById("voiceButton")
-        .textContent="🔴";
-
-    };
-
-    recognition.onresult=event=>{
-
-        const text=
-            event.results[0][0].transcript;
-
-        document
-        .getElementById("searchInput")
-        .value=text;
-
-        document
-        .getElementById("demoSearchText")
-        .textContent=text;
-
-        performSearch();
-
-    };
-
-    recognition.onerror=event=>{
-
-        showToast(
-            "❌ Microphone error: "+
-            event.error
-        );
-
-    };
-
-    recognition.onend=()=>{
-
-        document
-        .getElementById("voiceButton")
-        .textContent="🎙️";
-
-    };
-
+function loadStoredNearbyCache(){
     try{
-
-        recognition.start();
-
+        const raw=localStorage.getItem(LOCAL_CACHE_KEY);
+        if(!raw) return;
+        const saved=JSON.parse(raw);
+        if(!saved || typeof saved!=="object") return;
+        Object.entries(saved).forEach(([key,value])=>{
+            if(Array.isArray(value)) nearbyHeritageCache.set(key,value);
+        });
     }catch(error){
-
-        showToast(
-            "🎙️ Voice recognition could not start."
-        );
-
+        console.warn("Nearby cache unavailable",error);
     }
-
 }
 
-/* =========================================================
-SCANNER
-========================================================= */
-
-let scannerStream=null;
-
-async function startScanner(){
-
-    const area=
-        document.getElementById("scannerArea");
-
-    const video=
-        document.getElementById("scannerVideo");
-
-    const status=
-        document.getElementById("scannerStatus");
-
-    area.style.display="block";
-
-    if(
-        !navigator.mediaDevices ||
-        !navigator.mediaDevices.getUserMedia
-    ){
-
-        status.textContent=
-            "Camera is not supported.";
-
-        return;
-
-    }
-
+function saveNearbyCache(){
     try{
-
-        scannerStream=
-            await navigator.mediaDevices.getUserMedia({
-
-                video:{
-                    facingMode:{
-                        ideal:"environment"
-                    }
-                },
-
-                audio:false
-
-            });
-
-        video.srcObject=
-            scannerStream;
-
-        status.textContent=
-            "📷 Camera active. Point it at a heritage QR code.";
-
-        showToast(
-            "📷 Scanner started"
+        const entries=Array.from(nearbyHeritageCache.entries()).slice(-30);
+        localStorage.setItem(
+            LOCAL_CACHE_KEY,
+            JSON.stringify(Object.fromEntries(entries))
         );
-
     }catch(error){
-
-        status.textContent=
-            "Camera permission denied or unavailable.";
-
-        showToast(
-            "❌ Please allow camera permission."
-        );
-
+        console.warn("Could not save nearby cache",error);
     }
-
 }
 
-function stopScanner(){
+loadStoredNearbyCache();
 
-    if(scannerStream){
-
-        scannerStream
-        .getTracks()
-        .forEach(track=>track.stop());
-
-        scannerStream=null;
-
-    }
-
-    document
-    .getElementById("scannerArea")
-    .style.display="none";
-
+/* ---------------------------------------------------------
+   SEARCH HELPERS
+--------------------------------------------------------- */
+function isTempleQuery(query){
+    return /\b(temple|temples|kovil|koil|mandir|devasthanam|shrine|pagoda)\b/i
+        .test(String(query||""));
 }
 
-/* =========================================================
-LOCATION
-========================================================= */
+function isGenericTempleQuery(query){
+    const q=String(query||"").trim().toLowerCase();
+    return /^(temple|temples|kovil|koil|mandir|devasthanam|shrine|shrines|pagoda)$/
+        .test(q);
+}
 
-function getLocation(){
+/* ---------------------------------------------------------
+   MAP INITIALIZATION
+--------------------------------------------------------- */
+function initializeHeritageMap(){
 
-    const title=
-        document.getElementById("locationTitle");
-
-    const text=
-        document.getElementById("locationText");
-
-    if(!navigator.geolocation){
-
-        text.textContent=
-            "Geolocation is not supported.";
-
-        return;
-
+    if(heritageMap){
+        return heritageMap;
     }
 
-    title.textContent=
-        "📍 Detecting Location...";
+    heritageMap=L.map("mainMap",{
+        zoomControl:true,
+        scrollWheelZoom:true,
+        preferCanvas:true
+    }).setView([13.0827,80.2707],12);
 
-    text.textContent=
-        "Please allow location permission.";
-
-    navigator.geolocation.getCurrentPosition(
-
-        position=>{
-
-            const lat=
-                position.coords.latitude;
-
-            const lon=
-                position.coords.longitude;
-
-            title.textContent=
-                "📍 Your Location";
-
-            text.innerHTML=`
-
-                Latitude:
-                ${lat.toFixed(5)}
-
-                <br>
-
-                Longitude:
-                ${lon.toFixed(5)}
-
-                <br><br>
-
-                Your location has been detected.
-
-            `;
-
-            const map=
-                document.getElementById("mainMap");
-
-            const placeholder=
-                document.getElementById("mapPlaceholder");
-
-            map.src=
-                `https://www.google.com/maps?q=${lat},${lon}&z=14&output=embed`;
-
-            map.style.display="block";
-
-            placeholder.style.display="none";
-
-            showToast(
-                "📍 Location detected"
-            );
-
-        },
-
-        error=>{
-
-            title.textContent=
-                "Location Permission Needed";
-
-            text.textContent=
-                "Please allow location access.";
-
-            showToast(
-                "❌ Location permission denied"
-            );
-
-        },
-
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
+            maxZoom:19,
+            attribution:"© OpenStreetMap contributors"
+        }
+    ).addTo(heritageMap);
 
-            enableHighAccuracy:true,
+    /*
+       When the user drags/zooms the map, fetch places around
+       the NEW map center. This gives the Booking-style behavior.
+    */
+    heritageMap.on("moveend",function(){
 
-            timeout:10000,
-
-            maximumAge:0
-
+        if(!hasNearbyMode){
+            return;
         }
 
-    );
+        clearTimeout(nearbyMoveTimer);
 
-}
+        nearbyMoveTimer=setTimeout(function(){
 
-/* =========================================================
-NEARBY
-========================================================= */
+            const center=heritageMap.getCenter();
 
-function showNearbyHeritage(){
-
-    if(!navigator.geolocation){
-
-        searchGoogleMaps(
-            "heritage places India"
-        );
-
-        return;
-
-    }
-
-    navigator.geolocation.getCurrentPosition(
-
-        position=>{
-
-            const lat=
-                position.coords.latitude;
-
-            const lon=
-                position.coords.longitude;
-
-            const map=
-                document.getElementById("mainMap");
-
-            const placeholder=
-                document.getElementById("mapPlaceholder");
-
-            map.src=
-                `https://www.google.com/maps?q=heritage+places+near+me&ll=${lat},${lon}&z=13&output=embed`;
-
-            map.style.display="block";
-
-            placeholder.style.display="none";
-
-            showToast(
-                "🏛️ Showing heritage places near you"
+            loadNearbyHeritage(
+                center.lat,
+                center.lng,
+                heritageRadiusKm
             );
 
-            document
+        },800);
+    });
+
+    return heritageMap;
+}
+
+function showMainMap(){
+
+    document.getElementById("mainMap").style.display="block";
+    document.getElementById("mapPlaceholder").style.display="none";
+
+    initializeHeritageMap();
+
+    setTimeout(function(){
+        heritageMap.invalidateSize();
+    },200);
+}
+
+function updateMapInfo(message){
+
+    const info=document.getElementById("mapInfoBar");
+
+    if(!info){
+        return;
+    }
+
+    info.style.display="block";
+    info.innerHTML=message;
+}
+
+function updateRadiusUI(){
+
+    const five=document.getElementById("radius5Btn");
+    const ten=document.getElementById("radius10Btn");
+    const top=document.getElementById("mapRadiusTopNote");
+
+    if(five){
+        five.classList.toggle("active",heritageRadiusKm===5);
+    }
+
+    if(ten){
+        ten.classList.toggle("active",heritageRadiusKm===10);
+    }
+
+    if(top){
+        top.textContent="⭕ "+heritageRadiusKm+" KM RADIUS";
+    }
+}
+
+function setHeritageRadius(km){
+
+    heritageRadiusKm=(km===10)?10:5;
+
+    updateRadiusUI();
+    updateNearbyPanelHeader();
+
+    if(!heritageMap){
+        return;
+    }
+
+    drawCurrentLocationCircle();
+
+    if(hasNearbyMode){
+
+        const center=heritageMap.getCenter();
+
+        loadNearbyHeritage(
+            center.lat,
+            center.lng,
+            heritageRadiusKm
+        );
+    }
+
+    showToast(
+        "📍 Nearby search radius changed to "+
+        heritageRadiusKm+
+        " KM"
+    );
+}
+
+/* ---------------------------------------------------------
+   DIRECT MAP SEARCH
+--------------------------------------------------------- */
+function searchMapDirect(){
+
+    const input=document.getElementById("mapSearchInput");
+    const query=input ? input.value.trim() : "";
+
+    if(!query){
+        showToast("🔎 Enter a place to search on the map.");
+        if(input) input.focus();
+        return;
+    }
+
+    searchGoogleMaps(query);
+}
+
+function useMapSearchSuggestion(query){
+
+    const input=document.getElementById("mapSearchInput");
+
+    if(input){
+        input.value=query;
+    }
+
+    searchGoogleMaps(query);
+}
+
+function searchMapFromPrompt(){
+
+    const input=document.getElementById("mapSearchInput");
+    const query=input ? input.value.trim() : "";
+
+    if(query){
+        searchGoogleMaps(query);
+    }
+}
+
+/* ---------------------------------------------------------
+   LOCATION SEARCH
+--------------------------------------------------------- */
+async function geocodePlace(query){
+
+    const cleanQuery=String(query||"").trim();
+
+    if(!cleanQuery){
+        return null;
+    }
+
+    /*
+       IMPORTANT:
+       A generic "temple" search MUST start at Chennai.
+       We do NOT geocode "temple" itself because that returns
+       one random temple and causes the old one-marker problem.
+    */
+    const searchQuery=isGenericTempleQuery(cleanQuery)
+        ? "Chennai, Tamil Nadu, India"
+        : (
+            /\bindia\b/i.test(cleanQuery)
+                ? cleanQuery
+                : cleanQuery+", India"
+        );
+
+    const url=
+        "https://nominatim.openstreetmap.org/search"+
+        "?format=json"+
+        "&addressdetails=1"+
+        "&limit=5"+
+        "&countrycodes=in"+
+        "&accept-language=en"+
+        "&q="+encodeURIComponent(searchQuery);
+
+    const response=await fetch(url,{
+        headers:{
+            "Accept":"application/json"
+        }
+    });
+
+    if(!response.ok){
+        throw new Error("Location search failed");
+    }
+
+    const data=await response.json();
+
+    if(!Array.isArray(data) || data.length===0){
+        return null;
+    }
+
+    const wanted=cleanQuery.toLowerCase();
+
+    return data.find(item=>
+        String(item.display_name||"")
+            .toLowerCase()
+            .startsWith(wanted)
+    ) || data[0];
+}
+
+/* ---------------------------------------------------------
+   MAIN SEARCH
+--------------------------------------------------------- */
+async function searchGoogleMaps(query){
+
+    if(!query || !query.trim()){
+        return;
+    }
+
+    query=query.trim();
+    activeMapQuery=query;
+
+    const mapSearchInput=document.getElementById("mapSearchInput");
+    if(mapSearchInput){
+        mapSearchInput.value=query;
+    }
+
+    searchIsTempleMode=isTempleQuery(query);
+
+    /*
+       Generic temple search = Chennai + 10 KM.
+       Specific temple search = exact temple + 10 KM.
+    */
+    if(searchIsTempleMode){
+        heritageRadiusKm=10;
+    }
+
+    showMainMap();
+    updateRadiusUI();
+    updateNearbyPanelHeader();
+
+    updateMapInfo(
+        "🔎 Searching map for <strong>"+
+        escapeHTML(query)+
+        "</strong>..."
+    );
+
+    try{
+
+        const place=await geocodePlace(query);
+
+        if(!place){
+
+            updateMapInfo(
+                "❌ Location not found. Try a more specific place name."
+            );
+
+            showToast(
+                "❌ Could not find "+query
+            );
+
+            return;
+        }
+
+        const lat=parseFloat(place.lat);
+        const lon=parseFloat(place.lon);
+
+        if(!Number.isFinite(lat) || !Number.isFinite(lon)){
+            throw new Error("Invalid coordinates");
+        }
+
+        hasNearbyMode=true;
+
+        userLatitude=lat;
+        userLongitude=lon;
+
+        searchedPlaceName=
+            place.display_name || query;
+
+        searchedPlaceLat=lat;
+        searchedPlaceLon=lon;
+
+        try{
+
+            localStorage.setItem(
+                "nammaHeritageLastMapSearch",
+                JSON.stringify({
+                    query:query,
+                    lat:lat,
+                    lon:lon,
+                    displayName:
+                        place.display_name || query,
+                    templeMode:searchIsTempleMode,
+                    radius:heritageRadiusKm
+                })
+            );
+
+        }catch(error){}
+
+        try{
+
+            const recent=
+                JSON.parse(
+                    localStorage.getItem(
+                        "nammaHeritageRecentSearches"
+                    ) || "[]"
+                );
+
+            const item={
+                query:query,
+                displayName:
+                    place.display_name || query
+            };
+
+            const filtered=
+                recent.filter(
+                    x =>
+                        String(x.query).toLowerCase() !==
+                        query.toLowerCase()
+                );
+
+            filtered.unshift(item);
+
+            localStorage.setItem(
+                "nammaHeritageRecentSearches",
+                JSON.stringify(filtered.slice(0,8))
+            );
+
+        }catch(error){}
+
+        if(searchedPlaceMarker){
+            heritageMap.removeLayer(
+                searchedPlaceMarker
+            );
+        }
+
+        searchedPlaceMarker=
+            L.marker([lat,lon],{
+                zIndexOffset:2000
+            })
+            .addTo(heritageMap)
+            .bindPopup(
+                "<b>📍 "+
+                escapeHTML(
+                    place.display_name || query
+                )+
+                "</b><br>"+
+                (
+                    searchIsTempleMode
+                        ? "🛕 Search center"
+                        : "📌 Search center"
+                )
+            );
+
+        /*
+           For a generic temple search, show Chennai first.
+           For a specific temple, show that exact temple.
+        */
+        heritageMap.setView(
+            [lat,lon],
+            searchIsTempleMode ? 13 : 14,
+            {animate:true}
+        );
+
+        searchedPlaceMarker.openPopup();
+
+        drawCurrentLocationCircle();
+
+        const title=
+            document.getElementById("locationTitle");
+
+        const text=
+            document.getElementById("locationText");
+
+        if(title){
+
+            title.textContent=
+                searchIsTempleMode
+                    ? "🛕 Temple Explorer"
+                    : "📍 Place Explorer";
+        }
+
+        if(text){
+
+            text.innerHTML=
+                searchIsTempleMode
+                    ? "Showing <strong>all mapped temples</strong> around <strong>"+
+                      escapeHTML(
+                          isGenericTempleQuery(query)
+                              ? "Chennai"
+                              : query
+                      )+
+                      "</strong> within <strong>"+
+                      heritageRadiusKm+
+                      " KM</strong>."
+                    : "Showing <strong>"+
+                      escapeHTML(query)+
+                      "</strong> and nearby heritage places within <strong>"+
+                      heritageRadiusKm+
+                      " KM</strong>.";
+        }
+
+        updateMapInfo(
+            searchIsTempleMode
+                ? "🛕 <strong>Temple search:</strong> "+
+                  (
+                    isGenericTempleQuery(query)
+                        ? "Chennai"
+                        : escapeHTML(query)
+                  )+
+                  " • Loading all nearby mapped temples..."
+                : "📍 <strong>Showing:</strong> "+
+                  escapeHTML(
+                      place.display_name || query
+                  )
+        );
+
+        await loadNearbyHeritage(
+            lat,
+            lon,
+            heritageRadiusKm
+        );
+
+        document
             .getElementById("map")
             .scrollIntoView({
                 behavior:"smooth"
             });
 
-        },
+        showToast(
+            searchIsTempleMode
+                ? "🛕 Multiple nearby temples loaded"
+                : "🗺️ Nearby places loaded"
+        );
 
-        ()=>{
+    }catch(error){
 
-            searchGoogleMaps(
-                "heritage places India"
-            );
+        console.error("Map search error:",error);
 
-        }
+        updateMapInfo(
+            "❌ Map search failed. Please check your internet connection."
+        );
 
-    );
-
+        showToast("❌ Map search failed");
+    }
 }
 
-/* =========================================================
-SEARCH AGAIN
-========================================================= */
+/* ---------------------------------------------------------
+   PANEL HEADER
+--------------------------------------------------------- */
+function updateNearbyPanelHeader(){
+
+    const panel=
+        document.getElementById("nearbyPanel");
+
+    if(!panel){
+        return;
+    }
+
+    const headerTitle=
+        panel.querySelector(
+            ".nearby-panel-header h3"
+        );
+
+    const headerText=
+        panel.querySelector(
+            ".nearby-panel-header p"
+        );
+
+    const eyebrow=
+        panel.querySelector(
+            ".nearby-panel-header .eyebrow"
+        );
+
+    if(searchIsTempleMode){
+
+        if(eyebrow){
+            eyebrow.textContent="NEARBY TEMPLES";
+        }
+
+        if(headerTitle){
+            headerTitle.textContent=
+                "Temples Around You";
+        }
+
+        if(headerText){
+            headerText.textContent=
+                "All mapped temples around the searched location are listed here. Move or zoom the map to update them.";
+        }
+
+    }else{
+
+        if(eyebrow){
+            eyebrow.textContent=
+                "NEARBY HERITAGE";
+        }
+
+        if(headerTitle){
+            headerTitle.textContent=
+                "Explore Around You";
+        }
+
+        if(headerText){
+            headerText.textContent=
+                "Move or zoom the map to update nearby places automatically.";
+        }
+    }
+}
+
+/* ---------------------------------------------------------
+   OSM HELPERS
+--------------------------------------------------------- */
+function getElementCenter(element){
+
+    if(
+        element.type==="node" &&
+        Number.isFinite(Number(element.lat)) &&
+        Number.isFinite(Number(element.lon))
+    ){
+        return {
+            lat:Number(element.lat),
+            lon:Number(element.lon)
+        };
+    }
+
+    if(
+        element.center &&
+        Number.isFinite(Number(element.center.lat)) &&
+        Number.isFinite(Number(element.center.lon))
+    ){
+        return {
+            lat:Number(element.center.lat),
+            lon:Number(element.center.lon)
+        };
+    }
+
+    return null;
+}
+
+function getPlaceName(tags){
+
+    return tags.name ||
+        tags["name:en"] ||
+        tags["official_name"] ||
+        tags["name:ta"] ||
+        "Unnamed Temple";
+}
+
+function getPlaceCategory(tags){
+
+    if(tags.historic){
+        return tags.historic.replace(/_/g," ");
+    }
+
+    if(tags.tourism){
+        return tags.tourism.replace(/_/g," ");
+    }
+
+    if(tags.amenity){
+        return tags.amenity.replace(/_/g," ");
+    }
+
+    return "heritage";
+}
+
+function getEntryFee(tags){
+
+    const fee=String(
+        tags.fee ||
+        tags.charge ||
+        tags["payment:fee"] ||
+        ""
+    ).trim();
+
+    if(!fee){
+        return "Entry: Not specified";
+    }
+
+    if(/^(no|free|0|false)$/i.test(fee)){
+        return "Entry: Free";
+    }
+
+    if(/^(yes|true)$/i.test(fee)){
+        return "Entry: Paid";
+    }
+
+    return "Entry: "+fee;
+}
+
+function getNearbyCacheKey(lat,lon,radius){
+
+    return [
+        searchIsTempleMode
+            ? "temple"
+            : "heritage",
+        lat.toFixed(2),
+        lon.toFixed(2),
+        radius
+    ].join("_");
+}
+
+/* ---------------------------------------------------------
+   ROBUST OVERPASS SEARCH
+   FIX: previously, if every public Overpass mirror failed
+   (CORS / rate-limit / no internet), this function threw an
+   error. That exception stopped fetchNearbyHeritage() before
+   it could add the guaranteed local temple list, so a generic
+   "temple" search only ever showed the single searched-place
+   marker with no nearby points.
+   Now, if all mirrors fail, we simply return an EMPTY result
+   instead of throwing, so the caller can still fall back to
+   the guaranteed local temple list and show multiple points.
+--------------------------------------------------------- */
+async function fetchOverpass(query){
+
+    /*
+       Use multiple public Overpass servers.
+       GET is used because it is more reliable from a normal
+       browser page than the previous POST-only implementation.
+    */
+    const endpoints=[
+        "https://overpass-api.de/api/interpreter",
+        "https://overpass.kumi.systems/api/interpreter",
+        "https://overpass.private.coffee/api/interpreter"
+    ];
+
+    let lastError=null;
+
+    for(const endpoint of endpoints){
+
+        try{
+
+            const url=
+                endpoint+
+                "?data="+
+                encodeURIComponent(query);
+
+            const response=
+                await fetch(url,{
+                    method:"GET",
+                    headers:{
+                        "Accept":"application/json"
+                    }
+                });
+
+            if(!response.ok){
+                throw new Error(
+                    "HTTP "+response.status
+                );
+            }
+
+            const data=
+                await response.json();
+
+            if(
+                data &&
+                Array.isArray(data.elements)
+            ){
+                return data;
+            }
+
+        }catch(error){
+
+            lastError=error;
+            console.warn(
+                "Overpass endpoint failed:",
+                endpoint,
+                error
+            );
+        }
+    }
+
+    /*
+       FIX: do NOT throw here anymore.
+       All live map-data servers failed, so return an empty
+       element list instead of crashing the search. The caller
+       (fetchNearbyHeritage) will then still add the guaranteed
+       local temple list for generic "temple" searches, so the
+       user always sees multiple points instead of just one.
+    */
+    console.warn(
+        "All Overpass endpoints failed, using offline/fallback heritage data only.",
+        lastError
+    );
+
+    return { elements: [] };
+}
+
+async function fetchNearbyHeritage(
+    lat,
+    lon,
+    radiusKm
+){
+
+    const radiusMeters=
+        Math.round(radiusKm*1000);
+
+    let query;
+
+    if(searchIsTempleMode){
+
+        /*
+           IMPORTANT FIX:
+           Do NOT require "name" in the query.
+           Many Chennai temples are mapped with
+           place_of_worship/building/historic tags but
+           may not have the exact word "temple" in name.
+
+           We collect:
+           1. Hindu places of worship
+           2. Buildings tagged temple
+           3. Historic temples
+           4. Names containing temple/kovil/koil/mandir/etc.
+        */
+        query=`
+[out:json][timeout:90];
+(
+  nwr["amenity"="place_of_worship"]["religion"="hindu"]
+      (around:${radiusMeters},${lat},${lon});
+
+  nwr["building"="temple"]
+      (around:${radiusMeters},${lat},${lon});
+
+  nwr["historic"="temple"]
+      (around:${radiusMeters},${lat},${lon});
+
+  nwr["amenity"="place_of_worship"]
+      ["name"~"temple|kovil|koil|mandir|devasthanam|shrine",i]
+      (around:${radiusMeters},${lat},${lon});
+
+  nwr["name"~"temple|kovil|koil|mandir|devasthanam|shrine",i]
+      (around:${radiusMeters},${lat},${lon});
+);
+out center tags;
+`;
+
+    }else{
+
+        query=`
+[out:json][timeout:60];
+(
+  nwr["name"]["tourism"]
+      (around:${radiusMeters},${lat},${lon});
+
+  nwr["name"]["historic"]
+      (around:${radiusMeters},${lat},${lon});
+
+  nwr["name"]["amenity"="place_of_worship"]
+      (around:${radiusMeters},${lat},${lon});
+
+  nwr["name"]["leisure"="park"]
+      (around:${radiusMeters},${lat},${lon});
+
+  nwr["name"]["natural"~"beach|peak|waterfall|cave_entrance",i]
+      (around:${radiusMeters},${lat},${lon});
+);
+out center tags;
+`;
+    }
+
+    const data=
+        await fetchOverpass(query);
+
+    const unique=new Map();
+
+    (data.elements || []).forEach(element=>{
+
+        const tags=element.tags || {};
+        const center=getElementCenter(element);
+
+        if(!center){
+            return;
+        }
+
+        const name=getPlaceName(tags);
+
+        const distance=
+            calculateDistanceKm(
+                lat,
+                lon,
+                center.lat,
+                center.lon
+            );
+
+        if(distance>radiusKm){
+            return;
+        }
+
+        if(searchIsTempleMode){
+
+            const templeText=(
+                String(name)+" "+
+                String(tags.religion||"")+" "+
+                String(tags.building||"")+" "+
+                String(tags.historic||"")+" "+
+                String(tags.amenity||"")
+            );
+
+            const isTempleLike=
+                tags.building==="temple" ||
+                tags.historic==="temple" ||
+                (
+                    tags.amenity==="place_of_worship" &&
+                    (
+                        tags.religion==="hindu" ||
+                        !tags.religion
+                    )
+                ) ||
+                /\b(temple|kovil|koil|mandir|devasthanam|shrine)\b/i.test(templeText);
+
+            if(!isTempleLike){
+                return;
+            }
+        }
+
+        const key=
+            name.toLowerCase()+
+            "|"+
+            center.lat.toFixed(5)+
+            "|"+
+            center.lon.toFixed(5);
+
+        if(unique.has(key)){
+            return;
+        }
+
+        const address=
+            tags["addr:full"] ||
+            [
+                tags["addr:housenumber"],
+                tags["addr:street"],
+                tags["addr:suburb"],
+                tags["addr:city"],
+                tags["addr:state"]
+            ]
+            .filter(Boolean)
+            .join(", ") ||
+            "Location available on map";
+
+        unique.set(key,{
+            id:
+                String(element.type||"nwr")+
+                "_"+
+                String(element.id),
+
+            osmId:element.id,
+            osmType:element.type,
+
+            name:name,
+
+            category:
+                searchIsTempleMode
+                    ? "Temple"
+                    : getPlaceCategory(tags),
+
+            entryFee:
+                getEntryFee(tags),
+
+            address:address,
+
+            lat:center.lat,
+            lon:center.lon,
+
+            distance:distance,
+
+            website:
+                tags.website ||
+                tags["contact:website"] ||
+                "",
+
+            religion:
+                tags.religion ||
+                ""
+        });
+    });
+
+    /*
+       GUARANTEED CHENNAI TEMPLE DATA
+       --------------------------------
+       Some public Overpass servers may return only a few
+       mapped worship places in the browser (or may fail
+       completely due to CORS / rate-limits / no internet,
+       in which case fetchOverpass() now returns an EMPTY
+       result instead of throwing). To make sure a generic
+       "temple" search ALWAYS shows MANY Chennai temples
+       (many points, not just one), merge a local
+       verified-style seed list with the live OpenStreetMap
+       results. Live results still win when the same place
+       is already present.
+    */
+    if(searchIsTempleMode){
+
+        const q=String(
+            activeMapQuery ||
+            document.getElementById("mapSearchInput")?.value ||
+            ""
+        ).trim();
+
+        const isGeneric=isGenericTempleQuery(q);
+
+        /* Chennai temple coordinates used only as a fallback /
+           supplement for the interactive demo. */
+        const chennaiTemples=[
+            ["Kapaleeshwarar Temple",13.0338,80.2697,"Mylapore, Chennai"],
+            ["Parthasarathy Temple",13.0538,80.2824,"Triplicane, Chennai"],
+            ["Vadapalani Murugan Temple",13.0506,80.2121,"Vadapalani, Chennai"],
+            ["Marundeeswarar Temple",12.9850,80.2590,"Thiruvanmiyur, Chennai"],
+            ["Ashtalakshmi Temple",13.0067,80.2664,"Besant Nagar, Chennai"],
+            ["Kalikambal Kamakshi Temple",13.0965,80.2906,"George Town, Chennai"],
+            ["Mundakanni Amman Temple",13.0349,80.2704,"Mylapore, Chennai"],
+            ["Sri Parthasarathy Swamy Temple",13.0537,80.2826,"Triplicane, Chennai"],
+            ["Mangadu Kamakshi Amman Temple",13.0407,80.1139,"Mangadu, Chennai"],
+            ["Kandhakottam Temple",13.0878,80.2785,"Park Town, Chennai"],
+            ["Ekambareswarar Temple, Chennai",13.0798,80.2827,"George Town, Chennai"],
+            ["Srinivasa Perumal Temple, Nanganallur",12.9810,80.1894,"Nanganallur, Chennai"],
+            ["Sri Prasanna Venkatesa Perumal Temple",13.0322,80.2200,"Saidapet, Chennai"],
+            ["Dhenupureeswarar Temple",12.9622,80.1474,"Madambakkam, Chennai"],
+            ["Sri Kothandaramaswamy Temple",12.9784,80.2570,"Adyar, Chennai"],
+            ["Sri Anjaneyaswami Temple, Nanganallur",12.9784,80.1858,"Nanganallur, Chennai"],
+            ["Shirdi Sai Baba Temple, Mylapore",13.0328,80.2687,"Mylapore, Chennai"],
+            ["Sri Ramakrishna Math Temple",13.0270,80.2665,"Mylapore, Chennai"],
+            ["Kalikaambal Temple",13.0960,80.2902,"Parrys, Chennai"],
+            ["Sri Chandramouleeswarar Temple",13.0372,80.2472,"Nandanam, Chennai"]
+        ];
+
+        /* Only supplement a generic Chennai temple search.
+           For a specific temple, live OSM results remain the
+           source of nearby places. */
+        if(isGeneric){
+
+            chennaiTemples.forEach((item,index)=>{
+
+                const name=item[0];
+                const tLat=item[1];
+                const tLon=item[2];
+                const address=item[3];
+
+                const distance=calculateDistanceKm(
+                    lat,lon,tLat,tLon
+                );
+
+                if(distance>radiusKm){
+                    return;
+                }
+
+                const key=
+                    name.toLowerCase()+"|"+
+                    tLat.toFixed(5)+"|"+
+                    tLon.toFixed(5);
+
+                if(unique.has(key)){
+                    return;
+                }
+
+                unique.set(key,{
+                    id:"local_temple_"+index,
+                    osmId:"local_"+index,
+                    osmType:"local",
+                    name:name,
+                    category:"Temple",
+                    entryFee:"Entry: Not specified",
+                    address:address,
+                    lat:tLat,
+                    lon:tLon,
+                    distance:distance,
+                    website:"",
+                    religion:"hindu"
+                });
+            });
+        }
+    }
+
+    /*
+       Sort nearest first and keep MANY points.
+       200 is enough for a 5/10 KM Chennai view.
+    */
+    return Array.from(unique.values())
+        .sort(
+            (a,b)=>
+                a.distance-b.distance
+        )
+        .slice(0,200);
+}
+
+function calculateDistanceKm(
+    lat1,
+    lon1,
+    lat2,
+    lon2
+){
+
+    const R=6371;
+
+    const dLat=
+        (lat2-lat1)*
+        Math.PI/180;
+
+    const dLon=
+        (lon2-lon1)*
+        Math.PI/180;
+
+    const a=
+        Math.sin(dLat/2)*
+        Math.sin(dLat/2)+
+        Math.cos(lat1*Math.PI/180)*
+        Math.cos(lat2*Math.PI/180)*
+        Math.sin(dLon/2)*
+        Math.sin(dLon/2);
+
+    return R*
+        2*
+        Math.atan2(
+            Math.sqrt(a),
+            Math.sqrt(1-a)
+        );
+}
+
+/* ---------------------------------------------------------
+   MARKERS
+--------------------------------------------------------- */
+function clearNearbyMarkers(){
+
+    if(!heritageMap){
+        return;
+    }
+
+    nearbyMarkers.forEach(marker=>{
+        heritageMap.removeLayer(marker);
+    });
+
+    nearbyMarkers=[];
+}
+
+function createTempleIcon(){
+
+    return L.divIcon({
+        className:"custom-temple-marker",
+        html:
+            '<div style="' +
+            'width:34px;' +
+            'height:34px;' +
+            'border-radius:50%;' +
+            'background:#172033;' +
+            'border:3px solid white;' +
+            'box-shadow:0 3px 10px rgba(0,0,0,.35);' +
+            'display:flex;' +
+            'align-items:center;' +
+            'justify-content:center;' +
+            'font-size:18px;' +
+            '">🛕</div>',
+        iconSize:[34,34],
+        iconAnchor:[17,17],
+        popupAnchor:[0,-17]
+    });
+}
+
+function createPlaceIcon(){
+
+    return L.divIcon({
+        className:"custom-place-marker",
+        html:
+            '<div style="' +
+            'width:30px;' +
+            'height:30px;' +
+            'border-radius:50%;' +
+            'background:#b47b2d;' +
+            'border:3px solid white;' +
+            'box-shadow:0 3px 10px rgba(0,0,0,.3);' +
+            'display:flex;' +
+            'align-items:center;' +
+            'justify-content:center;' +
+            'font-size:15px;' +
+            '">📍</div>',
+        iconSize:[30,30],
+        iconAnchor:[15,15],
+        popupAnchor:[0,-15]
+    });
+}
+
+function createHeritageMarker(place){
+
+    const marker=
+        L.marker(
+            [place.lat,place.lon],
+            {
+                icon:
+                    searchIsTempleMode
+                        ? createTempleIcon()
+                        : createPlaceIcon()
+            }
+        )
+        .addTo(heritageMap);
+
+    marker.bindPopup(`
+        <div style="min-width:220px">
+            <div style="font-size:18px;font-weight:700;margin-bottom:6px">
+                ${searchIsTempleMode ? "🛕" : "📍"}
+                ${escapeHTML(place.name)}
+            </div>
+
+            <div style="color:#7d561e;font-weight:700">
+                ${escapeHTML(place.category)}
+            </div>
+
+            <div style="margin-top:8px">
+                📍 ${place.distance.toFixed(1)} km away
+            </div>
+
+            <div style="margin-top:5px">
+                🎟️ ${escapeHTML(place.entryFee)}
+            </div>
+
+            <div style="margin-top:5px;color:#687083">
+                ${escapeHTML(place.address)}
+            </div>
+
+            <button
+                type="button"
+                onclick="openDirectionsForHeritagePlace({
+                    lat:${place.lat},
+                    lon:${place.lon}
+                })"
+                style="
+                    margin-top:10px;
+                    border:0;
+                    padding:8px 10px;
+                    border-radius:8px;
+                    background:#172033;
+                    color:white;
+                    font-weight:700;
+                    cursor:pointer;
+                "
+            >
+                🚗 Directions
+            </button>
+        </div>
+    `);
+
+    marker.on("click",function(){
+        highlightNearbyCard(place.id);
+    });
+
+    nearbyMarkers.push(marker);
+}
+
+function highlightNearbyCard(id){
+
+    document
+        .querySelectorAll(".nearby-card")
+        .forEach(card=>{
+
+            card.style.outline=
+                String(card.dataset.placeId)===
+                String(id)
+                    ? "2px solid #b47b2d"
+                    : "none";
+        });
+}
+
+/* ---------------------------------------------------------
+   SIDE LIST
+--------------------------------------------------------- */
+function renderNearbyList(places){
+
+    const list=
+        document.getElementById(
+            "nearbyList"
+        );
+
+    if(!list){
+        return;
+    }
+
+    if(!places.length){
+
+        list.innerHTML=`
+            <div class="nearby-empty">
+                <div style="font-size:42px">
+                    ${searchIsTempleMode ? "🛕" : "📭"}
+                </div>
+
+                <strong>
+                    ${
+                        searchIsTempleMode
+                            ? "No mapped temples found"
+                            : "No nearby heritage places found"
+                    }
+                </strong>
+
+                <br>
+
+                Move the map or select
+                <b>10 KM</b> to search a wider area.
+            </div>
+        `;
+
+        return;
+    }
+
+    list.innerHTML="";
+
+    /*
+       Booking-style list:
+       every result gets its own side card.
+    */
+    places.forEach((place,index)=>{
+
+        const card=
+            document.createElement("div");
+
+        card.className="nearby-card";
+        card.dataset.placeId=place.id;
+
+        card.innerHTML=`
+            <div class="nearby-card-top">
+
+                <div style="display:flex;gap:9px">
+
+                    <div style="
+                        width:32px;
+                        height:32px;
+                        min-width:32px;
+                        border-radius:50%;
+                        background:#172033;
+                        color:white;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        font-size:16px;
+                    ">
+                        ${searchIsTempleMode ? "🛕" : "📍"}
+                    </div>
+
+                    <div>
+                        <div class="nearby-category">
+                            ${
+                                searchIsTempleMode
+                                    ? "TEMPLE"
+                                    : escapeHTML(place.category)
+                            }
+                        </div>
+
+                        <h4>
+                            ${escapeHTML(place.name)}
+                        </h4>
+                    </div>
+
+                </div>
+
+                <div class="nearby-distance">
+                    ${place.distance.toFixed(1)} km
+                </div>
+
+            </div>
+
+            <div class="nearby-fee">
+                🎟️ ${escapeHTML(place.entryFee)}
+            </div>
+
+            <div class="nearby-address">
+                📍 ${escapeHTML(place.address)}
+            </div>
+
+            <div class="nearby-actions">
+
+                <button
+                    class="nearby-view"
+                    type="button"
+                >
+                    View on Map
+                </button>
+
+                <button
+                    class="nearby-direction"
+                    type="button"
+                >
+                    Directions
+                </button>
+
+            </div>
+        `;
+
+        const viewButton=
+            card.querySelector(
+                ".nearby-view"
+            );
+
+        const directionButton=
+            card.querySelector(
+                ".nearby-direction"
+            );
+
+        viewButton.addEventListener(
+            "click",
+            function(event){
+                event.stopPropagation();
+                focusNearbyPlace(place);
+            }
+        );
+
+        directionButton.addEventListener(
+            "click",
+            function(event){
+                event.stopPropagation();
+                openDirectionsForHeritagePlace(place);
+            }
+        );
+
+        card.addEventListener(
+            "click",
+            function(){
+                focusNearbyPlace(place);
+            }
+        );
+
+        list.appendChild(card);
+    });
+}
+
+function focusNearbyPlace(place){
+
+    showMainMap();
+
+    heritageMap.setView(
+        [place.lat,place.lon],
+        Math.max(
+            15,
+            heritageMap.getZoom()
+        ),
+        {
+            animate:true
+        }
+    );
+
+    const marker=
+        nearbyMarkers.find(m=>{
+
+            const position=
+                m.getLatLng();
+
+            return (
+                Math.abs(
+                    position.lat-place.lat
+                )<0.00001 &&
+                Math.abs(
+                    position.lng-place.lon
+                )<0.00001
+            );
+        });
+
+    if(marker){
+        marker.openPopup();
+    }
+
+    highlightNearbyCard(
+        place.id
+    );
+}
+
+function openDirectionsForHeritagePlace(place){
+
+    const url=
+        "https://www.google.com/maps/dir/?api=1"+
+        "&destination="+
+        encodeURIComponent(
+            place.lat+","+place.lon
+        );
+
+    window.open(
+        url,
+        "_blank"
+    );
+}
+
+/* ---------------------------------------------------------
+   LOAD + CACHE
+--------------------------------------------------------- */
+async function loadNearbyHeritage(
+    lat,
+    lon,
+    radiusKm
+){
+
+    hasNearbyMode=true;
+
+    const requestId=
+        ++nearbyRequestId;
+
+    const list=
+        document.getElementById(
+            "nearbyList"
+        );
+
+    if(list){
+
+        list.innerHTML=`
+            <div class="nearby-loading">
+
+                <div style="font-size:35px">
+                    🔎
+                </div>
+
+                <strong>
+                    ${
+                        searchIsTempleMode
+                            ? "Finding nearby temples..."
+                            : "Finding nearby heritage places..."
+                    }
+                </strong>
+
+                <br>
+
+                Searching within
+                <b>${radiusKm} KM</b>.
+            </div>
+        `;
+    }
+
+    updateMapInfo(
+        "🔎 Finding "+
+        (
+            searchIsTempleMode
+                ? "temples"
+                : "heritage places"
+        )+
+        " within <strong>"+
+        radiusKm+
+        " KM</strong>..."
+    );
+
+    const cacheKey=
+        getNearbyCacheKey(
+            lat,
+            lon,
+            radiusKm
+        );
+
+    try{
+
+        let places=
+            nearbyHeritageCache.get(
+                cacheKey
+            );
+
+        if(!places){
+
+            places=
+                await fetchNearbyHeritage(
+                    lat,
+                    lon,
+                    radiusKm
+                );
+
+            nearbyHeritageCache.set(
+                cacheKey,
+                places
+            );
+
+            saveNearbyCache();
+        }
+
+        if(requestId!==nearbyRequestId){
+            return;
+        }
+
+        clearNearbyMarkers();
+
+        places.forEach(
+            createHeritageMarker
+        );
+
+        /* Keep the searched city/location in view while showing
+           all returned temple markers around it. */
+        if(places.length > 1 && searchIsTempleMode){
+            const bounds=L.latLngBounds(
+                places.map(place=>[place.lat,place.lon])
+            );
+
+            if(bounds.isValid()){
+                heritageMap.fitBounds(bounds.pad(0.18),{
+                    animate:true,
+                    maxZoom:13
+                });
+            }
+        }
+
+        renderNearbyList(
+            places
+        );
+
+        updateMapInfo(
+            "🛕 <strong>"+
+            places.length+
+            (
+                searchIsTempleMode
+                    ? " temples"
+                    : " nearby places"
+            )+
+            "</strong> found within "+
+            radiusKm+
+            " KM. Move or zoom the map to explore another area."
+        );
+
+    }catch(error){
+
+        console.error(
+            "Nearby search error:",
+            error
+        );
+
+        if(requestId!==nearbyRequestId){
+            return;
+        }
+
+        const listError=
+            document.getElementById(
+                "nearbyList"
+            );
+
+        if(listError){
+
+            listError.innerHTML=`
+                <div class="nearby-empty">
+
+                    <div style="font-size:40px">
+                        ⚠️
+                    </div>
+
+                    <strong>
+                        Nearby places could not be loaded.
+                    </strong>
+
+                    <br><br>
+
+                    Please check your internet connection
+                    and click Nearby Places again.
+
+                    <br><br>
+
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        onclick="
+                            loadNearbyHeritage(
+                                heritageMap.getCenter().lat,
+                                heritageMap.getCenter().lng,
+                                heritageRadiusKm
+                            )
+                        "
+                    >
+                        🔄 Try Again
+                    </button>
+
+                </div>
+            `;
+        }
+
+        updateMapInfo(
+            "❌ Nearby search could not connect."
+        );
+    }
+}
+
+/* ---------------------------------------------------------
+   CURRENT LOCATION
+--------------------------------------------------------- */
+function drawCurrentLocationCircle(){
+
+    if(
+        !heritageMap ||
+        userLatitude===null ||
+        userLongitude===null
+    ){
+        return;
+    }
+
+    if(currentLocationCircle){
+        heritageMap.removeLayer(
+            currentLocationCircle
+        );
+    }
+
+    currentLocationCircle=
+        L.circle(
+            [
+                userLatitude,
+                userLongitude
+            ],
+            {
+                radius:
+                    heritageRadiusKm*1000,
+                weight:2,
+                fillOpacity:0.08
+            }
+        )
+        .addTo(heritageMap);
+}
+
+function getLocation(){
+
+    searchIsTempleMode=false;
+    updateNearbyPanelHeader();
+
+    if(!navigator.geolocation){
+
+        showToast(
+            "❌ Geolocation is not supported."
+        );
+
+        return;
+    }
+
+    showToast(
+        "📍 Requesting your location..."
+    );
+
+    navigator.geolocation.getCurrentPosition(
+
+        position=>{
+
+            userLatitude=
+                position.coords.latitude;
+
+            userLongitude=
+                position.coords.longitude;
+
+            hasNearbyMode=true;
+
+            showMainMap();
+
+            if(currentLocationMarker){
+
+                heritageMap.removeLayer(
+                    currentLocationMarker
+                );
+            }
+
+            currentLocationMarker=
+                L.marker([
+                    userLatitude,
+                    userLongitude
+                ])
+                .addTo(heritageMap)
+                .bindPopup(
+                    "<b>📍 You are here</b><br>"+
+                    "Nearby radius: "+
+                    heritageRadiusKm+
+                    " KM"
+                )
+                .openPopup();
+
+            drawCurrentLocationCircle();
+
+            heritageMap.setView(
+                [
+                    userLatitude,
+                    userLongitude
+                ],
+                14,
+                {animate:true}
+            );
+
+            document
+                .getElementById("locationTitle")
+                .textContent=
+                    "📍 Your Current Location";
+
+            document
+                .getElementById("locationText")
+                .innerHTML=
+                    "Nearby heritage places within <strong>"+
+                    heritageRadiusKm+
+                    " KM</strong> are shown in the side panel and on the map.";
+
+            updateRadiusUI();
+
+            loadNearbyHeritage(
+                userLatitude,
+                userLongitude,
+                heritageRadiusKm
+            );
+
+            document
+                .getElementById("map")
+                .scrollIntoView({
+                    behavior:"smooth"
+                });
+
+        },
+
+        error=>{
+
+            console.error(error);
+
+            showToast(
+                "❌ Please allow location permission."
+            );
+        },
+
+        {
+            enableHighAccuracy:true,
+            timeout:15000,
+            maximumAge:0
+        }
+    );
+}
+
+function showNearbyHeritage(){
+
+    getLocation();
+}
+
+/* ---------------------------------------------------------
+   RESTORE LAST SEARCH
+--------------------------------------------------------- */
+function restoreLastMapSearch(){
+
+    try{
+
+        const raw=
+            localStorage.getItem(
+                "nammaHeritageLastMapSearch"
+            );
+
+        if(!raw){
+            return;
+        }
+
+        const saved=
+            JSON.parse(raw);
+
+        if(!saved || !saved.query){
+            return;
+        }
+
+        if(
+            saved.radius===10 ||
+            saved.radius===5
+        ){
+            heritageRadiusKm=
+                saved.radius;
+        }
+
+        const input=
+            document.getElementById(
+                "mapSearchInput"
+            );
+
+        if(input){
+            input.value=saved.query;
+        }
+
+        /*
+           Do not automatically restore the old search.
+           The user should decide when to run it.
+        */
+        updateRadiusUI();
+
+    }catch(error){
+
+        console.warn(
+            "Could not restore last map search",
+            error
+        );
+    }
+}
+
 
 function searchInsideSite(query){
 
@@ -3033,11 +5007,89 @@ document
     openSearch
 );
 
+function restoreLastMapSearch(){
+    try{
+        const raw=localStorage.getItem("nammaHeritageLastMapSearch");
+        if(!raw) return;
+        const saved=JSON.parse(raw);
+        if(!saved || !saved.query) return;
+        if(saved.radius===10 || saved.radius===5){
+            heritageRadiusKm=saved.radius;
+        }
+        const input=document.getElementById("mapSearchInput");
+        if(input) input.value=saved.query;
+        /* Restore only when the map section is actually available. */
+        searchGoogleMaps(saved.query);
+    }catch(error){
+        console.warn("Could not restore last map search",error);
+    }
+}
+
 /* =========================================================
-INITIAL
+MAP SEARCH ENTER KEY + INITIAL
 ========================================================= */
 
+const mapSearchInput=document.getElementById("mapSearchInput");
+if(mapSearchInput){
+    mapSearchInput.addEventListener("keydown",function(event){
+        if(event.key==="Enter"){
+            event.preventDefault();
+            searchMapDirect();
+        }
+    });
+}
+
+updateNearbyPanelHeader();
+updateRadiusUI();
 changeLanguage("en");
+setTimeout(function(){ updateRadiusUI(); updateNearbyPanelHeader(); },350);
+
+window.addEventListener("load",function(){
+    const input=document.getElementById("mapSearchInput");
+    if(input){
+        input.addEventListener("keydown",function(event){
+            if(event.key==="Enter") searchMapDirect();
+        });
+    }
+});
+
+/* =========================================================
+   COMMUNITY SUBMISSION SYSTEM
+   User -> Pending -> Admin Review -> Approve -> Published
+   Reject -> Removed
+========================================================= */
+let experiencePhotoData="";
+const ADMIN_PASSWORD="admin123";
+function getPendingSubmissions(){return JSON.parse(localStorage.getItem("pendingHeritageExperiences"))||[];}
+function getPublishedExperiences(){return JSON.parse(localStorage.getItem("heritageExperiences"))||[];}
+const experiencePhotoInput=document.getElementById("experiencePhoto");
+if(experiencePhotoInput){experiencePhotoInput.addEventListener("change",function(){
+ const file=this.files[0],preview=document.getElementById("photoPreview"),image=document.getElementById("previewImage");
+ if(!file){experiencePhotoData="";preview.style.display="none";return;}
+ if(!file.type.startsWith("image/")){showToast("❌ Please select an image.");this.value="";return;}
+ if(file.size>3*1024*1024){showToast("❌ Please upload an image below 3 MB.");this.value="";return;}
+ const reader=new FileReader();reader.onload=e=>{experiencePhotoData=e.target.result;image.src=experiencePhotoData;preview.style.display="block";};reader.readAsDataURL(file);
+});}
+const experienceForm=document.getElementById("experienceForm");
+if(experienceForm){experienceForm.addEventListener("submit",function(event){
+ event.preventDefault();
+ const name=document.getElementById("experienceName").value.trim(),place=document.getElementById("experiencePlace").value.trim(),category=document.getElementById("experienceCategory").value,location=document.getElementById("experienceLocation").value.trim()||"India",text=document.getElementById("experienceText").value.trim();
+ if(!name||!place||!category||!text||!experiencePhotoData){showToast("❌ Please fill all required details and upload a photo.");return;}
+ const submission={id:Date.now(),name,place,category,location,text,photo:experiencePhotoData,date:new Date().toLocaleDateString(),status:"pending"};
+ const pending=getPendingSubmissions();pending.unshift(submission);
+ try{localStorage.setItem("pendingHeritageExperiences",JSON.stringify(pending));}catch(e){showToast("❌ Image is too large. Please choose a smaller photo.");return;}
+ this.reset();experiencePhotoData="";document.getElementById("photoPreview").style.display="none";renderPendingSubmissions();showToast("✅ Submitted! Waiting for admin approval.");
+});}
+function toggleAdminLogin(){const box=document.getElementById("adminLoginBox");box.classList.toggle("show");if(box.classList.contains("show"))document.getElementById("adminPassword").focus();}
+function adminLogin(){if(document.getElementById("adminPassword").value!==ADMIN_PASSWORD){showToast("❌ Incorrect admin password.");return;}document.getElementById("adminLoginBox").classList.remove("show");document.getElementById("adminPanel").classList.add("show");renderPendingSubmissions();document.getElementById("adminPanel").scrollIntoView({behavior:"smooth"});showToast("🔓 Admin panel opened.");}
+document.addEventListener("keydown",e=>{if(e.ctrlKey&&e.shiftKey&&e.key.toLowerCase()==="a"){const box=document.getElementById("adminLoginBox");box.classList.add("show");box.scrollIntoView({behavior:"smooth",block:"center"});document.getElementById("adminPassword").focus();showToast("🔐 Admin Upload Center");}});
+function renderPendingSubmissions(){const grid=document.getElementById("pendingGrid"),count=document.getElementById("pendingCount");if(!grid||!count)return;const pending=getPendingSubmissions();count.textContent=pending.length+" Pending";grid.innerHTML="";if(!pending.length){grid.innerHTML=`<div class="no-pending"><div style="font-size:50px">📭</div><h3>No Pending Submissions</h3><p>New community stories submitted by users will appear here for approval.</p></div>`;return;}pending.forEach(s=>{const card=document.createElement("article");card.className="pending-card";card.innerHTML=`<img src="${escapeHTML(s.photo)}" alt="${escapeHTML(s.place)}"><div class="pending-body"><span class="pending-status">⏳ WAITING FOR ADMIN APPROVAL</span><h3>${escapeHTML(s.place)}</h3><p>👤 <strong>Submitted by:</strong> ${escapeHTML(s.name)}</p><p>📂 <strong>Category:</strong> ${escapeHTML(s.category)}</p><p>📍 <strong>Location:</strong> ${escapeHTML(s.location)}</p><div class="pending-details"><strong>📝 Experience</strong><br><br>${escapeHTML(s.text)}<br><br><strong>📅 Submitted:</strong> ${escapeHTML(s.date)}</div><div class="pending-actions"><button class="approve-btn" onclick="approveSubmission(${s.id})">✅ Upload / Approve</button><button class="reject-btn" onclick="rejectSubmission(${s.id})">❌ Reject</button></div></div>`;grid.appendChild(card);});}
+function approveSubmission(id){let pending=getPendingSubmissions(),s=pending.find(x=>x.id===id);if(!s){showToast("❌ Submission not found.");return;}pending=pending.filter(x=>x.id!==id);const published=getPublishedExperiences();s.status="published";s.publishedDate=new Date().toLocaleDateString();published.unshift(s);try{localStorage.setItem("pendingHeritageExperiences",JSON.stringify(pending));localStorage.setItem("heritageExperiences",JSON.stringify(published));}catch(e){showToast("❌ Could not publish this story.");return;}renderPendingSubmissions();renderExperiences();showToast("✅ Story uploaded and published successfully!");}
+function rejectSubmission(id){if(!confirm("Reject this submission? It will not be published."))return;let pending=getPendingSubmissions().filter(x=>x.id!==id);localStorage.setItem("pendingHeritageExperiences",JSON.stringify(pending));renderPendingSubmissions();showToast("❌ Submission rejected and removed.");}
+function renderExperiences(){const grid=document.getElementById("experienceGrid"),count=document.getElementById("experienceCount");if(!grid||!count)return;const experiences=getPublishedExperiences();count.textContent=experiences.length+(experiences.length===1?" Story":" Stories");grid.innerHTML="";if(!experiences.length){grid.innerHTML=`<div class="empty-experience"><div style="font-size:45px">📸</div><h4>No Published Stories Yet</h4><p>Community stories will appear here after admin approval.</p></div>`;return;}experiences.forEach(x=>{const card=document.createElement("article");card.className="experience-card";card.innerHTML=`<img class="experience-card-image" src="${escapeHTML(x.photo)}" alt="${escapeHTML(x.place)}" onerror="this.src='https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1200&q=85'"><div class="experience-card-body"><span class="experience-type">${escapeHTML(x.category)}</span><h4>${escapeHTML(x.place)}</h4><div class="experience-location">📍 ${escapeHTML(x.location)}</div><p>${escapeHTML(x.text)}</p><div class="experience-author">👤 Shared by <strong>${escapeHTML(x.name)}</strong><br>📅 ${escapeHTML(x.publishedDate||x.date)}<br>✅ Admin Approved</div><div class="experience-actions"><button class="map-experience" onclick="searchMapFromPromptForExperience('${escapeQuotes(x.place+' '+x.location)}')">🗺️ View Map</button><button class="delete-experience" onclick="deleteExperience(${x.id})">🗑️ Delete</button></div></div>`;grid.appendChild(card);});}
+function searchMapFromPromptForExperience(q){if(typeof searchGoogleMaps==="function")searchGoogleMaps(q);else if(typeof searchMapAndPoint==="function")searchMapAndPoint(q);}
+function deleteExperience(id){if(!confirm("Are you sure you want to delete this published story?"))return;const experiences=getPublishedExperiences().filter(x=>x.id!==id);localStorage.setItem("heritageExperiences",JSON.stringify(experiences));renderExperiences();showToast("🗑️ Published story deleted.");}
+renderExperiences();renderPendingSubmissions();
 
 </script>
 
